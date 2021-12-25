@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 //MATERIAL UI IMPORTS
 import Typography from "@material-ui/core/Typography";
@@ -16,13 +16,62 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 //NEXT IMPORTS
 import NextLink from "next/link";
 
+//LIBRARY IMPORTS
+import axios from "axios";
+
+//COMPONENT IMPORTS
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import "react-notifications/lib/notifications.css";
+
 const theme = createTheme();
 
-export default function SignUp() {
+const SignUp = () => {
+  const [usernameState, setUsernameRef] = useState(false);
+  const [emailState, setEmailRef] = useState(false);
+  const [passwordState, setPasswordRef] = useState(false);
+
+  const usernameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const sendInfoToBackend = (event) => {
+    event.preventDefault();
+    NotificationManager.info("Info message");
+    const passwordRefValue = passwordRef && passwordRef.current.value;
+    const usernameRefValue = usernameRef && usernameRef.current.value;
+    const emailRefValue = emailRef && emailRef.current.value;
+
+    setUsernameRef(!usernameRefValue);
+    setEmailRef(!emailRefValue);
+    setPasswordRef(!passwordRefValue);
+
+    if (passwordRefValue && emailRefValue && usernameRefValue) {
+      console.log(passwordRefValue, emailRefValue, usernameRefValue);
+      axios
+        .post("http://localhost:3333/users/register", {
+          username: usernameRefValue,
+          email: emailRefValue,
+          password: passwordRefValue,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+
+        <NotificationContainer />
+
         <Box
           sx={{
             marginTop: 8,
@@ -39,39 +88,34 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
+                  inputRef={usernameRef}
+                  name="userName"
+                  required
+                  fullWidth
+                  id="userName"
+                  label="Username"
+                  autoFocus
+                  error={Boolean(usernameState)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  inputRef={emailRef}
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={Boolean(emailState)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  inputRef={passwordRef}
                   required
                   fullWidth
                   name="password"
@@ -79,6 +123,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={Boolean(passwordState)}
                 />
               </Grid>
             </Grid>
@@ -87,16 +132,18 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
+              onClick={(e) => sendInfoToBackend(e)}
+              // onSubmit={(e) => sendInfoToBackend(e)}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  <NextLink href="/signin">
+                <NextLink href="/signin">
+                  <Link href="#" variant="body2">
                     {"უკვე გაქვს ანგარიში? შესვლა"}
-                  </NextLink>
-                </Link>
+                  </Link>
+                </NextLink>
               </Grid>
             </Grid>
           </Box>
@@ -104,4 +151,6 @@ export default function SignUp() {
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default SignUp;
