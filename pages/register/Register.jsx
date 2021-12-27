@@ -102,7 +102,7 @@ const SignUp = () => {
                   required
                   fullWidth
                   id="userName"
-                  label="Username"
+                  label="მომხმარებელი"
                   autoFocus
                   error={Boolean(usernameState)}
                 />
@@ -114,7 +114,7 @@ const SignUp = () => {
                   required
                   fullWidth
                   id="email"
-                  label="Email Address"
+                  label="ელ.ფოსტის მისამართი"
                   name="email"
                   autoComplete="email"
                   error={Boolean(emailState)}
@@ -129,7 +129,7 @@ const SignUp = () => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="პაროლი"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -145,7 +145,7 @@ const SignUp = () => {
               sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
               onClick={(e) => sendRegisterInfoToBackend(e)}
             >
-              Sign Up
+              დარეგისტრირდი
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>

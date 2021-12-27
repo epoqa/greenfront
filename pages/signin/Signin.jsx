@@ -96,7 +96,7 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="ელ.ფოსტის მისამართი"
               name="email"
               autoComplete="email"
               autoFocus
@@ -108,7 +108,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="პაროლი"
               type="password"
               id="password"
               autoComplete="current-password"
