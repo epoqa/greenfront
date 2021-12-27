@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
-//MATERIAL UI IMPORTS
-import Typography from "@material-ui/core/Typography";
+// MATERIAL UI
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,6 +9,7 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -17,55 +17,54 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
-//LIBRARY IMPORTS
-import axios from "axios";
-
 //OTHER IMPORTS
 import { validateEmail } from "../../src/reuseableFunctions/validateEmail";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
 
+//LIBRARY IMPORTS
+import axios from "axios";
+
 const theme = createTheme();
 
-const SignUp = () => {
+export default function SignIn() {
   const router = useRouter();
-  const [usernameState, setUsernameRef] = useState(false);
+
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
 
-  const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const sendRegisterInfoToBackend = (event) => {
-    event.preventDefault();
+  const sendSigninInfoToBackend = (e) => {
+    e.preventDefault();
 
+    //DESTRUCTURING REF VALUES
     const passwordRefValue = passwordRef && passwordRef.current.value;
-    const usernameRefValue = usernameRef && usernameRef.current.value;
     const emailRefValue = emailRef && emailRef.current.value;
 
     //  EMAIL CHECK WITH REGEX
     const EmailRegexCheck = validateEmail(emailRefValue);
 
-    setUsernameRef(!usernameRefValue);
     setEmailRef(!emailRefValue || !EmailRegexCheck);
     setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);
+
     if (
       passwordRefValue &&
       emailRefValue &&
-      usernameRefValue &&
       EmailRegexCheck &&
       passwordRefValue.length > 8
     ) {
       axios
-        .post("http://localhost:3333/users/register", {
-          username: usernameRefValue,
+        .post("http://localhost:3333/users/login", {
           email: emailRefValue,
           password: passwordRefValue,
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
           NotificationManager.success(response.statusText, "", 1500);
-          router.push("signin");
+          // router.push("/");
         })
         .catch((error) => {
           console.log(error.response.data.error);
@@ -73,12 +72,10 @@ const SignUp = () => {
         });
     }
   };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-
         <Box
           sx={{
             marginTop: 8,
@@ -91,67 +88,58 @@ const SignUp = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            შექმენი ანგარიში
+            შესვლა
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={usernameRef}
-                  name="userName"
-                  required
-                  fullWidth
-                  id="userName"
-                  label="Username"
-                  autoFocus
-                  error={Boolean(usernameState)}
-                />
-              </Grid>
+          <Box component="form" noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              inputRef={emailRef}
+              error={Boolean(emailState)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              inputRef={passwordRef}
+              error={Boolean(passwordState)}
+              helperText={
+                Boolean(passwordState)
+                  ? "შენი პაროლი 8 ასოზე ნაკლები ვერ იქნებოდა"
+                  : ""
+              }
+            />
 
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={emailRef}
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  error={Boolean(emailState)}
-                  helperText={
-                    Boolean(emailState) ? "არასწორი ფოსტის მისმართი" : ""
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={passwordRef}
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  error={Boolean(passwordState)}
-                  helperText={Boolean(passwordState) ? "სუსტი პაროლი" : ""}
-                />
-              </Grid>
-            </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
-              onClick={(e) => sendRegisterInfoToBackend(e)}
+              onClick={(e) => sendSigninInfoToBackend(e)}
             >
-              Sign Up
+              შესვლა
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  დაგავიწყდა პაროლი ?
+                </Link>
+              </Grid>
               <Grid item>
-                <NextLink href="/signin">
+                <NextLink href="/register">
                   <Link href="#" variant="body2">
-                    {"უკვე გაქვს ანგარიში? შესვლა"}
+                    {"დარეგისტრირდი"}
                   </Link>
                 </NextLink>
               </Grid>
@@ -161,6 +149,4 @@ const SignUp = () => {
       </Container>
     </ThemeProvider>
   );
-};
-
-export default SignUp;
+}
