@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 //LIBRARY IMPORTS
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Growers() {
   let [users, setUsers] = useState([]);
@@ -25,7 +26,10 @@ export default function Growers() {
   return (
     <>
       {users.map((user) => (
-        <NextLink href={{ pathname: `/grower/${user.username}` }}>
+        <NextLink
+          href={{ pathname: `/grower/${user.username}` }}
+          key={uuidv4()}
+        >
           <div
             style={{
               margin: "15px",

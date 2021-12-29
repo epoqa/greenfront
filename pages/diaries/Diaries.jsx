@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 //LIBRARY IMPORTS
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Growers() {
   let [diary, setDiaries] = useState([]);
@@ -24,8 +25,8 @@ export default function Growers() {
 
   return (
     <>
-      {diary.map((diary) => (
-        <NextLink href={{ pathname: `/diary/${diary._id}` }}>
+      {diary.map((diary, index) => (
+        <NextLink href={{ pathname: `/diary/${diary._id}` }} key={uuidv4()}>
           <div
             style={{
               margin: "75px",

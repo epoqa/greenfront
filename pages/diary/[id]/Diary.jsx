@@ -20,7 +20,7 @@ export default function Grower() {
   useEffect(async () => {
     router.query.id &&
       axios
-        .get(`http://localhost:3333/diary/id/${router.query.id}`)
+        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
           console.log(res.data);
@@ -41,9 +41,12 @@ export default function Grower() {
 
     if (commentRefValue) {
       axios
-        .put(`http://localhost:3333/diary/comment/${router.query.id}`, {
-          comment: commentRefValue,
-        })
+        .put(
+          `https://greenbackk.herokuapp.com/diary/comment/${router.query.id}`,
+          {
+            comment: commentRefValue,
+          }
+        )
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
