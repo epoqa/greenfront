@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import List from "@mui/material/List";
 import {
   secondaryListItems,
@@ -6,9 +6,7 @@ import {
 } from "../../src/components/Navigation/Navigation";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -21,51 +19,16 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-const Home = () => {
-  const Drawer = styled(MuiDrawer, {
-    shouldForwardProp: (prop) => prop !== "open",
-  })(({ theme, open }) => ({
-    "& .MuiDrawer-paper": {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: "border-box",
-      ...(!open && {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }));
-  const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== "open",
-  })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
 
-  const drawerWidth = 240;
+import { AppBar, Drawer } from "../../src/reuseableFunctions/homeFunctions";
+import Router, { useRouter } from "next/router";
+const Home = () => {
+  const router = useRouter();
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("token");
+    !token && router.push("/signin");
+    console.log(token);
+  }, []);
   return (
     <>
       <AppBar position="absolute" open={true}>

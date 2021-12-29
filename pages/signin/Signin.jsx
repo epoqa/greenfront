@@ -64,7 +64,7 @@ export default function SignIn() {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("refreshToken", response.data.refreshToken);
           NotificationManager.success(response.statusText, "", 1500);
-          // router.push("/");
+          router.push("/home");
         })
         .catch((error) => {
           console.log(error.response.data.error);

@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-
+import axios from "axios";
 const Test = () => {
   const router = useRouter();
-  console.log(router.query.test);
+  useEffect(() => {
+    router.query.test &&
+      axios
+        .get(`http://localhost:3333/diary/id/${router.query.test}`)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [router]);
+
   return <h1>HHIIII</h1>;
 };
 
