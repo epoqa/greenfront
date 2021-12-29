@@ -24,7 +24,6 @@ import useValidateToken from "../../src/reuseableFunctions/validateToken";
 const theme = createTheme();
 
 const CreateDiary = () => {
-  const router = useRouter();
   useValidateToken();
 
   const nameRef = useRef();
