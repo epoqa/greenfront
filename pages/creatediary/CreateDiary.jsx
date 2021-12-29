@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 //MATERIAL UI IMPORTS
 import Typography from "@material-ui/core/Typography";
@@ -28,6 +28,12 @@ const theme = createTheme();
 
 const CreateDiary = () => {
   const router = useRouter();
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("token");
+    !token && router.push("/signin");
+    console.log(token);
+  }, []);
+  const router = useRouter();
   const [usernameState, setUsernameRef] = useState(false);
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
@@ -43,12 +49,7 @@ const CreateDiary = () => {
     const typeRefValue = typeRef && typeRef.current.value;
     const descRefValue = descRef && descRef.current.value;
 
-    
-    if (
-      nameRefValue &&
-      typeRefValue &&
-      descRefValue
-    ) {
+    if (nameRefValue && typeRefValue && descRefValue) {
       axios
         .post("http://localhost:3333/diary/create", {
           diaryName: nameRefValue,
@@ -79,8 +80,7 @@ const CreateDiary = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 2, bgcolor: "#60ff52" }}>
-          </Avatar>
+          <Avatar sx={{ m: 2, bgcolor: "#60ff52" }}></Avatar>
           <Typography component="h1" variant="h5">
             შექმენი დღიური
           </Typography>
@@ -106,13 +106,12 @@ const CreateDiary = () => {
                   id="type"
                   label="ჯიში"
                   name="type"
-                  
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                rows="4"
-                cols="50"
+                  rows="4"
+                  cols="50"
                   inputRef={descRef}
                   required
                   fullWidth
@@ -120,7 +119,6 @@ const CreateDiary = () => {
                   label="აღწერა"
                   type="text"
                   id="description"
-
                 />
               </Grid>
             </Grid>

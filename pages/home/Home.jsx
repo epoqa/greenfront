@@ -23,12 +23,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { AppBar, Drawer } from "../../src/reuseableFunctions/homeFunctions";
 import Router, { useRouter } from "next/router";
 const Home = () => {
-  const router = useRouter();
-  useLayoutEffect(() => {
-    const token = localStorage.getItem("token");
-    !token && router.push("/signin");
-    console.log(token);
-  }, []);
   return (
     <>
       <AppBar position="absolute" open={true}>
