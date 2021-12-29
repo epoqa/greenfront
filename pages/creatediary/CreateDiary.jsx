@@ -39,7 +39,7 @@ const CreateDiary = () => {
 
     if (nameRefValue && typeRefValue && descRefValue) {
       axios
-        .post("http://localhost:3333/diary/create", {
+        .post("https://greenbackk.herokuapp.com/diary/create", {
           diaryName: nameRefValue,
           type: typeRefValue,
           desc: descRefValue,

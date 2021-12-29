@@ -57,7 +57,7 @@ const SignUp = () => {
       passwordRefValue.length > 8
     ) {
       axios
-        .post("http://localhost:3333/users/register", {
+        .post("https://greenbackk.herokuapp.com/users/register", {
           username: usernameRefValue,
           email: emailRefValue,
           password: passwordRefValue,

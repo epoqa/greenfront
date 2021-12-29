@@ -18,7 +18,7 @@ const useValidateToken = () => {
     !token && router.push("/signin");
     token &&
       axios
-        .get("http://localhost:3333/authToken", {
+        .get("https://greenbackk.herokuapp.com/authToken", {
           headers: {
             Authorization: token,
           },
@@ -28,7 +28,7 @@ const useValidateToken = () => {
         })
         .catch((error) => {
           axios
-            .post("http://localhost:3333/renewAccessToken", {
+            .post("https://greenbackk.herokuapp.com/renewAccessToken", {
               refreshToken,
             })
             .then((response) => {

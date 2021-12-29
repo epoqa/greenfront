@@ -6,7 +6,7 @@ const Test = () => {
   useEffect(() => {
     router.query.test &&
       axios
-        .get(`http://localhost:3333/diary/id/${router.query.test}`)
+        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.test}`)
         .then((res) => {
           console.log(res.data);
         })
