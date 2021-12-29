@@ -37,12 +37,12 @@ export default function Growers() {
     <NextLink href={{pathname:`/diary/${diary._id}`}}>
 
     <div style={{margin: "75px",padding: "15px", border: "1px solid black", cursor: "pointer"}}>
-      <h4>Name: {diary.diaryName}</h4>
-      <h4>Type: {diary.type}</h4>
-      <h4>Desc: {diary.description} </h4>
-      <h4>Owner: {diary.owner}</h4>
-      <h4>Date: {diary.date}</h4>
-      <h5>Id: {diary._id }</h5>
+      <h4>დღიურის სახელი: {diary.diaryName}</h4>
+      <h4>ტიპი: {diary.type}</h4>
+      <h4>აღწერა: {diary.description} </h4>
+      <h4>შემქმნელი: {diary.owner}</h4>
+      <h4>თარიღი: {diary.date}</h4>
+      <h5>დღიურის აიდი: {diary._id }</h5>
       
     </div>
     </NextLink>

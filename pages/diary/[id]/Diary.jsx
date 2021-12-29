@@ -62,8 +62,8 @@ export default function Grower() {
           NotificationManager.success(response.statusText, "", 1500);
         })
         .catch((error) => {
-          console.log(error);
-          NotificationManager.error(error, "", 1500);
+          console.log(error.response.data.error);
+          NotificationManager.error(error.response.data.error, "", 1500);
         });
     }
   };
@@ -75,12 +75,12 @@ export default function Grower() {
   return (
     <>
     <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
-      <h4>Username: {diary.diaryName}</h4>
-      <h4>Email: {diary.owner}</h4>
-      <h4>Id: {diary._id} </h4>
+      <h4>დღიურის სახელი: {diary.diaryName}</h4>
+      <h4>დღიურის შემქმნელი: {diary.owner}</h4>
+      <h4>დღიურის აიდი: {diary._id} </h4>
     </div>
     <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
-      <h4>Comments</h4>
+      <h4>კომენტარები</h4>
       <hr></hr>
       <div>
         

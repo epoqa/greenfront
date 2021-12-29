@@ -93,7 +93,7 @@ const Home = () => {
             noWrap
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            მწვანე დღიური
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
