@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import axios from "axios";
 
 //MATERIAL UI IMPORTS
 import Typography from "@material-ui/core/Typography";
@@ -42,8 +43,8 @@ const CreateDiary = () => {
         .post("https://greenbackk.herokuapp.com/diary/create", {
           diaryName: nameRefValue,
           type: typeRefValue,
-          desc: descRefValue,
-        })
+          description: descRefValue,
+        },{headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
@@ -98,8 +99,6 @@ const CreateDiary = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  rows="4"
-                  cols="50"
                   inputRef={descRef}
                   required
                   fullWidth
@@ -121,9 +120,9 @@ const CreateDiary = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NextLink href="#">
+                <NextLink href="/diaries">
                   <Link href="#" variant="body2">
-                    {"ჩემი დღიურები"}
+                    {"დღიურები"}
                   </Link>
                 </NextLink>
               </Grid>
