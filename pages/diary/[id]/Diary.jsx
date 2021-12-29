@@ -5,11 +5,11 @@ import NextLink from "next/link";
 //LIBRARY IMPORTS
 import axios from "axios";
 import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 //MATERIAL UI IMPORTS
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
@@ -103,7 +103,7 @@ export default function Grower() {
         </div>
         {diary.comments
           ? diary.comments.map((comment) => (
-              <div>
+              <div key={uuidv4()}>
                 <h4>{comment.owner}</h4>
                 <h4>{comment.comment}</h4>
                 <h4>{comment.date}</h4>

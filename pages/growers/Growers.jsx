@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 //NEXT IMPORTS
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 
 //LIBRARY IMPORTS
 import axios from "axios";

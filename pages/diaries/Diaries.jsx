@@ -25,7 +25,7 @@ export default function Growers() {
 
   return (
     <>
-      {diary.map((diary, index) => (
+      {diary.map((diary) => (
         <NextLink href={{ pathname: `/diary/${diary._id}` }} key={uuidv4()}>
           <div
             style={{
