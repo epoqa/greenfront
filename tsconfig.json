@@ -20,7 +20,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/SignIn/index.jsx",
-    "pages/register/Register.jsx"
+    "pages/Register/Register.jsx"
   ],
   "exclude": ["node_modules"]
 }
