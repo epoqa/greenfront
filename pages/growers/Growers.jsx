@@ -34,11 +34,14 @@ export default function Growers() {
   return (
     <>
     {users.map(user => (
+    <NextLink href={{pathname:`/grower/${user.username}`}}>
+
     <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
       <h4>Username: {user.username}</h4>
       <h4>Email: {user.email}</h4>
       <h4>Id: {user._id} </h4>
     </div>
+    </NextLink>
     ))}
     </>
   );

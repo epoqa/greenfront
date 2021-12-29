@@ -58,7 +58,6 @@ const CreateDiary = () => {
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
-          router.push("signin");
         })
         .catch((error) => {
           console.log(error.response.data.error);

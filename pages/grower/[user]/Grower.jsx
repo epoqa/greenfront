@@ -14,14 +14,13 @@ import { useRouter } from 'next/router'
 export default function Grower() {
   
     let [user, setUser] = useState([]);
+    const router = useRouter();
 
 
   useEffect(async () => {
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    const username = urlSearchParams.get('user')
-    console.log(username)
+    router.query.user &&
     axios
-      .get(`http://localhost:3333/users/${username}`)
+      .get(`http://localhost:3333/users/${router.query.user}`)
       .then((res) => {
         setUser(res.data);
         console.log(res.data);
@@ -32,7 +31,7 @@ export default function Grower() {
       .catch((err) => { 
         console.log(err);
       });
-  }, []); 
+  }, [router]); 
 
 
 
