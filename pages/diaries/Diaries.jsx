@@ -41,7 +41,7 @@ export default function Growers() {
       <h4>ტიპი: {diary.type}</h4>
       <h4>აღწერა: {diary.description} </h4>
       <h4>შემქმნელი: {diary.owner}</h4>
-      <h4>თარიღი: {diary.date}</h4>
+      <h4>თარიღი: {diary.createdAt}</h4>
       <h5>დღიურის აიდი: {diary._id }</h5>
       
     </div>

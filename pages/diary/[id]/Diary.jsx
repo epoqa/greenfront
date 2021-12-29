@@ -6,6 +6,7 @@ import NextLink from "next/link";
 import axios from "axios";
 import { useRouter } from 'next/router'
 
+import { NotificationManager } from "../../../src/components/Notifications/Notifications";
 
 
 
@@ -56,13 +57,13 @@ export default function Grower() {
         .put(`http://localhost:3333/diary/comment/${router.query.id}`, {
           comment: commentRefValue
 
-        })
+        }, {headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
         })
         .catch((error) => {
-          console.log(error.response.data.error);
+          console.log(error);
           NotificationManager.error(error.response.data.error, "", 1500);
         });
     }
@@ -75,9 +76,12 @@ export default function Grower() {
   return (
     <>
     <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
-      <h4>დღიურის სახელი: {diary.diaryName}</h4>
-      <h4>დღიურის შემქმნელი: {diary.owner}</h4>
-      <h4>დღიურის აიდი: {diary._id} </h4>
+    <h4>დღიურის სახელი: {diary.diaryName}</h4>
+      <h4>ტიპი: {diary.type}</h4>
+      <h4>აღწერა: {diary.description} </h4>
+      <h4>შემქმნელი: {diary.owner}</h4>
+      <h4>თარიღი: {diary.createdAt}</h4>
+      <h5>დღიურის აიდი: {diary._id }</h5>
     </div>
     <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
       <h4>კომენტარები</h4>
@@ -116,10 +120,11 @@ export default function Grower() {
 
       </div>
       {diary.comments ? diary.comments.map(comment => (
-        <div>
-          <h4>{comment.owner}</h4>
+        <div style={{margin: "5px", padding: "8px", border: "1px solid black"}}>
+          <h3>{comment.owner}</h3>
+          <hr/>
           <h4>{comment.comment}</h4>
-          <h4>{comment.date}</h4>
+          <h5>date: {comment.createdAt}</h5>
         </div>
       )) : null}
       </div>
