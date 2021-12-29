@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 //MATERIAL UI IMPORTS
 import Typography from "@material-ui/core/Typography";
@@ -17,26 +17,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
-//LIBRARY IMPORTS
-import axios from "axios";
-
 //OTHER IMPORTS
-import { validateEmail } from "../../src/reuseableFunctions/validateEmail";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import useValidateToken from "../../src/reuseableFunctions/validateToken";
 
 const theme = createTheme();
 
 const CreateDiary = () => {
   const router = useRouter();
-  useLayoutEffect(() => {
-    const token = localStorage.getItem("token");
-    !token && router.push("/signin");
-    console.log(token);
-  }, []);
-  const router = useRouter();
-  const [usernameState, setUsernameRef] = useState(false);
-  const [emailState, setEmailRef] = useState(false);
-  const [passwordState, setPasswordRef] = useState(false);
+  useValidateToken();
 
   const nameRef = useRef();
   const typeRef = useRef();
