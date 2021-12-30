@@ -4,11 +4,10 @@ import NextLink from "next/link";
 
 //LIBRARY IMPORTS
 import axios from "axios";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 import { NotificationManager } from "../../../src/components/Notifications/Notifications";
-
-
 
 //MATERIAL UI IMPORTS
 import Button from "@mui/material/Button";
@@ -23,41 +22,39 @@ export default function Grower() {
   const router = useRouter();
   useEffect(async () => {
     router.query.id &&
-    axios
-      .get(`http://localhost:3333/diary/id/${router.query.id}`)
-      .then((res) => {
-        setDiary(res.data);
-        console.log(res.data);        
-
-      })
-      .catch((err) => { 
-        console.log(err);
-      });
-    
-  }, [router]); 
+      axios
+        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
+        .then((res) => {
+          setDiary(res.data);
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, [router]);
 
   const [commentState, setCommentRef] = useState(false);
 
-
   const commentRef = useRef();
-
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
 
     const commentRefValue = commentRef && commentRef.current.value;
 
-
-    
-    if (
-      commentRefValue 
-
-    ) {
+    if (commentRefValue) {
       axios
-        .put(`http://localhost:3333/diary/comment/${router.query.id}`, {
-          comment: commentRefValue
-
-        }, {headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
+        .put(
+          `https://greenbackk.herokuapp.com/diary/comment/${router.query.id}`,
+          {
+            comment: commentRefValue,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
@@ -69,26 +66,25 @@ export default function Grower() {
     }
   };
 
-
-
-
- 
   return (
     <>
-    <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
-    <h4>დღიურის სახელი: {diary.diaryName}</h4>
-      <h4>ტიპი: {diary.type}</h4>
-      <h4>აღწერა: {diary.description} </h4>
-      <h4>შემქმნელი: {diary.owner}</h4>
-      <h4>თარიღი: {diary.createdAt}</h4>
-      <h5>დღიურის აიდი: {diary._id }</h5>
-    </div>
-    <div style={{margin: "15px",padding: "20px", border: "1px solid black"}}>
-      <h4>კომენტარები</h4>
-      <hr></hr>
-      <div>
-        
-      <Box component="form" noValidate sx={{ mt: 3 }}>
+      <div
+        style={{ margin: "15px", padding: "20px", border: "1px solid black" }}
+      >
+        <h4>დღიურის სახელი: {diary.diaryName}</h4>
+        <h4>ტიპი: {diary.type}</h4>
+        <h4>აღწერა: {diary.description} </h4>
+        <h4>შემქმნელი: {diary.owner}</h4>
+        <h4>თარიღი: {diary.createdAt}</h4>
+        <h5>დღიურის აიდი: {diary._id}</h5>
+      </div>
+      <div
+        style={{ margin: "15px", padding: "20px", border: "1px solid black" }}
+      >
+        <h4>კომენტარები</h4>
+        <hr></hr>
+        <div>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -101,7 +97,7 @@ export default function Grower() {
                   autoFocus
                 />
               </Grid>
-             </Grid>
+            </Grid>
             <Button
               type="submit"
               fullWidth
@@ -112,26 +108,28 @@ export default function Grower() {
               დაწერა
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>
-              </Grid>
+              <Grid item></Grid>
             </Grid>
           </Box>
-
-
-      </div>
-      {diary.comments ? diary.comments.map(comment => (
-        <div style={{margin: "5px", padding: "8px", border: "1px solid black"}}>
-          <h3>{comment.owner}</h3>
-          <hr/>
-          <h4>{comment.comment}</h4>
-          <h5>date: {comment.createdAt}</h5>
         </div>
-      )) : null}
+        {diary.comments
+          ? diary.comments.map((comment) => (
+              <div
+                key={uuidv4()}
+                style={{
+                  margin: "5px",
+                  padding: "8px",
+                  border: "1px solid black",
+                }}
+              >
+                <h3>{comment.owner}</h3>
+                <hr />
+                <h4>{comment.comment}</h4>
+                <h5>date: {comment.createdAt}</h5>
+              </div>
+            ))
+          : null}
       </div>
     </>
   );
 }
-
-
-
-

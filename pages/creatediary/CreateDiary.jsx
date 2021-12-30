@@ -26,7 +26,7 @@ const theme = createTheme();
 
 const CreateDiary = () => {
   useValidateToken();
-
+  const router = useRouter();
   const nameRef = useRef();
   const typeRef = useRef();
   const descRef = useRef();
@@ -40,14 +40,23 @@ const CreateDiary = () => {
 
     if (nameRefValue && typeRefValue && descRefValue) {
       axios
-        .post("https://greenbackk.herokuapp.com/diary/create", {
-          diaryName: nameRefValue,
-          type: typeRefValue,
-          description: descRefValue,
-        },{headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
+        .post(
+          "https://greenbackk.herokuapp.com/diary/create",
+          {
+            diaryName: nameRefValue,
+            type: typeRefValue,
+            description: descRefValue,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
+          router.push("/diaries");
         })
         .catch((error) => {
           console.log(error.response.data.error);
