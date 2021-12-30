@@ -10,61 +10,65 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 
+import NextLink from "next/link";
+
 export const mainListItems = (
   <div>
     <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/home">
+        <ListItemText primary="მთავარი" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/signin">
+        <ListItemText primary="შესვლა" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/register">
+        <ListItemText primary="რეგისტრაცია" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/diaries">
+        <ListItemText primary="დღიურები" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
-    </ListItem>
-  </div>
-);
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>რამე</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/creatediary">
+        <ListItemText primary="დღიურის შექმნა" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/diary/61c8701972830d1143283730">
+        <ListItemText primary="ცალკეული დღიური" />
+      </NextLink>
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="ფლეისჰოლდერი" />
+      <NextLink href="/growers">
+        <ListItemText primary="გროუერები" />
+      </NextLink>
     </ListItem>
   </div>
 );

@@ -75,7 +75,6 @@ const Home = () => {
         <Divider />
         <List>{mainListItems}</List>
         <Divider />
-        <List>{secondaryListItems}</List>
       </Drawer>
     </>
   );
