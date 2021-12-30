@@ -17,16 +17,17 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 export default function Grower() {
-  let [diary, setDiary] = useState([]);
-
+  const [diary, setDiary] = useState([]);
+  const [comments, setComments] = useState([]);
   const router = useRouter();
-  useEffect(async () => {
+  useEffect(() => {
     router.query.id &&
       axios
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
-          console.log(res.data);
+          console.log(res.data.comments, "nice d:");
+          setComments(res.data.comments);
         })
         .catch((err) => {
           console.log(err);
@@ -56,8 +57,9 @@ export default function Grower() {
           }
         )
         .then((response) => {
-          console.log(response);
-          NotificationManager.success(response.statusText, "", 1500);
+          console.log(response.data, "miniso");
+          setComments(response.data.comments);
+          commentRef.current.value = "";
         })
         .catch((error) => {
           console.log(error);
@@ -112,8 +114,8 @@ export default function Grower() {
             </Grid>
           </Box>
         </div>
-        {diary.comments
-          ? diary.comments.map((comment) => (
+        {comments
+          ? comments.map((comment) => (
               <div
                 key={uuidv4()}
                 style={{
