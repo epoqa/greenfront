@@ -8,6 +8,13 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 export default function Growers() {
+  //TYPESCRIPT
+
+  interface usertInterface {
+    username: string;
+    email: string;
+    _id: number;
+  }
   let [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -24,7 +31,7 @@ export default function Growers() {
 
   return (
     <>
-      {users.map((user) => (
+      {users.map((user: usertInterface) => (
         <NextLink
           href={{ pathname: `/grower/${user.username}` }}
           key={uuidv4()}
