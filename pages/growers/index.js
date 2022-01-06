@@ -1,1 +1,1 @@
-export { default } from "./Growers.jsx";
+export { default } from "./Growers.tsx";

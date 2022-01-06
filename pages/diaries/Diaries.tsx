@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 
 //NEXT IMPORTS
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 
 //LIBRARY IMPORTS
 import axios from "axios";
 
 export default function Growers() {
+  //TYPESCRIPT
+  interface keyable {
+    [key: string]: any;
+  }
+
   let [diary, setDiaries] = useState([]);
 
   useEffect(() => {
@@ -25,8 +29,11 @@ export default function Growers() {
 
   return (
     <>
-      {diary.map((diary) => (
-        <NextLink href={{ pathname: `/diary/${diary._id}` }} key={uuidv4()}>
+      {diary.map((singleDiary: keyable) => (
+        <NextLink
+          href={{ pathname: `/diary/${singleDiary._id}` }}
+          key={uuidv4()}
+        >
           <div
             style={{
               margin: "75px",
@@ -35,12 +42,12 @@ export default function Growers() {
               cursor: "pointer",
             }}
           >
-            <h4>დღიურის სახელი: {diary.diaryName}</h4>
-            <h4>ტიპი: {diary.type}</h4>
-            <h4>აღწერა: {diary.description} </h4>
-            <h4>შემქმნელი: {diary.owner}</h4>
-            <h4>თარიღი: {diary.createdAt}</h4>
-            <h5>დღიურის აიდი: {diary._id}</h5>
+            <h4>დღიურის სახელი: {singleDiary.diaryName}</h4>
+            <h4>ტიპი: {singleDiary.type}</h4>
+            <h4>აღწერა: {singleDiary.description} </h4>
+            <h4>შემქმნელი: {singleDiary.owner}</h4>
+            <h4>თარიღი: {singleDiary.createdAt}</h4>
+            <h5>დღიურის აიდი: {singleDiary._id}</h5>
           </div>
         </NextLink>
       ))}

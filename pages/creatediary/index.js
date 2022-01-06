@@ -1,1 +1,1 @@
-export { default } from "./CreateDiary.jsx";
+export { default } from "./CreateDiary.tsx";

@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect } from "react";
 import List from "@mui/material/List";
 import {
-  secondaryListItems,
+  // secondaryListItems,
   mainListItems,
 } from "../../src/components/Navigation/Navigation";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -25,7 +25,7 @@ import Router, { useRouter } from "next/router";
 const Home = () => {
   return (
     <>
-      <AppBar position="absolute" open={true}>
+      <AppBar position="absolute">
         <Toolbar
           sx={{
             pr: "24px", // keep right padding when drawer closed

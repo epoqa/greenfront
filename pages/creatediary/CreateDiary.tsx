@@ -27,16 +27,21 @@ const theme = createTheme();
 const CreateDiary = () => {
   useValidateToken();
   const router = useRouter();
-  const nameRef = useRef();
-  const typeRef = useRef();
-  const descRef = useRef();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const typeRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLInputElement>(null);
 
-  const sendRegisterInfoToBackend = (event) => {
+  const sendRegisterInfoToBackend = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
-    const nameRefValue = nameRef && nameRef.current.value;
-    const typeRefValue = typeRef && typeRef.current.value;
-    const descRefValue = descRef && descRef.current.value;
+    const nameRefValue =
+      nameRef && null !== nameRef.current && nameRef.current.value;
+    const typeRefValue =
+      typeRef && null !== typeRef.current && typeRef.current.value;
+    const descRefValue =
+      descRef && null !== descRef.current && descRef.current.value;
 
     if (nameRefValue && typeRefValue && descRefValue) {
       axios

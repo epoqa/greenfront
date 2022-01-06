@@ -32,18 +32,22 @@ export default function SignIn() {
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const sendSigninInfoToBackend = (e) => {
+  const sendSigninInfoToBackend = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     //DESTRUCTURING REF VALUES
-    const passwordRefValue = passwordRef && passwordRef.current.value;
-    const emailRefValue = emailRef && emailRef.current.value;
+    const passwordRefValue =
+      passwordRef && null !== passwordRef.current && passwordRef.current.value;
+    const emailRefValue =
+      emailRef && null !== emailRef.current && emailRef.current.value;
 
     //  EMAIL CHECK WITH REGEX
-    const EmailRegexCheck = validateEmail(emailRefValue);
+    const EmailRegexCheck = emailRefValue && validateEmail(emailRefValue);
 
     setEmailRef(!emailRefValue || !EmailRegexCheck);
     setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);

@@ -32,19 +32,24 @@ const SignUp = () => {
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
 
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  const sendRegisterInfoToBackend = (event) => {
+  const sendRegisterInfoToBackend = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
-    const passwordRefValue = passwordRef && passwordRef.current.value;
-    const usernameRefValue = usernameRef && usernameRef.current.value;
-    const emailRefValue = emailRef && emailRef.current.value;
+    const passwordRefValue =
+      passwordRef && null !== passwordRef.current && passwordRef.current.value;
+    const usernameRefValue =
+      usernameRef && null !== usernameRef.current && usernameRef.current.value;
+    const emailRefValue =
+      emailRef && null !== emailRef.current && emailRef.current.value;
 
     //  EMAIL CHECK WITH REGEX
-    const EmailRegexCheck = validateEmail(emailRefValue);
+    const EmailRegexCheck = emailRefValue && validateEmail(emailRefValue);
 
     setUsernameRef(!usernameRefValue);
     setEmailRef(!emailRefValue || !EmailRegexCheck);
