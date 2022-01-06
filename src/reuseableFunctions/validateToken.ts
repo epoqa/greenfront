@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 //OTHER IMPORTS
-import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import { NotificationManager } from "../components/Notifications/Notifications";
 
 //NEXT IMPORTS
 import NextLink from "next/link";

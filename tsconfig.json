@@ -23,7 +23,11 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/SignIn/index.jsx",
-    "pages/register/Register.tsx"
+    "pages/register/Register.tsx",
+    "pages/growers/Growers.jsx",
+    "pages/diary/[id]/Diary.jsx",
+    "src/components/Navigation/Navigation.js",
+    "src/components/Notifications/Notifications.js"
   ],
   "exclude": ["node_modules"]
 }

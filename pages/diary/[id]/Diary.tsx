@@ -17,7 +17,21 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 export default function Grower() {
-  const [diary, setDiary] = useState([]);
+  //TYPESCRIPT
+  interface DiaryInterface {
+    diaryName: string;
+    type: string;
+    description: string;
+    owner: string;
+    createdAt: number;
+    _id: string;
+  }
+  interface commentInterface {
+    owner: string;
+    comment: string;
+    createdAt: number;
+  }
+  const [diary, setDiary] = useState<Partial<DiaryInterface>>({});
   const [comments, setComments] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -34,14 +48,15 @@ export default function Grower() {
         });
   }, [router]);
 
-  const [commentState, setCommentRef] = useState(false);
+  const commentRef = useRef<HTMLInputElement>(null);
 
-  const commentRef = useRef();
-
-  const sendRegisterInfoToBackend = (event) => {
+  const sendRegisterInfoToBackend = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.preventDefault();
 
-    const commentRefValue = commentRef && commentRef.current.value;
+    const commentRefValue =
+      commentRef && commentRef.current && commentRef.current.value;
 
     if (commentRefValue) {
       axios
@@ -59,7 +74,9 @@ export default function Grower() {
         .then((response) => {
           console.log(response.data, "miniso");
           setComments(response.data.comments);
-          commentRef.current.value = "";
+          commentRef && commentRef.current
+            ? (commentRef.current.value = "")
+            : null;
         })
         .catch((error) => {
           console.log(error);
@@ -115,7 +132,7 @@ export default function Grower() {
           </Box>
         </div>
         {comments
-          ? comments.map((comment) => (
+          ? comments.map((comment: commentInterface) => (
               <div
                 key={uuidv4()}
                 style={{
