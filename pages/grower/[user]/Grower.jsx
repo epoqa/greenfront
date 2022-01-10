@@ -7,13 +7,11 @@ import NextLink from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-// ROUTE http://localhost:3001/grower?user=lasha2
-
 export default function Grower() {
   let [user, setUser] = useState([]);
   const router = useRouter();
 
-  useEffect(async () => {
+  useEffect(() => {
     router.query.user &&
       axios
         .get(`https://greenbackk.herokuapp.com/users/${router.query.user}`)

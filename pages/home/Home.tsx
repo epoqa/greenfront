@@ -1,9 +1,6 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import List from "@mui/material/List";
-import {
-  // secondaryListItems,
-  mainListItems,
-} from "../../src/components/Navigation/Navigation";
+import { mainListItems } from "../../src/components/Navigation/Navigation";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -23,6 +20,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { AppBar, Drawer } from "../../src/reuseableFunctions/homeFunctions";
 import Router, { useRouter } from "next/router";
 const Home = () => {
+  const [open, setOpen] = useState<Boolean>(false);
+  console.log(open);
   return (
     <>
       <AppBar position="absolute">
@@ -35,11 +34,11 @@ const Home = () => {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            // onClick={toggleDrawer}
-            // sx={{
-            //   marginRight: "36px",
-            //   ...(open && { display: "none" }),
-            // }}
+            onClick={() => setOpen(!open)}
+            sx={{
+              marginRight: "36px",
+              ...(open && { display: "none" }),
+            }}
           >
             <MenuIcon />
           </IconButton>
