@@ -10,7 +10,7 @@ import { NotificationManager } from "../components/Notifications/Notifications";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 
-const useValidateToken = () => {
+const useValidateToken = (setLoadingState: any) => {
   const router = useRouter();
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -24,6 +24,7 @@ const useValidateToken = () => {
           },
         })
         .then((response) => {
+          setLoadingState(false);
           console.log(response.data);
         })
         .catch((error) => {
@@ -32,13 +33,15 @@ const useValidateToken = () => {
               refreshToken,
             })
             .then((response) => {
+              setLoadingState(false);
               window.localStorage.setItem("token", response.data.token);
             })
             .catch((error) => {
               router.push("/signin");
-              NotificationManager.error(error.response.data.error, "", 1500);
+              NotificationManager.error(error.response.data.error);
             });
         });
-  });
+    return () => console.log("unmounting...");
+  }, []);
 };
 export default useValidateToken;
