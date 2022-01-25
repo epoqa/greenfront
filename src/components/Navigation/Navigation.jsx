@@ -15,57 +15,62 @@ import NextLink from "next/link";
 export const mainListItems = (
   <div>
     <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
+      <NextLink href="/home">
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+      </NextLink>
       <NextLink href="/home">
         <ListItemText primary="მთავარი" />
       </NextLink>
     </ListItem>
     <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
+      <NextLink href="/login">
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+      </NextLink>
       <NextLink href="/login">
         <ListItemText primary="შესვლა" />
       </NextLink>
     </ListItem>
     <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
+      <NextLink href="/register">
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+      </NextLink>
       <NextLink href="/register">
         <ListItemText primary="რეგისტრაცია" />
       </NextLink>
     </ListItem>
     <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
+      <NextLink href="/diaries">
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+      </NextLink>
       <NextLink href="/diaries">
         <ListItemText primary="დღიურები" />
       </NextLink>
     </ListItem>
     <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
+      <NextLink href="/creatediary">
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+      </NextLink>
       <NextLink href="/creatediary">
         <ListItemText primary="დღიურის შექმნა" />
       </NextLink>
     </ListItem>
+
     <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <NextLink href="/diary/61c8701972830d1143283730">
-        <ListItemText primary="ცალკეული დღიური" />
+      <NextLink href="/growers">
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
       </NextLink>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
       <NextLink href="/growers">
         <ListItemText primary="გროუერები" />
       </NextLink>
