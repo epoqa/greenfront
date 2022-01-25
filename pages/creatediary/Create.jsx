@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -19,6 +18,20 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "../../src/components/Navigation/Navigation";
 import { AppBar, Drawer } from "../../src/reuseableFunctions/homeFunctions";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import axios from "axios";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import uniqid from 'uniqid';
+
+import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import useValidateToken from "../../src/reuseableFunctions/validateToken";
+
+import Loading from "../../src/components/Loading/Loading";
+
+const theme = createTheme();
+
+
 
 const mdTheme = createTheme();
 
@@ -28,7 +41,59 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  return (
+
+  //STATE
+  const [loadingState, setLoadingState] = useState();
+  useValidateToken(setLoadingState);
+
+  const router = useRouter();
+
+  const nameRef = useRef();
+  const typeRef = useRef();
+  const descRef = useRef();
+
+  const sendRegisterInfoToBackend = (event) => {
+    event.preventDefault();
+
+    const nameRefValue =
+      nameRef && null !== nameRef.current && nameRef.current.value;
+    const typeRefValue =
+      typeRef && null !== typeRef.current && typeRef.current.value;
+    const descRefValue =
+      descRef && null !== descRef.current && descRef.current.value;
+
+    if (nameRefValue && typeRefValue && descRefValue) {
+      axios
+        .post(
+          "https://greenbackk.herokuapp.com/diary/create",
+          {
+            diaryName: nameRefValue,
+            type: typeRefValue,
+            description: descRefValue,
+            id: uniqid()
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          NotificationManager.success(response.statusText);
+          router.push(`/diary/${response.data.id}`);
+        })
+        .catch((error) => {
+          console.log(error.response.data.error);
+          NotificationManager.error(error.response.data.error);
+        });
+    }
+  };
+
+
+
+   return loadingState ? (
+    <Loading />
+  ) : (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
@@ -114,6 +179,7 @@ function DashboardContent() {
                       <div className="form-group">
                         <h6 htmlFor="diaryName">დღიურის სახელი</h6>
                         <input
+                          ref={nameRef}
                           type="text"
                           className="form-control"
                           id="diaryName"
@@ -126,6 +192,7 @@ function DashboardContent() {
                       <div className="form-group">
                         <h6 htmlFor="diaryDesc">დღიურის აღწერა</h6>
                         <textarea
+                          ref={descRef}
                           rows="5"
                           cols="60"
                           type="text"
@@ -138,22 +205,15 @@ function DashboardContent() {
                       </div>
                       <br />
                       <h6 htmlFor="inputState">ჯიში</h6>
-                      <select id="inputState" className="form-control">
+                      <select ref={typeRef} id="inputState" className="form-control">
                         <option selected >სხვა...</option>
                         <option>ჯიში 1</option>
                         <option>ჯიში 2</option>
                         <option>ჯიში 3</option>
                       </select>
                       <br />
-                      <h6 htmlFor="inputState">ოთახის ტიპი</h6>
-                      <select id="inputState" className="form-control">
-                        <option selected >სხვა...</option>
-                        <option>ოთახი</option>
-                        <option>გარეთ</option>
-                        <option>სათბური</option>
-                      </select>
-                      <br />
-                      <button type="submit" className="btn btn-success">
+                      
+                      <button onClick={(e) => sendRegisterInfoToBackend(e)} type="submit" className="btn btn-success">
                         შენახვა
                       </button>
                     </form>

@@ -67,9 +67,9 @@ const CreateDiary = () => {
           }
         )
         .then((response) => {
-          console.log(response);
           NotificationManager.success(response.statusText);
-          router.push("/diaries");
+          router.push(`/diaries`);
+
         })
         .catch((error) => {
           console.log(error.response.data.error);

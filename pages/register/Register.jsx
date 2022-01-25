@@ -68,7 +68,7 @@ const SignUp = () => {
         .then((response) => {
           console.log(response);
           NotificationManager.success(response.statusText, "", 1500);
-          router.push("signin");
+          router.push("login");
         })
         .catch((error) => {
           console.log(error.response.data.error);
@@ -152,7 +152,7 @@ const SignUp = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NextLink href="/signin">
+                <NextLink href="/login">
                   <Link href="#" variant="body2">
                     {"უკვე გაქვს ანგარიში? შესვლა"}
                   </Link>

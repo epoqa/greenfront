@@ -15,7 +15,7 @@ const useValidateToken = (setLoadingState: any) => {
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     const refreshToken = window.localStorage.getItem("refreshToken");
-    !token && router.push("/signin");
+    !token && router.push("/login");
     token &&
       axios
         .get("https://greenbackk.herokuapp.com/authToken", {
@@ -37,7 +37,7 @@ const useValidateToken = (setLoadingState: any) => {
               window.localStorage.setItem("token", response.data.token);
             })
             .catch((error) => {
-              router.push("/signin");
+              router.push("/login");
               NotificationManager.error(error.response.data.error);
             });
         });

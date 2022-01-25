@@ -26,7 +26,7 @@ export const mainListItems = (
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
-      <NextLink href="/signin">
+      <NextLink href="/login">
         <ListItemText primary="შესვლა" />
       </NextLink>
     </ListItem>

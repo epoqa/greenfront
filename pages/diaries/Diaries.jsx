@@ -26,7 +26,7 @@ export default function Growers() {
     <>
       {diary.map((singleDiary) => (
         <NextLink
-          href={{ pathname: `/diary/${singleDiary._id}` }}
+          href={{ pathname: `/diary/${singleDiary.id}` }}
           key={uuidv4()}
         >
           <div
@@ -42,7 +42,7 @@ export default function Growers() {
             <h4>აღწერა: {singleDiary.description} </h4>
             <h4>შემქმნელი: {singleDiary.owner}</h4>
             <h4>თარიღი: {singleDiary.createdAt}</h4>
-            <h5>დღიურის აიდი: {singleDiary._id}</h5>
+            <h5>დღიურის აიდი: {singleDiary.id}</h5>
           </div>
         </NextLink>
       ))}
