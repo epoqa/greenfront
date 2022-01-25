@@ -93,7 +93,6 @@ const CreateDiary = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 2, bgcolor: "#60ff52" }}></Avatar>
           <Typography component="h1" variant="h5">
             შექმენი დღიური
           </Typography>
