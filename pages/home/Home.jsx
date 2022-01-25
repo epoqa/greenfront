@@ -17,7 +17,7 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "./../../src/components/Navigation/Navigation";
+import { mainListItems } from "../../src/components/Navigation/Navigation";
 import { AppBar, Drawer } from "../../src/reuseableFunctions/homeFunctions";
 
 const mdTheme = createTheme();

@@ -8,11 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 export default function Growers() {
-  //TYPESCRIPT
-  interface keyable {
-    [key: string]: any;
-  }
-
   let [diary, setDiaries] = useState([]);
 
   useEffect(() => {
@@ -29,7 +24,7 @@ export default function Growers() {
 
   return (
     <>
-      {diary.map((singleDiary: keyable) => (
+      {diary.map((singleDiary) => (
         <NextLink
           href={{ pathname: `/diary/${singleDiary._id}` }}
           key={uuidv4()}

@@ -20,7 +20,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 //NEXT IMPORTS
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { GetStaticProps } from "next";
 
 //OTHER IMPORTS
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
@@ -28,24 +27,21 @@ import useValidateToken from "../../src/reuseableFunctions/validateToken";
 
 //COMPONENTS
 import Loading from "../../src/components/Loading/Loading";
-import { truncate } from "fs";
 
 const theme = createTheme();
 
 const CreateDiary = () => {
   //STATE
-  const [loadingState, setLoadingState] = useState<boolean>(true);
+  const [loadingState, setLoadingState] = useState();
   useValidateToken(setLoadingState);
 
   const router = useRouter();
 
-  const nameRef = useRef<HTMLInputElement>(null);
-  const typeRef = useRef<HTMLInputElement>(null);
-  const descRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef();
+  const typeRef = useRef();
+  const descRef = useRef();
 
-  const sendRegisterInfoToBackend = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
 
     const nameRefValue =
@@ -162,20 +158,4 @@ const CreateDiary = () => {
   );
 };
 
-// //TSATICLY GENERATE
-
-// type Post = {
-//   author: string;
-//   content: string;
-// };
-// export const getStaticProps = async () => {
-//   // const res = await fetch("https://.../posts");
-//   const posts: Post[] = [{ author: "luka", content: "nicee" }];
-
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// };
 export default CreateDiary;
