@@ -15,7 +15,6 @@ export default function Growers() {
       .get("https://greenbackk.herokuapp.com/diary/all")
       .then((res) => {
         setDiaries(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

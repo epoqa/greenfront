@@ -17,7 +17,6 @@ export default function Grower() {
         .get(`https://greenbackk.herokuapp.com/users/${router.query.user}`)
         .then((res) => {
           setUser(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);

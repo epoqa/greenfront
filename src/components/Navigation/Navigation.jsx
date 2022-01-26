@@ -1,23 +1,52 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { styled } from "@mui/material/styles";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
 import IconButton from "@mui/material/IconButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
-import AssignmentIcon from "@mui/icons-material/Assignment";
 import List from "@mui/material/List";
 import NextLink from "next/link";
 import MuiDrawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Toolbar from "@mui/material/Toolbar";
+import { toggleNavigationBar } from "../../redux/actions/action";
+import { useDispatch, useSelector } from "react-redux";
+import { getNavigationBar } from "../../redux/selectors/selector";
+
+const Navigation = () => {
+  const dispatch = useDispatch();
+  const NavigationBar = useSelector((state) => getNavigationBar(state));
+
+  return (
+    <Drawer variant="permanent" open={NavigationBar}>
+      <Toolbar
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-end",
+          px: [1],
+        }}
+      >
+        <IconButton onClick={() => dispatch(toggleNavigationBar())}>
+          <ChevronLeftIcon />
+        </IconButton>
+      </Toolbar>
+      <Divider />
+      <List>{mainListItems}</List>;
+      <Divider />
+    </Drawer>
+  );
+};
+export default Navigation;
+
+//MATERIAL UI STUFF & WILL TAKE THEM TO SEPERATE FILE LATER
+
 const drawerWidth = 240;
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -110,25 +139,3 @@ export const mainListItems = (
     </ListItem>
   </div>
 );
-const Navigation = () => {
-  return (
-    <Drawer variant="permanent" open={true}>
-      <Toolbar
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          px: [1],
-        }}
-      >
-        <IconButton>
-          <ChevronLeftIcon />
-        </IconButton>
-      </Toolbar>
-      <Divider />
-      <List>{mainListItems}</List>;
-      <Divider />
-    </Drawer>
-  );
-};
-export default Navigation;
