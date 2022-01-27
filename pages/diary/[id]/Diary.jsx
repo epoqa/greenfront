@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-//NEXT IMPORTS
-import NextLink from "next/link";
 
 //LIBRARY IMPORTS
 import axios from "axios";
@@ -12,26 +10,11 @@ import { NotificationManager } from "../../../src/components/Notifications/Notif
 //MATERIAL UI IMPORTS
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 
 export default function Grower() {
-  //TYPESCRIPT
-  interface DiaryInterface {
-    diaryName: string;
-    type: string;
-    description: string;
-    owner: string;
-    createdAt: number;
-    _id: string;
-  }
-  interface commentInterface {
-    owner: string;
-    comment: string;
-    createdAt: number;
-  }
-  const [diary, setDiary] = useState<Partial<DiaryInterface>>({});
+  const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
   const router = useRouter();
   useEffect(() => {
@@ -48,11 +31,9 @@ export default function Grower() {
         });
   }, [router]);
 
-  const commentRef = useRef<HTMLInputElement>(null);
+  const commentRef = useRef();
 
-  const sendRegisterInfoToBackend = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
 
     const commentRefValue =
@@ -132,7 +113,7 @@ export default function Grower() {
           </Box>
         </div>
         {comments
-          ? comments.map((comment: commentInterface) => (
+          ? comments.map((comment) => (
               <div
                 key={uuidv4()}
                 style={{

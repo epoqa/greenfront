@@ -32,12 +32,10 @@ export default function SignIn() {
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
 
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-  const sendSigninInfoToBackend = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const sendSigninInfoToBackend = (e) => {
     e.preventDefault();
 
     //DESTRUCTURING REF VALUES

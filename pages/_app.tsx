@@ -4,7 +4,7 @@ import { NotificationContainer } from "../src/components/Notifications/Notificat
 import { createStore, compose } from "redux";
 import { counterReducer } from "../src/redux/reducers/reducer";
 import { Provider } from "react-redux";
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 //REDUX
 declare global {
   interface Window {

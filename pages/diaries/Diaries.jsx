@@ -8,11 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 export default function Growers() {
-  //TYPESCRIPT
-  interface keyable {
-    [key: string]: any;
-  }
-
   let [diary, setDiaries] = useState([]);
 
   useEffect(() => {
@@ -20,7 +15,6 @@ export default function Growers() {
       .get("https://greenbackk.herokuapp.com/diary/all")
       .then((res) => {
         setDiaries(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -29,9 +23,9 @@ export default function Growers() {
 
   return (
     <>
-      {diary.map((singleDiary: keyable) => (
+      {diary.map((singleDiary) => (
         <NextLink
-          href={{ pathname: `/diary/${singleDiary._id}` }}
+          href={{ pathname: `/diary/${singleDiary.id}` }}
           key={uuidv4()}
         >
           <div
@@ -47,7 +41,7 @@ export default function Growers() {
             <h4>აღწერა: {singleDiary.description} </h4>
             <h4>შემქმნელი: {singleDiary.owner}</h4>
             <h4>თარიღი: {singleDiary.createdAt}</h4>
-            <h5>დღიურის აიდი: {singleDiary._id}</h5>
+            <h5>დღიურის აიდი: {singleDiary.id}</h5>
           </div>
         </NextLink>
       ))}

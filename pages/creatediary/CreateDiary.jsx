@@ -3,14 +3,17 @@ import axios from "axios";
 
 //MATERIAL UI IMPORTS
 import Typography from "@material-ui/core/Typography";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+
+import {
+  Box,
+  Grid,
+  Link,
+  TextField,
+  CssBaseline,
+  Avatar,
+  Button,
+} from "@mui/material";
+
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -22,18 +25,23 @@ import { useRouter } from "next/router";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
 import useValidateToken from "../../src/reuseableFunctions/validateToken";
 
+//COMPONENTS
+import Loading from "../../src/components/Loading/Loading";
+
 const theme = createTheme();
 
 const CreateDiary = () => {
-  useValidateToken();
-  const router = useRouter();
-  const nameRef = useRef<HTMLInputElement>(null);
-  const typeRef = useRef<HTMLInputElement>(null);
-  const descRef = useRef<HTMLInputElement>(null);
+  //STATE
+  const [loadingState, setLoadingState] = useState();
+  useValidateToken(setLoadingState);
 
-  const sendRegisterInfoToBackend = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const router = useRouter();
+
+  const nameRef = useRef();
+  const typeRef = useRef();
+  const descRef = useRef();
+
+  const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
 
     const nameRefValue =
@@ -59,18 +67,20 @@ const CreateDiary = () => {
           }
         )
         .then((response) => {
-          console.log(response);
-          NotificationManager.success(response.statusText, "", 1500);
-          router.push("/diaries");
+          NotificationManager.success(response.statusText);
+          router.push(`/diaries`);
+
         })
         .catch((error) => {
           console.log(error.response.data.error);
-          NotificationManager.error(error.response.data.error, "", 1500);
+          NotificationManager.error(error.response.data.error);
         });
     }
   };
 
-  return (
+  return loadingState ? (
+    <Loading />
+  ) : (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -83,7 +93,6 @@ const CreateDiary = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 2, bgcolor: "#60ff52" }}></Avatar>
           <Typography component="h1" variant="h5">
             შექმენი დღიური
           </Typography>
