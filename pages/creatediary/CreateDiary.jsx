@@ -1,36 +1,29 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import axios from "axios";
-
-//MATERIAL UI IMPORTS
-import Typography from "@material-ui/core/Typography";
-
-import {
-  Box,
-  Grid,
-  Link,
-  TextField,
-  CssBaseline,
-  Avatar,
-  Button,
-} from "@mui/material";
-
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-//NEXT IMPORTS
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-
-//OTHER IMPORTS
-import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import ContentProvider from "../../src/components/ContentProvider/ContentProvider";
+import Navigation from "../../src/components/Navigation/Navigation";
+import Header from "../../src/components/Header/Header";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import useValidateToken from "../../src/reuseableFunctions/validateToken";
-
-//COMPONENTS
+import { useRouter } from "next/router";
+import axios from "axios";
+import uniqid from 'uniqid';
 import Loading from "../../src/components/Loading/Loading";
+import { NotificationManager } from "../../src/components/Notifications/Notifications";
 
-const theme = createTheme();
+const mdTheme = createTheme();
 
 const CreateDiary = () => {
+
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+
   //STATE
   const [loadingState, setLoadingState] = useState();
   useValidateToken(setLoadingState);
@@ -39,7 +32,12 @@ const CreateDiary = () => {
 
   const nameRef = useRef();
   const typeRef = useRef();
-  const descRef = useRef();
+
+  const lightRef = useRef();
+  const fertRef = useRef();
+  const techRef = useRef();
+  const roomRef = useRef();
+  const groundRef = useRef();
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -48,17 +46,32 @@ const CreateDiary = () => {
       nameRef && null !== nameRef.current && nameRef.current.value;
     const typeRefValue =
       typeRef && null !== typeRef.current && typeRef.current.value;
-    const descRefValue =
-      descRef && null !== descRef.current && descRef.current.value;
+    const lightRefValue =
+      lightRef && null !== lightRef.current && lightRef.current.value;
+    const fertRefValue =
+      fertRef && null !== fertRef.current && fertRef.current.value;
+    const techRefValue =
+      techRef && null !== techRef.current && techRef.current.value;
+    const roomRefValue =
+      roomRef && null !== roomRef.current && roomRef.current.value;
+    const groundRefValue =
+      groundRef && null !== groundRef.current && groundRef.current.value;
 
-    if (nameRefValue && typeRefValue && descRefValue) {
+
+
+    if (nameRefValue && typeRefValue && lightRefValue && fertRefValue && techRefValue && roomRefValue && groundRefValue) {
       axios
         .post(
           "https://greenbackk.herokuapp.com/diary/create",
           {
             diaryName: nameRefValue,
             type: typeRefValue,
-            description: descRefValue,
+            light: lightRefValue,
+            fertilizer: fertRefValue,
+            technology: techRefValue,
+            room: roomRefValue,
+            ground: groundRefValue,
+            id: uniqid()
           },
           {
             headers: {
@@ -68,8 +81,7 @@ const CreateDiary = () => {
         )
         .then((response) => {
           NotificationManager.success(response.statusText);
-          router.push(`/diaries`);
-
+          router.push(`/diary/${response.data.id}`);
         })
         .catch((error) => {
           console.log(error.response.data.error);
@@ -78,83 +90,115 @@ const CreateDiary = () => {
     }
   };
 
+
   return loadingState ? (
     <Loading />
   ) : (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+    <ThemeProvider theme={mdTheme}>
+      <Box sx={{ display: "flex" }}>
         <CssBaseline />
-
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            შექმენი დღიური
-          </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={nameRef}
-                  name="diaryName"
-                  required
-                  fullWidth
-                  id="diaryName"
-                  label="დღიურის სახელი"
-                  autoFocus
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={typeRef}
-                  required
-                  fullWidth
-                  id="type"
-                  label="ჯიში"
-                  name="type"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  inputRef={descRef}
-                  required
-                  fullWidth
-                  name="description"
-                  label="აღწერა"
-                  type="text"
-                  id="description"
-                />
+        <Header />
+        <Navigation />
+        <ContentProvider>
+        <Grid container spacing={4}>
+              <Grid item xs={12} md={13} lg={13}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div>
+                    <h5 className="text-center" >შექმენი ახალი დღიური</h5>
+                    <hr />
+                    <br />
+                    <form>
+                      <div className="form-group">
+                        <h6 htmlFor="diaryName">დღიურის სახელი</h6>
+                        <input
+                          ref={nameRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                        <small className="text-secondary">შეყვანილი ინფოს შეცვლა სამომავლოდ შეუძლებელია</small>
+                      </div>
+                      <br />
+                      <h6 htmlFor="diaryName">ჯიში</h6>
+                        <input
+                          ref={typeRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">განათება</h6>
+                        <input
+                          ref={lightRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">სასუქი</h6>
+                        <input
+                          ref={fertRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">ტექნიკა</h6>
+                        <input
+                          ref={techRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="inputState">გარემოს ტიპი</h6>
+                      <select ref={roomRef} id="inputState" className="form-control">
+                        <option selected>აირჩიეთ...</option>
+                        <option>შიგნით</option>
+                        <option>გარეთ</option>
+                      </select>
+                      <br />
+                      <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
+                      <select ref={groundRef} id="inputState" className="form-control">
+                        <option selected>აირჩიეთ...</option>
+                        <option>ჰიდროფონიკა</option>
+                        <option>ნიადაგი</option>
+                      </select>
+                      <br />
+                      
+                      <button onClick={(e) => sendRegisterInfoToBackend(e)} type="submit" className="btn btn-success">
+                        შენახვა
+                      </button>
+                    </form>
+                  </div>
+                  <br />
+                </Paper>
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
-              onClick={(e) => sendRegisterInfoToBackend(e)}
-            >
-              შექმენი
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <NextLink href="/diaries">
-                  <Link href="#" variant="body2">
-                    {"დღიურები"}
-                  </Link>
-                </NextLink>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </Container>
+        </ContentProvider>
+      </Box>
     </ThemeProvider>
   );
 };
-
 export default CreateDiary;
