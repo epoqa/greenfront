@@ -19,7 +19,8 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Image from "next/image";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
-
+import PersonIcon from "@mui/icons-material/Person";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
@@ -32,7 +33,7 @@ const CreateDiary = () => {
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
-          console.log(res.data.comments, "nice d:");
+          console.log(res.data);
           setComments(res.data.comments);
         })
         .catch((err) => {
@@ -82,33 +83,105 @@ const CreateDiary = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <Grid container spacing={4}>
+          <Grid container spacing={0}>
             <Grid item xs={12} md={13} lg={13}>
               <Paper
                 sx={{
-                  p: 2,
+                  p: 3,
                   display: "flex",
                   flexDirection: "column",
+                  backgroundColor: "white",
                 }}
               >
                 <div>
-                  <h4>დღიურის სახელი: {diary.diaryName}</h4>
-                  <h4>ტიპი: {diary.type}</h4>
-                  <h4>აღწერა: {diary.description} </h4>
-                  <h4>შემქმნელი: {diary.owner}</h4>
-                  <h4>თარიღი: {diary.createdAt}</h4>
-                  <h5>დღიურის აიდი: {diary._id}</h5>
-                </div>
-                <div>
-                  <div></div>
-                  <section style={{ backgroundColor: "#f7f6f6" }}>
+                  <section style={{ backgroundColor: "white" }}>
+                    <div>
+                      <h4 className="fw-bold pb-1">{diary.diaryName}</h4>
+
+                      <h6>
+                        <PersonIcon /> შექმნა {timeSince(diary.createdAt)} წინ{" "}
+                        <a href={`/grower/${diary.owner}`}> {diary.owner}</a>-მ
+                      </h6>
+                      <br />
+
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-sm">
+                            {" "}
+                            <span>
+                              <p>
+                                {diary.type}
+                                <br />
+                                <small className="text-secondary">ჯიში</small>
+                              </p>
+                            </span>
+                          </div>
+                          <div className="col-sm">
+                            {" "}
+                            <span>
+                              <p>
+                                {diary.fertilizer}{" "}
+                                <br />
+                                <small className="text-secondary">სასუქი</small>
+                              </p>
+                            </span>
+                          </div>
+                          <div className="col-sm">
+                            {" "}
+                            <span>
+                              <p>
+                                {diary.ground}{" "}
+                                <br />
+                                <small className="text-secondary">ნიადაგი</small>
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-sm">
+                            <span>
+                              <p>
+                                {diary.light} 
+                                <br />
+                                
+                                <small className="text-secondary">განათება</small>
+                              </p>
+                            </span>
+                          </div>
+                          <div className="col-sm">
+                            <span>
+                              <p>
+                                {diary.technology}{" "}
+                                <br />
+                                <small className="text-secondary">ტექნიკა</small>
+                              </p>
+                            </span>
+                          </div>
+                          <div className="col-sm">
+                            {" "}
+                            <span>
+                              <p>
+                                {diary.room}{" "}
+                                <br />
+                                <small className="text-secondary">გარემო</small>
+                              </p>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr />
+
+                    <h5 className="text-center">კვირები</h5>
+
                     <div className="container my-5 py-5 text-dark">
                       <div className="row d-flex justify-content-center">
+                        <hr />
                         <div className="col-md-12 col-lg-10 col-xl-8">
                           <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h4 className="text-dark mb-0">
+                            <h5 className="text-dark mb-0">
                               კომენტარები ({comments.length})
-                            </h4>
+                            </h5>
                             <br />
                           </div>
                           <form>
