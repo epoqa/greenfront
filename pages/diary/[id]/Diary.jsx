@@ -21,9 +21,13 @@ import Image from "next/image";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
 import PersonIcon from "@mui/icons-material/Person";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+
+import styles from "../../../styles/Diary.module.css";
+
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
+  console.log(styles.weekParent);
   const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
   const router = useRouter();
@@ -120,8 +124,7 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.fertilizer}{" "}
-                                <br />
+                                {diary.fertilizer} <br />
                                 <small className="text-secondary">სასუქი</small>
                               </p>
                             </span>
@@ -130,9 +133,10 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.ground}{" "}
-                                <br />
-                                <small className="text-secondary">ნიადაგი</small>
+                                {diary.ground} <br />
+                                <small className="text-secondary">
+                                  ნიადაგი
+                                </small>
                               </p>
                             </span>
                           </div>
@@ -141,19 +145,22 @@ const CreateDiary = () => {
                           <div className="col-sm">
                             <span>
                               <p>
-                                {diary.light} 
+                                {diary.light}
                                 <br />
-                                
-                                <small className="text-secondary">განათება</small>
+
+                                <small className="text-secondary">
+                                  განათება
+                                </small>
                               </p>
                             </span>
                           </div>
                           <div className="col-sm">
                             <span>
                               <p>
-                                {diary.technology}{" "}
-                                <br />
-                                <small className="text-secondary">ტექნიკა</small>
+                                {diary.technology} <br />
+                                <small className="text-secondary">
+                                  ტექნიკა
+                                </small>
                               </p>
                             </span>
                           </div>
@@ -161,8 +168,7 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.room}{" "}
-                                <br />
+                                {diary.room} <br />
                                 <small className="text-secondary">გარემო</small>
                               </p>
                             </span>
@@ -173,7 +179,29 @@ const CreateDiary = () => {
                     <hr />
 
                     <h5 className="text-center">კვირები</h5>
-
+                    <br />
+                    
+                    <div className="justify-content-center row">
+                      <a
+                        href="#"
+                        className={`${styles.weekParent} ${styles.GER} d-flex flex-column col-xs-6`}
+                      >
+                        GER
+                        <span className={`${styles.weekMiddle} p2`}>
+                          G<p className={`${styles.weekChild} p2`}>week</p>
+                        </span>
+                      </a>
+                      <a
+                        href="#"
+                        className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6` }
+                      >
+                        დამატება
+                        <span className={`${styles.weekMiddle}  ${styles.ADD} p2`}>
+                          +
+                        </span>
+                      </a>
+                    </div>
+                    
                     <div className="container my-5 py-5 text-dark">
                       <div className="row d-flex justify-content-center">
                         <hr />

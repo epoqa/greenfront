@@ -1,61 +1,53 @@
-
-.card {
-    border: none;
-    box-shadow: 5px 6px 6px 2px #e9ecef;
-    border-radius: 4px
+.weekParent{
+    color: white;
+    text-align: center;
+    padding: 1px;
+    height: 75px;
+    width: 60px;
+    font-size: 11px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+.weekParent.GER {
+    background-color: #5db7ff;
+}
+.weekParent.VEG{
+    background-color: #a2da7a;
+}
+.weekParent.FLO {
+    background-color: #ff8855;
+}
+.weekParent.HAR {
+    background-color: #e35149;
 }
 
-.dots {
-    height: 4px;
-    width: 4px;
-    margin-bottom: 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block
+.weekParent.ADD {
+    background-color: #dadada;
+    color: black;
 }
-
-.badge {
-    padding: 7px;
-    padding-right: 9px;
-    padding-left: 16px;
-    box-shadow: 5px 6px 6px 2px #e9ecef
+.weekParent.ADD:hover {
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
 }
-
-.userimg {
-    margin-top: 4px
+.weekMiddle{
+    margin-top:2px; 
+    color:black; 
+    background-color: white; 
+    font-size: 20px; 
+    height: 55px; 
+    border-radius: 4px;
 }
-
-.checkicon {
-    font-size: 17px;
-    color: #c3bfbf;
-    top: 1px;
-    position: relative;
-    margin-left: 3px
+.weekMiddle.ADD{
+    font-size: 30px;
+    background-color: #dadada;
 }
+.weekMiddle.ADD:hover{
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
 
-.formcheckinput {
-    margin-top: 6px;
-    margin-left: -24px !important;
-    cursor: pointer
 }
-
-.formcheckinput:focus {
-    box-shadow: none
-}
-
-.icons i {
-    margin-left: 8px
-}
-
-.reply {
-    margin-left: 12px
-}
-
-.replysmall {
-    color: #b7b4b4
-}
-
-.replysmall:hover {
-    color: green;
-    cursor: pointer
+.weekChild{
+    background-color: white; 
+    font-size: 11px;
 }
