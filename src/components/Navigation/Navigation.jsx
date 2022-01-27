@@ -38,7 +38,7 @@ const Navigation = () => {
         </IconButton>
       </Toolbar>
       <Divider />
-      <List>{mainListItems}</List>;
+      <List>{mainListItems}</List>
       <Divider />
     </Drawer>
   );
