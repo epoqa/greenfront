@@ -1,7 +1,12 @@
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import { useSelector } from "react-redux";
+import { getNavigationBar } from "../../redux/selectors/selector";
+import { isMobile } from "react-device-detect";
+
 const ContentProvider = ({ children }) => {
+  const NavigationBar = useSelector((state) => getNavigationBar(state));
   return (
     <Box
       component="main"
@@ -13,6 +18,7 @@ const ContentProvider = ({ children }) => {
         flexGrow: 1,
         height: "100vh",
         overflow: "auto",
+        visibility: () => (NavigationBar && isMobile ? "hidden" : "visible"),
       }}
     >
       <Toolbar />

@@ -2,7 +2,7 @@ import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import ContentProvider from "../../src/components/ContentProvider/ConstentProvider";
+import ContentProvider from "../../src/components/ContentProvider/ContentProvider";
 import Navigation from "../../src/components/Navigation/Navigation";
 import Header from "../../src/components/Header/Header";
 import Grid from "@mui/material/Grid";
