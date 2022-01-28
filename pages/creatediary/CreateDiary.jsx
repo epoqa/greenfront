@@ -49,23 +49,28 @@ const CreateDiary = () => {
     const groundRefValue =
       groundRef && null !== groundRef.current && groundRef.current.value;
 
-
-
-    if (nameRefValue && typeRefValue && lightRefValue && fertRefValue && techRefValue && roomRefValue && groundRefValue) {
+    if (
+      nameRefValue &&
+      typeRefValue &&
+      lightRefValue &&
+      fertRefValue &&
+      techRefValue &&
+      roomRefValue &&
+      groundRefValue
+    ) {
       axios
         .post(
           "https://greenbackk.herokuapp.com/diary/create",
           {
             diaryName: nameRefValue,
             type: typeRefValue,
- 
+
             light: lightRefValue,
             fertilizer: fertRefValue,
             technology: techRefValue,
             room: roomRefValue,
             ground: groundRefValue,
-            id: uniqid()
- 
+            id: uniqid(),
           },
           {
             headers: {
@@ -93,100 +98,18 @@ const CreateDiary = () => {
         <Header />
         <Navigation />
         <ContentProvider>
- 
-        <Grid container spacing={4}>
-              <Grid item xs={12} md={13} lg={13}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <div>
-                    <h5 className="text-center" >შექმენი ახალი დღიური</h5>
-                    <hr />
-                    <br />
-                    <form>
-                      <div className="form-group">
-                        <h6 htmlFor="diaryName">დღიურის სახელი</h6>
-                        <input
-                          ref={nameRef}
-                          type="text"
-                          className="form-control"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="50"
-                          required
-                        />
-                        <small className="text-secondary">შეყვანილი ინფოს შეცვლა სამომავლოდ შეუძლებელია</small>
-                      </div>
-                      <br />
-                      <h6 htmlFor="diaryName">ჯიში</h6>
-                        <input
-                          ref={typeRef}
-                          type="text"
-                          className="form-control"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="50"
-                          required
-                        />
-                      <br />
-                      <h6 htmlFor="diaryName">განათება</h6>
-                        <input
-                          ref={lightRef}
-                          type="text"
-                          className="form-control"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="50"
-                          required
-                        />
-                      <br />
-                      <h6 htmlFor="diaryName">სასუქი</h6>
-                        <input
-                          ref={fertRef}
-                          type="text"
-                          className="form-control"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="50"
-                          required
-                        />
-                      <br />
-                      <h6 htmlFor="diaryName">ტექნიკა</h6>
-                        <input
-                          ref={techRef}
-                          type="text"
-                          className="form-control"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="50"
-                          required
-                        />
-                      <br />
-                      <h6 htmlFor="inputState">გარემოს ტიპი</h6>
-                      <select ref={roomRef} id="inputState" className="form-control">
-                        <option selected>აირჩიეთ...</option>
-                        <option>შიგნით</option>
-                        <option>გარეთ</option>
-                      </select>
-                      <br />
-                      <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
-                      <select ref={groundRef} id="inputState" className="form-control">
-                        <option selected>აირჩიეთ...</option>
-                        <option>ჰიდროფონიკა</option>
-                        <option>ნიადაგი</option>
-                      </select>
-                      <br />
-                      
-                      <button onClick={(e) => sendRegisterInfoToBackend(e)} type="submit" className="btn btn-success">
-                        შენახვა
-                      </button>
-                    </form>
-                  </div>
- 
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={13} lg={13}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <div>
+                  <h5 className="text-center">შექმენი ახალი დღიური</h5>
+                  <hr />
                   <br />
                   <form>
                     <div className="form-group">
@@ -200,33 +123,75 @@ const CreateDiary = () => {
                         maxLength="50"
                         required
                       />
+                      <small className="text-secondary">
+                        შეყვანილი ინფოს შეცვლა სამომავლოდ შეუძლებელია
+                      </small>
                     </div>
                     <br />
-                    <div className="form-group">
-                      <h6 htmlFor="diaryDesc">დღიურის აღწერა</h6>
-                      <textarea
-                        ref={descRef}
-                        rows="5"
-                        cols="60"
-                        type="text"
-                        className="form-control"
-                        id="diaryName"
-                        aria-describedby="diaryName"
-                        maxLength="700"
-                        required
-                      />
-                    </div>
-                    <br />
-                    <h6 htmlFor="inputState">ჯიში</h6>
-                    <select
+                    <h6 htmlFor="diaryName">ჯიში</h6>
+                    <input
                       ref={typeRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      required
+                    />
+                    <br />
+                    <h6 htmlFor="diaryName">განათება</h6>
+                    <input
+                      ref={lightRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      required
+                    />
+                    <br />
+                    <h6 htmlFor="diaryName">სასუქი</h6>
+                    <input
+                      ref={fertRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      required
+                    />
+                    <br />
+                    <h6 htmlFor="diaryName">ტექნიკა</h6>
+                    <input
+                      ref={techRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      required
+                    />
+                    <br />
+                    <h6 htmlFor="inputState">გარემოს ტიპი</h6>
+                    <select
+                      ref={roomRef}
                       id="inputState"
                       className="form-control"
                     >
-                      <option selected>სხვა...</option>
-                      <option>ჯიში 1</option>
-                      <option>ჯიში 2</option>
-                      <option>ჯიში 3</option>
+                      <option selected>აირჩიეთ...</option>
+                      <option>შიგნით</option>
+                      <option>გარეთ</option>
+                    </select>
+                    <br />
+                    <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
+                    <select
+                      ref={groundRef}
+                      id="inputState"
+                      className="form-control"
+                    >
+                      <option selected>აირჩიეთ...</option>
+                      <option>ჰიდროფონიკა</option>
+                      <option>ნიადაგი</option>
                     </select>
                     <br />
 
@@ -239,6 +204,58 @@ const CreateDiary = () => {
                     </button>
                   </form>
                 </div>
+
+                <br />
+                <form>
+                  <div className="form-group">
+                    <h6 htmlFor="diaryName">დღიურის სახელი</h6>
+                    <input
+                      ref={nameRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      required
+                    />
+                  </div>
+                  <br />
+                  <div className="form-group">
+                    <h6 htmlFor="diaryDesc">დღიურის აღწერა</h6>
+                    <textarea
+                      rows="5"
+                      cols="60"
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="700"
+                      required
+                    />
+                  </div>
+                  <br />
+                  <h6 htmlFor="inputState">ჯიში</h6>
+                  <select
+                    ref={typeRef}
+                    id="inputState"
+                    className="form-control"
+                  >
+                    <option selected>სხვა...</option>
+                    <option>ჯიში 1</option>
+                    <option>ჯიში 2</option>
+                    <option>ჯიში 3</option>
+                  </select>
+                  <br />
+
+                  <button
+                    onClick={(e) => sendRegisterInfoToBackend(e)}
+                    type="submit"
+                    className="btn btn-success"
+                  >
+                    შენახვა
+                  </button>
+                </form>
+
                 <br />
               </Paper>
             </Grid>
