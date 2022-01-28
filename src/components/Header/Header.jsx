@@ -19,7 +19,7 @@ const Header = () => {
       open={false}
       sx={{}}
       style={{
-        height: "5vh",
+        height: "7vh",
         dispay: "flex",
         flexDirection: "row",
         alignItems: "center",
