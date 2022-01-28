@@ -28,19 +28,15 @@ import Popup from "../../../src/components/Popup/Popup";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
-  
   const [modalShow, setModalShow] = React.useState(false);
-
+  const [chosenWeek, setChosenWeek] = React.useState(0);
   const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
   const [weeks, setWeeks] = useState([]);
   const router = useRouter();
-
   const rerenderfunc = (arg) => {
-
-    console.log(weeks, arg)
     setWeeks(arg);
-  }
+  };
 
   useEffect(() => {
     router.query.id &&
@@ -57,7 +53,27 @@ const CreateDiary = () => {
   }, [router]);
 
   const commentRef = useRef();
+  const pictureRef = useRef();
 
+  const sendPictureToBackend = (event, owner, weekNum) => {
+    console.log(owner)
+    event.preventDefault();
+    const pictureRefValue =
+      pictureRef && null !== pictureRef.current && pictureRef.current.value;
+
+    
+    axios
+      .put('https://greenbackk.herokuapp.com/diary/picture/' + router.query.id, { 
+        picture: pictureRefValue,
+        owner: owner,
+        weekNum: weekNum
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+  };
   const sendRegisterInfoToBackend = (event) => {
     console.log("asfasf");
     event.preventDefault();
@@ -90,6 +106,17 @@ const CreateDiary = () => {
         });
     }
   };
+
+  const arr = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  console.log(weeks)
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -191,22 +218,35 @@ const CreateDiary = () => {
                     <br />
 
                     <div className="justify-content-center row">
-                    {weeks
-                            ? weeks.map((week, index) => (
-                              <a
-                              onClick={(e) => console.log('clicked')}
+                      {weeks
+                        ? weeks.map((week, index) => (
+                            <a
+                              style={{opacity: (index === chosenWeek) ? 1 : 0.4}}
+                              onClick={(e) => setChosenWeek(index)}
                               key={uniqid()}
-                             
-                              className={`${styles.weekParent} ${( week.weekType === 'GER') ? styles.GER : (week.weekType === "VEG") ? styles.VEG : (week.weekType === "FLO") ? styles.FLO : (week.weekType === "HAR") ? styles.HAR : null } d-flex flex-column col-xs-6`}
+                              className={`${styles.weekParent} ${
+                                week.weekType === "GER"
+                                  ? styles.GER
+                                  : week.weekType === "VEG"
+                                  ? styles.VEG
+                                  : week.weekType === "FLO"
+                                  ? styles.FLO
+                                  : week.weekType === "HAR"
+                                  ? styles.HAR
+                                  : null
+                              } d-flex flex-column col-xs-6`}
                             >
                               {week.weekType}
                               <span className={`${styles.weekMiddle} p2`}>
-                              {(index === 0 ? 'G' : index)}<p className={`${styles.weekChild} p2`}>კვირა</p>
+                                {index === 0 ? "G" : index}
+                                <p className={`${styles.weekChild} p2`}>
+                                  კვირა
+                                </p>
                               </span>
                             </a>
-                              ))
-                            : null}
-                      
+                          ))
+                        : null}
+
                       <a
                         onClick={() => setModalShow(true)}
                         className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6`}
@@ -227,8 +267,48 @@ const CreateDiary = () => {
                       owner={diary.owner}
                       id={router.query.id}
                       func={setModalShow}
-                      re
                     />
+                    <br />
+                    <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
+                    <form>
+                      <div className="row h-100 align-items-center">
+                        <input
+                          ref={pictureRef}
+                          style={{ resize: "none" }}
+                          rows="2"
+                          cols="40"
+                          type="text"
+                          className="form-control my-2"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="700"
+                          required
+                        />
+
+                        <button
+                          type="submit"
+                          onClick={(e) => sendPictureToBackend(e, diary.owner, chosenWeek)}
+                          className="col-sm-12 my-auto w-50 btn center btn-success"
+                        >
+                          ატვირთვა
+                        </button>
+                      </div>
+                    </form>
+                    <div className={`${styles.row} row`}>
+                      {(weeks[chosenWeek])
+                        ? weeks[chosenWeek].pictures.map((picture, index) => (
+                            <div
+                              key={uniqid()}
+                              className={`${styles.column} column`}
+                            >
+                              <img
+                                className={`${styles.columnimg}`}
+                                src={picture.picture}
+                              />
+                            </div>
+                          ))
+                        : null}
+                    </div>
 
                     <div className="container my-5 py-5 text-dark">
                       <div className="row d-flex justify-content-center">
