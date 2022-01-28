@@ -1,61 +1,113 @@
+.weekParent{
+    color: white;
+    text-align: center;
+    padding: 1px;
+    height: 75px;
+    width: 60px;
+    font-size: 11px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom:8px;
+    cursor: pointer;
 
-.card {
-    border: none;
-    box-shadow: 5px 6px 6px 2px #e9ecef;
-    border-radius: 4px
+}
+.weekParent.GER {
+    background-color: #5db7ff;
+}
+.weekParent.VEG{
+    background-color: #a2da7a;
+}
+.weekParent.FLO {
+    background-color: #ff8855;
+}
+.weekParent.HAR {
+    background-color: #e35149;
 }
 
-.dots {
-    height: 4px;
-    width: 4px;
-    margin-bottom: 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block
-}
+.weekParent.ADD {
+    background-color: #dadada;
+    color: black;
 
-.badge {
-    padding: 7px;
-    padding-right: 9px;
-    padding-left: 16px;
-    box-shadow: 5px 6px 6px 2px #e9ecef
 }
+.weekParent.ADD:hover {
+    cursor: pointer;
 
-.userimg {
-    margin-top: 4px
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
 }
+.weekMiddle{
+    margin-top:1px; 
+    color:black; 
+    background-color: white; 
+    font-size: 20px; 
+    height: 55px; 
+    border-radius: 4px;
+}
+.weekMiddle.ADD{
+    font-size: 30px;
+    background-color: #dadada;
+}
+.weekMiddle.ADD:hover{
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
 
-.checkicon {
-    font-size: 17px;
-    color: #c3bfbf;
-    top: 1px;
-    position: relative;
-    margin-left: 3px
 }
+.weekChild{
+    background-color: white; 
+    font-size: 11px;
+}
+.h1class {
+    display: flex;
+    flex-direction: row;
+  }
+  .h1class:before, .h1class:after{
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid;
+    margin: auto;
+  }
+  .h1class:before {
+    border-color: #aeaeae;
+    margin-right: 10px
+  }
+  .h1class:after {
+    border-color: #aeaeae;
+    margin-left: 10px
+  }
 
-.formcheckinput {
-    margin-top: 6px;
-    margin-left: -24px !important;
-    cursor: pointer
-}
 
-.formcheckinput:focus {
-    box-shadow: none
-}
-
-.icons i {
-    margin-left: 8px
-}
-
-.reply {
-    margin-left: 12px
-}
-
-.replysmall {
-    color: #b7b4b4
-}
-
-.replysmall:hover {
-    color: green;
-    cursor: pointer
-}
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+  
+  /* Create four equal columns that sits next to each other */
+  .column {
+    flex: 33%;
+    max-width: 34%;
+    padding: 0 4px;
+  }
+  
+  .columnimg {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+  }
+  
+  /* Responsive layout - makes a two column-layout instead of four columns */
+  @media screen and (max-width: 800px) {
+    .column {
+      flex: 50%;
+      max-width: 50%;
+    }
+  }
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }

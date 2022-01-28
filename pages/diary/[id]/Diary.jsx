@@ -9,42 +9,65 @@ import Navigation from "../../../src/components/Navigation/Navigation";
 import Header from "../../../src/components/Header/Header";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import useValidateToken from "../../../src/reuseableFunctions/validateToken";
 import { useRouter } from "next/router";
 import axios from "axios";
 import uniqid from "uniqid";
-import Loading from "../../../src/components/Loading/Loading";
 import { NotificationManager } from "../../../src/components/Notifications/Notifications";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Image from "next/image";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
 import PersonIcon from "@mui/icons-material/Person";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
+
+import styles from "../../../styles/Diary.module.css";
+import Popup from "../../../src/components/Popup/Popup";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
+  const [modalShow, setModalShow] = useState(false);
+  const [chosenWeek, setChosenWeek] = useState(0);
   const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
+  const [weeks, setWeeks] = useState([]);
+  const commentRef = useRef();
+  const pictureRef = useRef();
+
   const router = useRouter();
+  const rerenderfunc = (arg) => {
+    setWeeks(arg);
+  };
+
   useEffect(() => {
     router.query.id &&
       axios
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
-          console.log(res.data);
           setComments(res.data.comments);
+          setWeeks(res.data.weeks);
         })
         .catch((err) => {
           console.log(err);
         });
   }, [router]);
 
-  const commentRef = useRef();
+  const sendPictureToBackend = (event, owner, weekNum) => {
+    event.preventDefault();
+    const pictureRefValue =
+      pictureRef && null !== pictureRef.current && pictureRef.current.value;
 
+    axios.put(
+      "https://greenbackk.herokuapp.com/diary/picture/" + router.query.id,
+      {
+        picture: pictureRefValue,
+        owner: owner,
+        weekNum: weekNum,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+  };
   const sendRegisterInfoToBackend = (event) => {
-    console.log("asfasf");
     event.preventDefault();
     const commentRefValue =
       commentRef && commentRef.current && commentRef.current.value;
@@ -63,7 +86,6 @@ const CreateDiary = () => {
           }
         )
         .then((response) => {
-          console.log(response.data, "miniso");
           setComments(response.data.comments);
           commentRef && commentRef.current
             ? (commentRef.current.value = "")
@@ -75,6 +97,16 @@ const CreateDiary = () => {
         });
     }
   };
+
+  const arr = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -120,8 +152,7 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.fertilizer}{" "}
-                                <br />
+                                {diary.fertilizer} <br />
                                 <small className="text-secondary">სასუქი</small>
                               </p>
                             </span>
@@ -130,9 +161,10 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.ground}{" "}
-                                <br />
-                                <small className="text-secondary">ნიადაგი</small>
+                                {diary.ground} <br />
+                                <small className="text-secondary">
+                                  ნიადაგი
+                                </small>
                               </p>
                             </span>
                           </div>
@@ -141,19 +173,22 @@ const CreateDiary = () => {
                           <div className="col-sm">
                             <span>
                               <p>
-                                {diary.light} 
+                                {diary.light}
                                 <br />
-                                
-                                <small className="text-secondary">განათება</small>
+
+                                <small className="text-secondary">
+                                  განათება
+                                </small>
                               </p>
                             </span>
                           </div>
                           <div className="col-sm">
                             <span>
                               <p>
-                                {diary.technology}{" "}
-                                <br />
-                                <small className="text-secondary">ტექნიკა</small>
+                                {diary.technology} <br />
+                                <small className="text-secondary">
+                                  ტექნიკა
+                                </small>
                               </p>
                             </span>
                           </div>
@@ -161,8 +196,7 @@ const CreateDiary = () => {
                             {" "}
                             <span>
                               <p>
-                                {diary.room}{" "}
-                                <br />
+                                {diary.room} <br />
                                 <small className="text-secondary">გარემო</small>
                               </p>
                             </span>
@@ -170,20 +204,113 @@ const CreateDiary = () => {
                         </div>
                       </div>
                     </div>
-                    <hr />
+                    <h6 className={styles.h1class + " fw-bold"}>კვირები</h6>
+                    <br />
 
-                    <h5 className="text-center">კვირები</h5>
+                    <div className="justify-content-center row">
+                      {weeks
+                        ? weeks.map((week, index) => (
+                            <a
+                              style={{
+                                opacity: index === chosenWeek ? 1 : 0.4,
+                              }}
+                              onClick={(e) => setChosenWeek(index)}
+                              key={uniqid()}
+                              className={`${styles.weekParent} ${
+                                week.weekType === "GER"
+                                  ? styles.GER
+                                  : week.weekType === "VEG"
+                                  ? styles.VEG
+                                  : week.weekType === "FLO"
+                                  ? styles.FLO
+                                  : week.weekType === "HAR"
+                                  ? styles.HAR
+                                  : null
+                              } d-flex flex-column col-xs-6`}
+                            >
+                              {week.weekType}
+                              <span className={`${styles.weekMiddle} p2`}>
+                                {index === 0 ? "G" : index}
+                                <p className={`${styles.weekChild} p2`}>
+                                  კვირა
+                                </p>
+                              </span>
+                            </a>
+                          ))
+                        : null}
+
+                      <a
+                        onClick={() => setModalShow(true)}
+                        className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6`}
+                      >
+                        დამატება
+                        <span
+                          className={`${styles.weekMiddle}  ${styles.ADD} p2`}
+                        >
+                          +
+                        </span>
+                      </a>
+                    </div>
+
+                    <Popup
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                      rerenderfunc={rerenderfunc}
+                      owner={diary.owner}
+                      id={router.query.id}
+                      func={setModalShow}
+                    />
+                    <br />
+                    <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
+                    <form>
+                      <div className="row h-100 align-items-center">
+                        <input
+                          ref={pictureRef}
+                          style={{ resize: "none" }}
+                          rows="2"
+                          cols="40"
+                          type="text"
+                          className="form-control my-2"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="700"
+                          required
+                        />
+
+                        <button
+                          type="submit"
+                          onClick={(e) =>
+                            sendPictureToBackend(e, diary.owner, chosenWeek)
+                          }
+                          className="col-sm-12 my-auto w-50 btn center btn-success"
+                        >
+                          ატვირთვა
+                        </button>
+                      </div>
+                    </form>
+                    <div className={`${styles.row} row`}>
+                      {weeks[chosenWeek]
+                        ? weeks[chosenWeek].pictures.map((picture, index) => (
+                            <div
+                              key={uniqid()}
+                              className={`${styles.column} column`}
+                            >
+                              <img
+                                className={`${styles.columnimg}`}
+                                src={picture.picture}
+                              />
+                            </div>
+                          ))
+                        : null}
+                    </div>
 
                     <div className="container my-5 py-5 text-dark">
                       <div className="row d-flex justify-content-center">
-                        <hr />
+                        <h6 className={styles.h1class + " fw-bold"}>
+                          კომენტარები
+                        </h6>
                         <div className="col-md-12 col-lg-10 col-xl-8">
-                          <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h5 className="text-dark mb-0">
-                              კომენტარები ({comments.length})
-                            </h5>
-                            <br />
-                          </div>
+                          <div className="d-flex justify-content-between align-items-center mb-4"></div>
                           <form>
                             <div className="row h-100 align-items-center">
                               <textarea

@@ -14,7 +14,17 @@ const Header = () => {
   NavigationBar = useSelector((state) => getNavigationBar(state));
   const dispatch = useDispatch();
   return (
-    <AppBar position="absolute" open={false}>
+    <AppBar
+      position="absolute"
+      open={false}
+      sx={{}}
+      style={{
+        height: "5vh",
+        dispay: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
       <Toolbar
         sx={{
           pr: "24px",
@@ -27,7 +37,6 @@ const Header = () => {
           onClick={() => dispatch(toggleNavigationBar())}
           sx={{
             marginRight: "36px",
-            //consdition here
             ...(NavigationBar && { display: "none" }),
           }}
         >
@@ -51,7 +60,7 @@ export default Header;
 
 //MATERIAL UI STUFF & WILL TAKE THEM TO SEPERATE FILE LATER
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
