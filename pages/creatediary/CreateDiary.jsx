@@ -24,7 +24,12 @@ const CreateDiary = () => {
 
   const nameRef = useRef();
   const typeRef = useRef();
-  const descRef = useRef();
+
+  const lightRef = useRef();
+  const fertRef = useRef();
+  const techRef = useRef();
+  const roomRef = useRef();
+  const groundRef = useRef();
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -33,18 +38,34 @@ const CreateDiary = () => {
       nameRef && null !== nameRef.current && nameRef.current.value;
     const typeRefValue =
       typeRef && null !== typeRef.current && typeRef.current.value;
-    const descRefValue =
-      descRef && null !== descRef.current && descRef.current.value;
+    const lightRefValue =
+      lightRef && null !== lightRef.current && lightRef.current.value;
+    const fertRefValue =
+      fertRef && null !== fertRef.current && fertRef.current.value;
+    const techRefValue =
+      techRef && null !== techRef.current && techRef.current.value;
+    const roomRefValue =
+      roomRef && null !== roomRef.current && roomRef.current.value;
+    const groundRefValue =
+      groundRef && null !== groundRef.current && groundRef.current.value;
 
-    if (nameRefValue && typeRefValue && descRefValue) {
+
+
+    if (nameRefValue && typeRefValue && lightRefValue && fertRefValue && techRefValue && roomRefValue && groundRefValue) {
       axios
         .post(
           "https://greenbackk.herokuapp.com/diary/create",
           {
             diaryName: nameRefValue,
             type: typeRefValue,
-            description: descRefValue,
-            id: uniqid(),
+ 
+            light: lightRefValue,
+            fertilizer: fertRefValue,
+            technology: techRefValue,
+            room: roomRefValue,
+            ground: groundRefValue,
+            id: uniqid()
+ 
           },
           {
             headers: {
@@ -72,18 +93,100 @@ const CreateDiary = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={13} lg={13}>
-              <Paper
-                sx={{
-                  p: 2,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div>
-                  <h5 className="text-center">შექმენი ახალი დღიური</h5>
-                  <hr />
+ 
+        <Grid container spacing={4}>
+              <Grid item xs={12} md={13} lg={13}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <div>
+                    <h5 className="text-center" >შექმენი ახალი დღიური</h5>
+                    <hr />
+                    <br />
+                    <form>
+                      <div className="form-group">
+                        <h6 htmlFor="diaryName">დღიურის სახელი</h6>
+                        <input
+                          ref={nameRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                        <small className="text-secondary">შეყვანილი ინფოს შეცვლა სამომავლოდ შეუძლებელია</small>
+                      </div>
+                      <br />
+                      <h6 htmlFor="diaryName">ჯიში</h6>
+                        <input
+                          ref={typeRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">განათება</h6>
+                        <input
+                          ref={lightRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">სასუქი</h6>
+                        <input
+                          ref={fertRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="diaryName">ტექნიკა</h6>
+                        <input
+                          ref={techRef}
+                          type="text"
+                          className="form-control"
+                          id="diaryName"
+                          aria-describedby="diaryName"
+                          maxLength="50"
+                          required
+                        />
+                      <br />
+                      <h6 htmlFor="inputState">გარემოს ტიპი</h6>
+                      <select ref={roomRef} id="inputState" className="form-control">
+                        <option selected>აირჩიეთ...</option>
+                        <option>შიგნით</option>
+                        <option>გარეთ</option>
+                      </select>
+                      <br />
+                      <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
+                      <select ref={groundRef} id="inputState" className="form-control">
+                        <option selected>აირჩიეთ...</option>
+                        <option>ჰიდროფონიკა</option>
+                        <option>ნიადაგი</option>
+                      </select>
+                      <br />
+                      
+                      <button onClick={(e) => sendRegisterInfoToBackend(e)} type="submit" className="btn btn-success">
+                        შენახვა
+                      </button>
+                    </form>
+                  </div>
+ 
                   <br />
                   <form>
                     <div className="form-group">

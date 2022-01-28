@@ -1,0 +1,113 @@
+.weekParent{
+    color: white;
+    text-align: center;
+    padding: 1px;
+    height: 75px;
+    width: 60px;
+    font-size: 11px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom:8px;
+    cursor: pointer;
+
+}
+.weekParent.GER {
+    background-color: #5db7ff;
+}
+.weekParent.VEG{
+    background-color: #a2da7a;
+}
+.weekParent.FLO {
+    background-color: #ff8855;
+}
+.weekParent.HAR {
+    background-color: #e35149;
+}
+
+.weekParent.ADD {
+    background-color: #dadada;
+    color: black;
+
+}
+.weekParent.ADD:hover {
+    cursor: pointer;
+
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
+}
+.weekMiddle{
+    margin-top:1px; 
+    color:black; 
+    background-color: white; 
+    font-size: 20px; 
+    height: 55px; 
+    border-radius: 4px;
+}
+.weekMiddle.ADD{
+    font-size: 30px;
+    background-color: #dadada;
+}
+.weekMiddle.ADD:hover{
+    background-color: #d8d8d8;
+    color: rgb(94, 94, 94);
+
+}
+.weekChild{
+    background-color: white; 
+    font-size: 11px;
+}
+.h1class {
+    display: flex;
+    flex-direction: row;
+  }
+  .h1class:before, .h1class:after{
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid;
+    margin: auto;
+  }
+  .h1class:before {
+    border-color: #aeaeae;
+    margin-right: 10px
+  }
+  .h1class:after {
+    border-color: #aeaeae;
+    margin-left: 10px
+  }
+
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+  }
+  
+  /* Create four equal columns that sits next to each other */
+  .column {
+    flex: 33%;
+    max-width: 34%;
+    padding: 0 4px;
+  }
+  
+  .columnimg {
+    margin-top: 8px;
+    vertical-align: middle;
+    width: 100%;
+  }
+  
+  /* Responsive layout - makes a two column-layout instead of four columns */
+  @media screen and (max-width: 800px) {
+    .column {
+      flex: 50%;
+      max-width: 50%;
+    }
+  }
+  
+  /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 600px) {
+    .column {
+      flex: 100%;
+      max-width: 100%;
+    }
+  }
