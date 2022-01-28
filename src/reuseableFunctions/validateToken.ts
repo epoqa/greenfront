@@ -7,7 +7,6 @@ import axios from "axios";
 import { NotificationManager } from "../components/Notifications/Notifications";
 
 //NEXT IMPORTS
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 
 const useValidateToken = (setLoadingState: any) => {

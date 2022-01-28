@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 const Popup = (props) => {
+    //test
     const createNewWeekType = (type) => {
 
         props.func(false)
