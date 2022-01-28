@@ -174,22 +174,24 @@ const CreateDiary = () => {
                     <br />
                     <h6 htmlFor="inputState">გარემოს ტიპი</h6>
                     <select
+                      defaultValue="შიგნით"
                       ref={roomRef}
                       id="inputState"
                       className="form-control"
                     >
-                      <option selected>აირჩიეთ...</option>
+                      <option>აირჩიეთ...</option>
                       <option>შიგნით</option>
                       <option>გარეთ</option>
                     </select>
                     <br />
                     <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
                     <select
+                      defaultValue="შიგნით"
                       ref={groundRef}
                       id="inputState"
                       className="form-control"
                     >
-                      <option selected>აირჩიეთ...</option>
+                      <option>აირჩიეთ...</option>
                       <option>ჰიდროფონიკა</option>
                       <option>ნიადაგი</option>
                     </select>
@@ -239,8 +241,9 @@ const CreateDiary = () => {
                     ref={typeRef}
                     id="inputState"
                     className="form-control"
+                    defaultValue="სხვა..."
                   >
-                    <option selected>სხვა...</option>
+                    <option>სხვა...</option>
                     <option>ჯიში 1</option>
                     <option>ჯიში 2</option>
                     <option>ჯიში 3</option>
