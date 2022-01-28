@@ -9,30 +9,26 @@ import Navigation from "../../../src/components/Navigation/Navigation";
 import Header from "../../../src/components/Header/Header";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import useValidateToken from "../../../src/reuseableFunctions/validateToken";
 import { useRouter } from "next/router";
 import axios from "axios";
 import uniqid from "uniqid";
-import Loading from "../../../src/components/Loading/Loading";
 import { NotificationManager } from "../../../src/components/Notifications/Notifications";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Image from "next/image";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
 import PersonIcon from "@mui/icons-material/Person";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 import styles from "../../../styles/Diary.module.css";
-import Modal from "react-bootstrap/Modal";
 import Popup from "../../../src/components/Popup/Popup";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
-  const [modalShow, setModalShow] = React.useState(false);
-  const [chosenWeek, setChosenWeek] = React.useState(0);
+  const [modalShow, setModalShow] = useState(false);
+  const [chosenWeek, setChosenWeek] = useState(0);
   const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
   const [weeks, setWeeks] = useState([]);
+  const commentRef = useRef();
+  const pictureRef = useRef();
+
   const router = useRouter();
   const rerenderfunc = (arg) => {
     setWeeks(arg);
@@ -52,30 +48,26 @@ const CreateDiary = () => {
         });
   }, [router]);
 
-  const commentRef = useRef();
-  const pictureRef = useRef();
-
   const sendPictureToBackend = (event, owner, weekNum) => {
-    console.log(owner)
     event.preventDefault();
     const pictureRefValue =
       pictureRef && null !== pictureRef.current && pictureRef.current.value;
 
-    
-    axios
-      .put('https://greenbackk.herokuapp.com/diary/picture/' + router.query.id, { 
+    axios.put(
+      "https://greenbackk.herokuapp.com/diary/picture/" + router.query.id,
+      {
         picture: pictureRefValue,
         owner: owner,
-        weekNum: weekNum
+        weekNum: weekNum,
       },
       {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-      })
+      }
+    );
   };
   const sendRegisterInfoToBackend = (event) => {
-    console.log("asfasf");
     event.preventDefault();
     const commentRefValue =
       commentRef && commentRef.current && commentRef.current.value;
@@ -94,7 +86,6 @@ const CreateDiary = () => {
           }
         )
         .then((response) => {
-          console.log(response.data, "miniso");
           setComments(response.data.comments);
           commentRef && commentRef.current
             ? (commentRef.current.value = "")
@@ -116,7 +107,6 @@ const CreateDiary = () => {
     "Friday",
     "Saturday",
   ];
-  console.log(weeks)
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -221,7 +211,9 @@ const CreateDiary = () => {
                       {weeks
                         ? weeks.map((week, index) => (
                             <a
-                              style={{opacity: (index === chosenWeek) ? 1 : 0.4}}
+                              style={{
+                                opacity: index === chosenWeek ? 1 : 0.4,
+                              }}
                               onClick={(e) => setChosenWeek(index)}
                               key={uniqid()}
                               className={`${styles.weekParent} ${
@@ -287,7 +279,9 @@ const CreateDiary = () => {
 
                         <button
                           type="submit"
-                          onClick={(e) => sendPictureToBackend(e, diary.owner, chosenWeek)}
+                          onClick={(e) =>
+                            sendPictureToBackend(e, diary.owner, chosenWeek)
+                          }
                           className="col-sm-12 my-auto w-50 btn center btn-success"
                         >
                           ატვირთვა
@@ -295,7 +289,7 @@ const CreateDiary = () => {
                       </div>
                     </form>
                     <div className={`${styles.row} row`}>
-                      {(weeks[chosenWeek])
+                      {weeks[chosenWeek]
                         ? weeks[chosenWeek].pictures.map((picture, index) => (
                             <div
                               key={uniqid()}
