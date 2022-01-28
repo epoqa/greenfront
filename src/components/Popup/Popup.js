@@ -5,6 +5,7 @@ import axios from 'axios'
 const Popup = (props) => {
     //test
     const createNewWeekType = (type) => {
+
         props.func(false)
         axios.put(`https://greenbackk.herokuapp.com/diary/week/${props.id}`, {
             week: type,
@@ -16,7 +17,8 @@ const Popup = (props) => {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }).then(res => {
-            props.rerenderfunc(res.data.weeks)
+          props.rerenderfunc(res.data.weeks)
+
         })
 
     }

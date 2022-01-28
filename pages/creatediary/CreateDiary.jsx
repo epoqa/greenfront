@@ -206,59 +206,6 @@ const CreateDiary = () => {
                     </button>
                   </form>
                 </div>
-
-                <br />
-                <form>
-                  <div className="form-group">
-                    <h6 htmlFor="diaryName">დღიურის სახელი</h6>
-                    <input
-                      ref={nameRef}
-                      type="text"
-                      className="form-control"
-                      id="diaryName"
-                      aria-describedby="diaryName"
-                      maxLength="50"
-                      required
-                    />
-                  </div>
-                  <br />
-                  <div className="form-group">
-                    <h6 htmlFor="diaryDesc">დღიურის აღწერა</h6>
-                    <textarea
-                      rows="5"
-                      cols="60"
-                      type="text"
-                      className="form-control"
-                      id="diaryName"
-                      aria-describedby="diaryName"
-                      maxLength="700"
-                      required
-                    />
-                  </div>
-                  <br />
-                  <h6 htmlFor="inputState">ჯიში</h6>
-                  <select
-                    ref={typeRef}
-                    id="inputState"
-                    className="form-control"
-                    defaultValue="სხვა..."
-                  >
-                    <option>სხვა...</option>
-                    <option>ჯიში 1</option>
-                    <option>ჯიში 2</option>
-                    <option>ჯიში 3</option>
-                  </select>
-                  <br />
-
-                  <button
-                    onClick={(e) => sendRegisterInfoToBackend(e)}
-                    type="submit"
-                    className="btn btn-success"
-                  >
-                    შენახვა
-                  </button>
-                </form>
-
                 <br />
               </Paper>
             </Grid>
