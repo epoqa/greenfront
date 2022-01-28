@@ -1,12 +1,7 @@
 import * as React from "react";
 import NextLink from "next/link";
-
 import { styled } from "@mui/material/styles";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
 import MuiDrawer from "@mui/material/Drawer";
 import {
   Toolbar,
@@ -35,6 +30,11 @@ const Navigation = () => {
           alignItems: "center",
           justifyContent: "flex-end",
           px: [1],
+        }}
+        style={{
+          maxHeight: "5vh",
+          minHeight: "5vh",
+          // backgroundColor: "red",
         }}
       >
         <IconButton onClick={() => dispatch(toggleNavigationBar())}>
@@ -79,22 +79,22 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 const mainListItemsArray = [
-  { text: "მთავარი", icon: <DashboardIcon /> },
-  { text: "შესვლა", icon: <DashboardIcon /> },
-  { text: "რეგისტრაცია", icon: <DashboardIcon /> },
-  { text: "დღიურები", icon: <DashboardIcon /> },
-  { text: "დღიურის შექმნა", icon: <DashboardIcon /> },
-  { text: "გროუერები", icon: <DashboardIcon /> },
+  { text: "მთავარი", icon: <DashboardIcon />, linkTo: "/home" },
+  { text: "შესვლა", icon: <DashboardIcon />, linkTo: "/login" },
+  { text: "რეგისტრაცია", icon: <DashboardIcon />, linkTo: "/register" },
+  { text: "დღიურები", icon: <DashboardIcon />, linkTo: "/diaries" },
+  { text: "დღიურის შექმნა", icon: <DashboardIcon />, linkTo: "/creatediary" },
+  { text: "გროუერები", icon: <DashboardIcon />, linkTo: "/growers" },
 ];
 const mainListItems = (
   <div>
     {mainListItemsArray.map((item) => {
       return (
         <ListItem button key={uuidv4()}>
-          <NextLink href="/home">
+          <NextLink href={item.linkTo}>
             <ListItemIcon>{item.icon}</ListItemIcon>
           </NextLink>
-          <NextLink href="/home">
+          <NextLink href={item.linkTo}>
             <ListItemText
               disableTypography
               primary={
