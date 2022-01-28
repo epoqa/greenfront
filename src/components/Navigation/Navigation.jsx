@@ -1,24 +1,28 @@
 import * as React from "react";
+import NextLink from "next/link";
+
 import { styled } from "@mui/material/styles";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import IconButton from "@mui/material/IconButton";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
-import List from "@mui/material/List";
-import NextLink from "next/link";
 import MuiDrawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
+import {
+  Toolbar,
+  Divider,
+  List,
+  IconButton,
+  ListItemText,
+  ListItemIcon,
+  ListItem,
+  Typography,
+} from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Toolbar from "@mui/material/Toolbar";
 import { toggleNavigationBar } from "../../redux/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import { getNavigationBar } from "../../redux/selectors/selector";
-
+import { v4 as uuidv4 } from "uuid";
 const Navigation = () => {
   const dispatch = useDispatch();
   const NavigationBar = useSelector((state) => getNavigationBar(state));
@@ -47,7 +51,7 @@ export default Navigation;
 
 //MATERIAL UI STUFF & WILL TAKE THEM TO SEPERATE FILE LATER
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -74,68 +78,37 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-export const mainListItems = (
+const mainListItemsArray = [
+  { text: "მთავარი", icon: <DashboardIcon /> },
+  { text: "შესვლა", icon: <DashboardIcon /> },
+  { text: "რეგისტრაცია", icon: <DashboardIcon /> },
+  { text: "დღიურები", icon: <DashboardIcon /> },
+  { text: "დღიურის შექმნა", icon: <DashboardIcon /> },
+  { text: "გროუერები", icon: <DashboardIcon /> },
+];
+const mainListItems = (
   <div>
-    <ListItem button>
-      <NextLink href="/home">
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/home">
-        <ListItemText primary="მთავარი" />
-      </NextLink>
-    </ListItem>
-    <ListItem button>
-      <NextLink href="/login">
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/login">
-        <ListItemText primary="შესვლა" />
-      </NextLink>
-    </ListItem>
-    <ListItem button>
-      <NextLink href="/register">
-        <ListItemIcon>
-          <PeopleIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/register">
-        <ListItemText primary="რეგისტრაცია" />
-      </NextLink>
-    </ListItem>
-    <ListItem button>
-      <NextLink href="/diaries">
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/diaries">
-        <ListItemText primary="დღიურები" />
-      </NextLink>
-    </ListItem>
-    <ListItem button>
-      <NextLink href="/creatediary">
-        <ListItemIcon>
-          <LayersIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/creatediary">
-        <ListItemText primary="დღიურის შექმნა" />
-      </NextLink>
-    </ListItem>
-
-    <ListItem button>
-      <NextLink href="/growers">
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-      </NextLink>
-      <NextLink href="/growers">
-        <ListItemText primary="გროუერები" />
-      </NextLink>
-    </ListItem>
+    {mainListItemsArray.map((item) => {
+      return (
+        <ListItem button key={uuidv4()}>
+          <NextLink href="/home">
+            <ListItemIcon>{item.icon}</ListItemIcon>
+          </NextLink>
+          <NextLink href="/home">
+            <ListItemText
+              disableTypography
+              primary={
+                <Typography
+                  type="p"
+                  style={{ color: "black", fontSize: "90%" }}
+                >
+                  {item.text}
+                </Typography>
+              }
+            />
+          </NextLink>
+        </ListItem>
+      );
+    })}
   </div>
 );
