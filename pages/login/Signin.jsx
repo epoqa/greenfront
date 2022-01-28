@@ -65,12 +65,12 @@ export default function SignIn() {
           console.log(response.data);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("refreshToken", response.data.refreshToken);
-          NotificationManager.success(response.statusText, "", 1500);
+          NotificationManager.success(response.statusText);
           router.push("/home");
         })
         .catch((error) => {
           console.log(error.response.data.error);
-          NotificationManager.error(error.response.data.error, "", 1500);
+          NotificationManager.error(error.response.data.error);
         });
     }
   };
