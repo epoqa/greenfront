@@ -23,22 +23,33 @@ import PersonIcon from "@mui/icons-material/Person";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 import styles from "../../../styles/Diary.module.css";
-
+import Modal from "react-bootstrap/Modal";
+import Popup from "../../../src/components/Popup/Popup";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
-  console.log(styles.weekParent);
+  
+  const [modalShow, setModalShow] = React.useState(false);
+
   const [diary, setDiary] = useState({});
   const [comments, setComments] = useState([]);
+  const [weeks, setWeeks] = useState([]);
   const router = useRouter();
+
+  const rerenderfunc = (arg) => {
+
+    console.log(weeks, arg)
+    setWeeks(arg);
+  }
+
   useEffect(() => {
     router.query.id &&
       axios
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
-          console.log(res.data);
           setComments(res.data.comments);
+          setWeeks(res.data.weeks);
         })
         .catch((err) => {
           console.log(err);
@@ -176,42 +187,56 @@ const CreateDiary = () => {
                         </div>
                       </div>
                     </div>
-                    <hr />
-
-                    <h5 className="text-center">კვირები</h5>
+                    <h6 className={styles.h1class + " fw-bold"}>კვირები</h6>
                     <br />
-                    
+
                     <div className="justify-content-center row">
+                    {weeks
+                            ? weeks.map((week, index) => (
+                              <a
+                              onClick={(e) => console.log('clicked')}
+                              key={uniqid()}
+                             
+                              className={`${styles.weekParent} ${( week.weekType === 'GER') ? styles.GER : (week.weekType === "VEG") ? styles.VEG : (week.weekType === "FLO") ? styles.FLO : (week.weekType === "HAR") ? styles.HAR : null } d-flex flex-column col-xs-6`}
+                            >
+                              {week.weekType}
+                              <span className={`${styles.weekMiddle} p2`}>
+                              {(index === 0 ? 'G' : index)}<p className={`${styles.weekChild} p2`}>კვირა</p>
+                              </span>
+                            </a>
+                              ))
+                            : null}
+                      
                       <a
-                        href="#"
-                        className={`${styles.weekParent} ${styles.GER} d-flex flex-column col-xs-6`}
-                      >
-                        GER
-                        <span className={`${styles.weekMiddle} p2`}>
-                          G<p className={`${styles.weekChild} p2`}>week</p>
-                        </span>
-                      </a>
-                      <a
-                        href="#"
-                        className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6` }
+                        onClick={() => setModalShow(true)}
+                        className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6`}
                       >
                         დამატება
-                        <span className={`${styles.weekMiddle}  ${styles.ADD} p2`}>
+                        <span
+                          className={`${styles.weekMiddle}  ${styles.ADD} p2`}
+                        >
                           +
                         </span>
                       </a>
                     </div>
-                    
+
+                    <Popup
+                      show={modalShow}
+                      onHide={() => setModalShow(false)}
+                      rerenderfunc={rerenderfunc}
+                      owner={diary.owner}
+                      id={router.query.id}
+                      func={setModalShow}
+                      re
+                    />
+
                     <div className="container my-5 py-5 text-dark">
                       <div className="row d-flex justify-content-center">
-                        <hr />
+                        <h6 className={styles.h1class + " fw-bold"}>
+                          კომენტარები
+                        </h6>
                         <div className="col-md-12 col-lg-10 col-xl-8">
-                          <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h5 className="text-dark mb-0">
-                              კომენტარები ({comments.length})
-                            </h5>
-                            <br />
-                          </div>
+                          <div className="d-flex justify-content-between align-items-center mb-4"></div>
                           <form>
                             <div className="row h-100 align-items-center">
                               <textarea
