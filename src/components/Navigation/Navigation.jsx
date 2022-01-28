@@ -32,8 +32,8 @@ const Navigation = () => {
           px: [1],
         }}
         style={{
-          maxHeight: "5vh",
-          minHeight: "5vh",
+          maxHeight: "7vh",
+          minHeight: "7vh",
         }}
       >
         <IconButton onClick={() => dispatch(toggleNavigationBar())}>
