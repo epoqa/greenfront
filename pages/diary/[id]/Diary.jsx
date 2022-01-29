@@ -93,7 +93,7 @@ const CreateDiary = () => {
         })
         .catch((error) => {
           console.log(error);
-          NotificationManager.error(error.response.data.error, "", 1500);
+          NotificationManager.error(error.response.data.error);
         });
     }
   };
@@ -264,19 +264,6 @@ const CreateDiary = () => {
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
                     <form>
                       <div className="row h-100 align-items-center">
-                        <input
-                          ref={pictureRef}
-                          style={{ resize: "none" }}
-                          rows="2"
-                          cols="40"
-                          type="text"
-                          className="form-control my-2"
-                          id="diaryName"
-                          aria-describedby="diaryName"
-                          maxLength="700"
-                          required
-                        />
-
                         <button
                           type="submit"
                           onClick={(e) =>

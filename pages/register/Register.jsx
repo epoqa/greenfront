@@ -67,12 +67,12 @@ const SignUp = () => {
         })
         .then((response) => {
           console.log(response);
-          NotificationManager.success(response.statusText, "", 1500);
+          NotificationManager.success(response.statusText);
           router.push("login");
         })
         .catch((error) => {
           console.log(error.response.data.error);
-          NotificationManager.error(error.response.data.error, "", 1500);
+          NotificationManager.error(error.response.data.error);
         });
     }
   };

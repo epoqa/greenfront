@@ -3,11 +3,13 @@ import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
-
+import Badge from "@mui/material/Badge";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { useDispatch, useSelector } from "react-redux";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getNavigationBar } from "../../redux/selectors/selector";
 import { toggleNavigationBar } from "../../redux/actions/action";
+import LoginIcon from "@mui/icons-material/Login";
 
 let NavigationBar = false;
 const Header = () => {
@@ -20,9 +22,11 @@ const Header = () => {
       sx={{}}
       style={{
         height: "7vh",
+        backgroundColor: "green",
         dispay: "flex",
         flexDirection: "row",
         alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
       <Toolbar
@@ -52,6 +56,16 @@ const Header = () => {
           Dashboard
         </Typography>
       </Toolbar>
+      <IconButton
+        color="inherit"
+        sx={{
+          marginRight: "20px",
+        }}
+      >
+        <Badge badgeContent={"login"} color="secondary">
+          <LoginIcon />
+        </Badge>
+      </IconButton>
     </AppBar>
   );
 };

@@ -1,8 +1,6 @@
 import * as React from "react";
+import  {Drawer , mainListItemsArray}  from "../../reuseableFunctions/MaterialUI";
 import NextLink from "next/link";
-import { styled } from "@mui/material/styles";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import MuiDrawer from "@mui/material/Drawer";
 import {
   Toolbar,
   Divider,
@@ -42,49 +40,12 @@ const Navigation = () => {
       </Toolbar>
       <Divider />
       <List>{mainListItems}</List>
-      <Divider />
     </Drawer>
   );
 };
 export default Navigation;
 
-//MATERIAL UI STUFF & WILL TAKE THEM TO SEPERATE FILE LATER
 
-const drawerWidth = 220;
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
-const mainListItemsArray = [
-  { text: "მთავარი", icon: <DashboardIcon />, linkTo: "/home" },
-  { text: "შესვლა", icon: <DashboardIcon />, linkTo: "/login" },
-  { text: "რეგისტრაცია", icon: <DashboardIcon />, linkTo: "/register" },
-  { text: "დღიურები", icon: <DashboardIcon />, linkTo: "/diaries" },
-  { text: "დღიურის შექმნა", icon: <DashboardIcon />, linkTo: "/creatediary" },
-  { text: "გროუერები", icon: <DashboardIcon />, linkTo: "/growers" },
-];
 const mainListItems = (
   <div>
     {mainListItemsArray.map((item) => {
