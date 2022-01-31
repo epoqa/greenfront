@@ -14,7 +14,7 @@ import axios from "axios";
 import DiaryMainSpecs from "../../../src/components/DiaryMainSpecs/DiaryMainSpecs";
 import styles from "../../../styles/Diary.module.css";
 import Popup from "../../../src/components/Popup/Popup";
-import PhotoUploadInput from "../../../src/components/PhotoUploadInput/photoUploadInput";
+import PhotoUploadInput from "../../../src/components/PhotoUploadInput/PhotoUploadInput";
 import Comments from "../../../src/components/Comments/Comments";
 import Weeks from "../../../src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "../../../src/components/ChosenWeekPhotos/ChosenWeekPhotos";
@@ -82,7 +82,10 @@ const CreateDiary = () => {
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
                     <ChosenWeekPhotos chosenPics={weeks[chosenWeek]} />
-                    <PhotoUploadInput />
+                    <PhotoUploadInput
+                      chosenWeek={chosenWeek}
+                      diary={chosenWeek}
+                    />
                     <Comments />
                   </section>
                 </div>
