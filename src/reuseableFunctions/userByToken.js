@@ -31,7 +31,7 @@ const userByToken = () => {
             .catch((error) => {
                 axios
                     .post("https://greenbackk.herokuapp.com/renewAccessToken", {
-            ნ            refreshToken,
+                        refreshToken,
                     })
                     .then((response) => {
                         window.localStorage.setItem("token", response.data.token);
