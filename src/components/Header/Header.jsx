@@ -23,11 +23,39 @@ const Header = () => {
 
   const router = useRouter();
   useEffect(() => {
-    const token = window.localStorage.getItem("token");
+    let token = window.localStorage.getItem("token");
     const refreshToken = window.localStorage.getItem("refreshToken");
     if (!token) {
-      return;
       console.log("no token");
+      axios
+        .post("https://greenbackk.herokuapp.com/renewAccessToken", {
+          refreshToken,
+        })
+        .then((response) => {
+          window.localStorage.setItem("token", response.data.token);
+          token = response.data.token;
+          axios
+            .get("https://greenbackk.herokuapp.com/authToken", {
+              headers: {
+                Authorization: token,
+              },
+            })
+            .then((response) => {
+              if (response.data.username) {
+                console.log(response.data);
+                setUser(response.data);
+              } else {
+                axios
+                  .post("https://greenbackk.herokuapp.com/renewAccessToken", {
+                    refreshToken,
+                  })
+                  .then((response) => {
+                    window.localStorage.setItem("token", response.data.token);
+                    token = response.data.token;
+                  });
+              }
+            });
+        });
     }
 
     token &&
@@ -38,8 +66,33 @@ const Header = () => {
           },
         })
         .then((response) => {
-          console.log(response.data);
-          setUser(response.data);
+          if (response.data.username) {
+            console.log(response.data);
+            setUser(response.data);
+          }
+        })
+        .catch((err) => {
+          axios
+            .post("https://greenbackk.herokuapp.com/renewAccessToken", {
+              refreshToken,
+            })
+            .then((response) => {
+              window.localStorage.setItem("token", response.data.token);
+              token = response.data.token;
+
+              axios
+                .get("https://greenbackk.herokuapp.com/authToken", {
+                  headers: {
+                    Authorization: token,
+                  },
+                })
+                .then((response) => {
+                  if (response.data.username) {
+                    console.log(response.data);
+                    setUser(response.data);
+                  }
+                });
+            });
         });
   }, []);
 
@@ -88,7 +141,7 @@ const Header = () => {
       </Toolbar>
       {user === "notLoggedIn" ? (
         <IconButton
-          onClick={() => router.push("/login")} 
+          onClick={() => router.push("/login")}
           color="inherit"
           sx={{
             marginRight: "20px",
@@ -114,7 +167,7 @@ const Header = () => {
           </div>
           <div className="col m-1">
             <LogoutIcon
-            style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer" }}
               onClick={(e) => {
                 window.localStorage.clear();
                 router.push("/");
