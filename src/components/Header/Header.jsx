@@ -23,8 +23,12 @@ const Header = () => {
 
   const router = useRouter();
   useEffect(() => {
+    
     let token = window.localStorage.getItem("token");
     const refreshToken = window.localStorage.getItem("refreshToken");
+    if (!token && !refreshToken) {
+      return;
+    }
     if (!token) {
       console.log("no token");
       axios
