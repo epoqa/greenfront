@@ -1,15 +1,20 @@
 import { actionTypes } from "../actionTypes";
+import { loggedInUser } from '../actions/action'
 const initialState = {
   value: 0,
   navigationBar: false,
 };
-
-export const counterReducer = (state = initialState, action) => {
+const loggedReducer = (state = false, action) => {
   switch (action.type) {
-    case actionTypes.TOGGLE_NAVIGATION_BAR:
-      return { ...state, navigationBar: !state.navigationBar };
-
-    default:
-      return state;
+    case 'LOG_IN':
+      return state = action.payload
+    case false:
+      return state = false;
+    default:  
+      return state
   }
+
 };
+
+
+export default loggedReducer;

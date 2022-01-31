@@ -23,8 +23,8 @@ const useValidateToken = (setLoadingState: any) => {
           },
         })
         .then((response) => {
-          setLoadingState(false);
           console.log(response.data);
+            setLoadingState(false);
         })
         .catch((error) => {
           axios

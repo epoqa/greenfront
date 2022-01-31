@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
@@ -5,16 +6,29 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { useDispatch, useSelector } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getNavigationBar } from "../../redux/selectors/selector";
 import { toggleNavigationBar } from "../../redux/actions/action";
 import LoginIcon from "@mui/icons-material/Login";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { NotificationManager } from "../Notifications/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useSelector, useDispatch } from "react-redux";
+
+import { loggedInUser } from "../../redux/actions/action"
+import userByToken from "../../reuseableFunctions/userByToken";
 
 let NavigationBar = false;
+
 const Header = () => {
-  NavigationBar = useSelector((state) => getNavigationBar(state));
+  const router = useRouter();
+  userByToken()
+  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
+  NavigationBar = useSelector((state) => getNavigationBar(state));
+
   return (
     <AppBar
       position="absolute"
@@ -53,19 +67,48 @@ const Header = () => {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          Dashboard
+          მწვანე დღიური
         </Typography>
       </Toolbar>
-      <IconButton
-        color="inherit"
-        sx={{
-          marginRight: "20px",
-        }}
-      >
-        <Badge badgeContent={"login"} color="secondary">
-          <LoginIcon />
-        </Badge>
-      </IconButton>
+      {(isLogged === false || undefined) ? (
+        <IconButton
+          onClick={() => router.push("/login")}
+          color="inherit"
+          sx={{
+            marginRight: "20px",
+          }}
+        >
+          <Badge badgeContent={"login"} color="secondary">
+            <LoginIcon />
+          </Badge>
+        </IconButton>
+      ) : (
+        <div className="row">
+          <div className="col">
+            {" "}
+            <img
+              style={{ cursor: "pointer" }}
+              onClick={(e) => router.push(`/grower/${isLogged}`)}
+              className="rounded-circle shadow-1-strong me-3 col"
+              src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
+              alt="avatar"
+              width="40"
+              height="40"
+            />
+          </div>
+          <div className="col m-1">
+            <LogoutIcon
+              style={{ cursor: "pointer" }}
+              onClick={(e) => {
+                window.localStorage.clear();
+                dispatch(loggedInUser(false));
+                router.push("/");
+                
+              }}
+            />
+          </div>
+        </div>
+      )}
     </AppBar>
   );
 };
