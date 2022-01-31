@@ -6,7 +6,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
-import { useDispatch, useSelector } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getNavigationBar } from "../../redux/selectors/selector";
 import { toggleNavigationBar } from "../../redux/actions/action";
@@ -16,92 +15,20 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { NotificationManager } from "../Notifications/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useSelector, useDispatch } from "react-redux";
+
+import { loggedInUser } from "../../redux/actions/action"
+import userByToken from "../../reuseableFunctions/userByToken";
 
 let NavigationBar = false;
+
 const Header = () => {
-  let [user, setUser] = useState("notLoggedIn");
-
   const router = useRouter();
-  useEffect(() => {
-    
-    let token = window.localStorage.getItem("token");
-    const refreshToken = window.localStorage.getItem("refreshToken");
-    if (!token && !refreshToken) {
-      return;
-    }
-    if (!token) {
-      console.log("no token");
-      axios
-        .post("https://greenbackk.herokuapp.com/renewAccessToken", {
-          refreshToken,
-        })
-        .then((response) => {
-          window.localStorage.setItem("token", response.data.token);
-          token = response.data.token;
-          axios
-            .get("https://greenbackk.herokuapp.com/authToken", {
-              headers: {
-                Authorization: token,
-              },
-            })
-            .then((response) => {
-              if (response.data.username) {
-                console.log(response.data);
-                setUser(response.data);
-              } else {
-                axios
-                  .post("https://greenbackk.herokuapp.com/renewAccessToken", {
-                    refreshToken,
-                  })
-                  .then((response) => {
-                    window.localStorage.setItem("token", response.data.token);
-                    token = response.data.token;
-                  });
-              }
-            });
-        });
-    }
-
-    token &&
-      axios
-        .get("https://greenbackk.herokuapp.com/authToken", {
-          headers: {
-            Authorization: token,
-          },
-        })
-        .then((response) => {
-          if (response.data.username) {
-            console.log(response.data);
-            setUser(response.data);
-          }
-        })
-        .catch((err) => {
-          axios
-            .post("https://greenbackk.herokuapp.com/renewAccessToken", {
-              refreshToken,
-            })
-            .then((response) => {
-              window.localStorage.setItem("token", response.data.token);
-              token = response.data.token;
-
-              axios
-                .get("https://greenbackk.herokuapp.com/authToken", {
-                  headers: {
-                    Authorization: token,
-                  },
-                })
-                .then((response) => {
-                  if (response.data.username) {
-                    console.log(response.data);
-                    setUser(response.data);
-                  }
-                });
-            });
-        });
-  }, []);
-
-  NavigationBar = useSelector((state) => getNavigationBar(state));
+  userByToken()
+  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
+  NavigationBar = useSelector((state) => getNavigationBar(state));
+
   return (
     <AppBar
       position="absolute"
@@ -143,7 +70,7 @@ const Header = () => {
           მწვანე დღიური
         </Typography>
       </Toolbar>
-      {user === "notLoggedIn" ? (
+      {(isLogged === false || undefined) ? (
         <IconButton
           onClick={() => router.push("/login")}
           color="inherit"
@@ -161,9 +88,9 @@ const Header = () => {
             {" "}
             <img
               style={{ cursor: "pointer" }}
-              onClick={(e) => router.push(`/grower/${user.username}`)}
+              onClick={(e) => router.push(`/grower/${isLogged}`)}
               className="rounded-circle shadow-1-strong me-3 col"
-              src="https://avatars.githubusercontent.com/u/75354679?v=4"
+              src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
               alt="avatar"
               width="40"
               height="40"
@@ -174,8 +101,9 @@ const Header = () => {
               style={{ cursor: "pointer" }}
               onClick={(e) => {
                 window.localStorage.clear();
+                dispatch(loggedInUser(false));
                 router.push("/");
-                setUser("notLoggedIn");
+                
               }}
             />
           </div>

@@ -16,6 +16,7 @@ import axios from "axios";
 const mdTheme = createTheme();
 
 const Home = () => {
+
   const router = useRouter();
   const [data, setData] = useState([]);
   useEffect(() => {
