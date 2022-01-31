@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
 import styles from "../../../styles/Diary.module.css";
-const Weeks = ({ weeks, chosenWeek, setChosenWeek }) => {
+const Weeks = ({ weeks, chosenWeek, setChosenWeek, setModalShow }) => {
   return (
     <>
       <h6 className={styles.h1class + " fw-bold"}>კვირები</h6>

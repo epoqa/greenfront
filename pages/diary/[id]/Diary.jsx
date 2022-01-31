@@ -69,6 +69,7 @@ const CreateDiary = () => {
                       weeks={weeks}
                       chosenWeek={chosenWeek}
                       setChosenWeek={setChosenWeek}
+                      setModalShow={setModalShow}
                     />
                     <Popup
                       show={modalShow}
@@ -82,10 +83,7 @@ const CreateDiary = () => {
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
                     <ChosenWeekPhotos chosenPics={weeks[chosenWeek]} />
-                    <PhotoUploadInput
-                      chosenWeek={chosenWeek}
-                      diary={chosenWeek}
-                    />
+                    <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
                     <Comments />
                   </section>
                 </div>

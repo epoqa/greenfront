@@ -1,9 +1,11 @@
 import React from "react";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { useRouter } from "next/router";
 import axios from "axios";
-const PhotoUploadInput = ({ weekNum, diary }) => {
+const PhotoUploadInput = ({ chosenWeek, diary }) => {
+  const router = useRouter();
+
   const firebaseConfig = {
     apiKey: "AIzaSyAWyXsWODhlZWlYPc5pE5XxTf_04oeyFpE",
     authDomain: "green-b3fdd.firebaseapp.com",
@@ -18,28 +20,31 @@ const PhotoUploadInput = ({ weekNum, diary }) => {
   const handleFileUpload = (e) => {
     const storage = getStorage();
     const mountainsRef = ref(storage, `images/${e.target.files[0].name}`);
+    console.log(diary);
     uploadBytes(mountainsRef, e.target.files[0]).then((snapshot) => {
-      getDownloadURL(ref(storage, `images/${e.target.files[0].name}`)).then(
-        (url) => {
-          //   axios.put(
-          //     `https://greenbackk.herokuapp.com/diary/picture/${router.query.id}`,
-          //     {
-          //       picture: url,
-          //       owner: diary.owner,
-          //       weekNum: chosenWeek,
-          //     },
-          //     {
-          //       headers: {
-          //         Authorization: "Bearer " + localStorage.getItem("token"),
-          //       },
-          //     }
-          //   );
-          // })
-          // .catch((error) => {
-          //   console.log(error);
-          console.log("hi", url);
-        }
-      );
+      e.target.files[0] &&
+        getDownloadURL(ref(storage, `images/${e.target.files[0].name}`))
+          .then((url) => {
+            axios
+              .put(
+                `https://greenbackk.herokuapp.com/diary/picture/${router.query.id}`,
+                {
+                  picture: url,
+                  owner: diary.owner,
+                  weekNum: 0,
+                },
+                {
+                  headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token"),
+                  },
+                }
+              )
+              .then((response) => console.log(response));
+          })
+
+          .catch((error) => {
+            console.log(error);
+          });
     });
   };
   return (
