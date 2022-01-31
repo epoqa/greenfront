@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
-
-//NEXT IMPORTS
-import NextLink from "next/link";
-
-//LIBRARY IMPORTS
-import axios from "axios";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import Box from "@mui/material/Box";
+import ContentProvider from "../../../src/components/ContentProvider/ContentProvider";
+import Navigation from "../../../src/components/Navigation/Navigation";
+import Header from "../../../src/components/Header/Header";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 import { useRouter } from "next/router";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import uniqid from "uniqid";
+import axios from "axios";
+const mdTheme = createTheme();
 
 export default function Grower() {
   let [user, setUser] = useState([]);
@@ -26,14 +33,31 @@ export default function Grower() {
 
   return (
     <>
-      <div
-        style={{ margin: "15px", padding: "20px", border: "1px solid black" }}
-      >
-        <h4>მომხმარებელი: {user.username}</h4>
-        <h4>ემაილი: {user.email}</h4>
-        <h4>აიდი: {user._id} </h4>
-        <h4>შეიქმნა: {user.createdAt}</h4>
-      </div>
+<ThemeProvider theme={mdTheme}>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <Header />
+        <Navigation />
+        <ContentProvider>
+          <Grid container spacing={0}>
+            <Grid item xs={12} md={13} lg={13}>
+              <Paper
+                sx={{
+                  p: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  height: 500,
+                }}
+              >
+   
+                <p>121</p>
+          
+              </Paper>
+            </Grid>
+          </Grid>
+        </ContentProvider>
+      </Box>
+    </ThemeProvider>
     </>
   );
 }

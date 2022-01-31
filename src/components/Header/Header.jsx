@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,9 +11,38 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { getNavigationBar } from "../../redux/selectors/selector";
 import { toggleNavigationBar } from "../../redux/actions/action";
 import LoginIcon from "@mui/icons-material/Login";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { NotificationManager } from "../Notifications/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 let NavigationBar = false;
 const Header = () => {
+  let [user, setUser] = useState("notLoggedIn");
+
+  const router = useRouter();
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    const refreshToken = window.localStorage.getItem("refreshToken");
+    if (!token) {
+      return;
+      console.log("no token");
+    }
+
+    token &&
+      axios
+        .get("https://greenbackk.herokuapp.com/authToken", {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          setUser(response.data);
+        });
+  }, []);
+
   NavigationBar = useSelector((state) => getNavigationBar(state));
   const dispatch = useDispatch();
   return (
@@ -53,19 +83,47 @@ const Header = () => {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          Dashboard
+          მწვანე დღიური
         </Typography>
       </Toolbar>
-      <IconButton
-        color="inherit"
-        sx={{
-          marginRight: "20px",
-        }}
-      >
-        <Badge badgeContent={"login"} color="secondary">
-          <LoginIcon />
-        </Badge>
-      </IconButton>
+      {user === "notLoggedIn" ? (
+        <IconButton
+          onClick={() => router.push("/login")} 
+          color="inherit"
+          sx={{
+            marginRight: "20px",
+          }}
+        >
+          <Badge badgeContent={"login"} color="secondary">
+            <LoginIcon />
+          </Badge>
+        </IconButton>
+      ) : (
+        <div className="row">
+          <div className="col">
+            {" "}
+            <img
+              style={{ cursor: "pointer" }}
+              onClick={(e) => router.push(`/grower/${user.username}`)}
+              className="rounded-circle shadow-1-strong me-3 col"
+              src="https://avatars.githubusercontent.com/u/75354679?v=4"
+              alt="avatar"
+              width="40"
+              height="40"
+            />
+          </div>
+          <div className="col m-1">
+            <LogoutIcon
+            style={{ cursor: "pointer" }}
+              onClick={(e) => {
+                window.localStorage.clear();
+                router.push("/");
+                setUser("notLoggedIn");
+              }}
+            />
+          </div>
+        </div>
+      )}
     </AppBar>
   );
 };
