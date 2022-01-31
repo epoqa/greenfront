@@ -1,20 +1,18 @@
 import { actionTypes } from "../actionTypes";
-import { loggedInUser } from '../actions/action'
 const initialState = {
   value: 0,
   navigationBar: false,
+  logedIn: false,
 };
-const loggedReducer = (state = false, action) => {
+
+export const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOG_IN':
-      return state = action.payload
-    case false:
-      return state = false;
-    default:  
-      return state
+    case actionTypes.TOGGLE_NAVIGATION_BAR:
+      return { ...state, navigationBar: !state.navigationBar };
+
+    case "LOG_IN":
+      return { ...state, logedIn: action.payload };
+    default:
+      return state;
   }
-
 };
-
-
-export default loggedReducer;
