@@ -10,8 +10,8 @@ export const mainReducer = (state = initialState, action) => {
     case actionTypes.TOGGLE_NAVIGATION_BAR:
       return { ...state, navigationBar: !state.navigationBar };
 
-    case "LOG_IN":
-      return { ...state, logedIn: action.payload };
+    case actionTypes.IS_LOGGED:
+      return { ...state, isLogged: action.payload };
     default:
       return state;
   }

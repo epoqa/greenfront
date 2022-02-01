@@ -14,11 +14,9 @@ export const toggleNavigationBar = () => ({
   type: actionTypes.TOGGLE_NAVIGATION_BAR,
 });
 
-
 export const loggedInUser = (payload) => {
   return {
-    type: "LOG_IN",
+    type: actionTypes.IS_LOGGED,
     payload,
   };
 };
-
