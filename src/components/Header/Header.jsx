@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { loggedInUser } from "../../redux/actions/action"
 import userByToken from "../../reuseableFunctions/userByToken";
+import Avatar from "@mui/material/Avatar";
 
 let NavigationBar = false;
 
@@ -86,19 +87,18 @@ const Header = () => {
         <div className="row">
           <div className="col">
             {" "}
-            <img
+            <Avatar
               style={{ cursor: "pointer" }}
               onClick={(e) => router.push(`/grower/${isLogged}`)}
-              className="rounded-circle shadow-1-strong me-3 col"
               src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
               alt="avatar"
-              width="40"
-              height="40"
+              sx={{ width: 34, height: 34 }}
+
             />
           </div>
           <div className="col m-1">
             <LogoutIcon
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer"}}
               onClick={(e) => {
                 window.localStorage.clear();
                 dispatch(loggedInUser(false));
