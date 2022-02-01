@@ -3,7 +3,11 @@ import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { addImage } from "../../redux/actions/action";
+import { useDispatch } from "react-redux";
 const PhotoUploadInput = ({ chosenWeek, diary }) => {
+  const dispatch = useDispatch();
+
   const router = useRouter();
 
   const firebaseConfig = {
@@ -25,6 +29,9 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
       e.target.files[0] &&
         getDownloadURL(ref(storage, `images/${e.target.files[0].name}`))
           .then((url) => {
+            dispatch(
+              addImage({ picture: url, owner: diary.owner, weekNum: 0 })
+            );
             axios
               .put(
                 `https://greenbackk.herokuapp.com/diary/picture/${router.query.id}`,

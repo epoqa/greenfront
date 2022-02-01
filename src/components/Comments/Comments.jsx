@@ -1,55 +1,34 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "../../../styles/Diary.module.css";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 import uniqid from "uniqid";
 import Avatar from "@mui/material/Avatar";
-
+import { getReq, putReq } from "../../reuseableFunctions/request";
 const Comments = () => {
   const router = useRouter();
-
-  useEffect(() => {
-    router.query.id &&
-      axios
-        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
-        .then((res) => {
-          setComments(res.data.comments);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }, [router]);
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments);
+  }, [router]);
+
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
     const commentRefValue =
       commentRef && commentRef.current && commentRef.current.value;
 
     if (commentRefValue) {
-      axios
-        .put(
-          `https://greenbackk.herokuapp.com/diary/comment/${router.query.id}`,
-          {
-            comment: commentRefValue,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
-        .then((response) => {
-          setComments(response.data.comments);
-          commentRef && commentRef.current
-            ? (commentRef.current.value = "")
-            : null;
-        })
-        .catch((error) => {
-          console.log(error);
-          NotificationManager.error(error.response.data.error);
-        });
+      putReq(
+        `/diary/comment/${router.query.id}`,
+        { comment: commentRefValue },
+        {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        setComments
+      );
+      commentRef && commentRef.current ? (commentRef.current.value = "") : null;
     }
   };
   return (
@@ -93,7 +72,6 @@ const Comments = () => {
                         className="rounded-circle shadow-1-strong me-3"
                         src="https://www.intellectualtakeout.org/assets/3/28/michaelscott.jpg"
                         alt="avatar"
-
                       />
                       <div className="w-100">
                         <div className="d-flex justify-content-between align-items-center mb-3">
