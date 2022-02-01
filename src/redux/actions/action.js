@@ -26,3 +26,9 @@ export const addImage = (payload) => {
     payload,
   };
 };
+export const addImagesFromBack = (payload) => {
+  return {
+    type: actionTypes.ADD_IMAGES_FROM_BACK,
+    payload,
+  };
+};

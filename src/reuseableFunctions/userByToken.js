@@ -57,7 +57,6 @@ const userByToken = () => {
                     })
                     .catch((error) => {
                         dispatch(loggedInUser(false));
-                        NotificationManager.error(error.response.data.error);
                     });
             });
     })

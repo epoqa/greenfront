@@ -18,6 +18,10 @@ export const mainReducer = (state = initialState, action) => {
       console.log(action.payload);
       return { ...state, images: [...state.images, action.payload] };
 
+     case actionTypes.ADD_IMAGES_FROM_BACK:
+        console.log(action.payload);
+        return { ...state, images: action.payload };
+  
     default:
       return state;
   }

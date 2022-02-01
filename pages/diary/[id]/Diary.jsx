@@ -18,9 +18,12 @@ import PhotoUploadInput from "../../../src/components/PhotoUploadInput/PhotoUplo
 import Comments from "../../../src/components/Comments/Comments";
 import Weeks from "../../../src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "../../../src/components/ChosenWeekPhotos/ChosenWeekPhotos";
+import { useDispatch } from "react-redux";
+import { addImagesFromBack } from "../../../src/redux/actions/action";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
+  const dispatch = useDispatch()
   const [modalShow, setModalShow] = useState(false);
   const [chosenWeek, setChosenWeek] = useState(0);
   const [diary, setDiary] = useState({});
@@ -38,6 +41,8 @@ const CreateDiary = () => {
         .then((res) => {
           setDiary(res.data);
           setWeeks(res.data.weeks);
+          dispatch(addImagesFromBack(res.data.weeks[0].pictures))
+          
         })
         .catch((err) => {
           console.log(err);
