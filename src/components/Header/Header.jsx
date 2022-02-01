@@ -17,17 +17,17 @@ import { NotificationManager } from "../Notifications/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSelector, useDispatch } from "react-redux";
 
-import { loggedInUser } from "../../redux/actions/action"
+import { loggedInUser } from "../../redux/actions/action";
 import userByToken from "../../reuseableFunctions/userByToken";
 
 let NavigationBar = false;
 
 const Header = () => {
   const router = useRouter();
-  userByToken()
+  userByToken();
   const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
-  NavigationBar = useSelector((state) => getNavigationBar(state));
+  const NavigationBar = useSelector((state) => getNavigationBar(state));
 
   return (
     <AppBar
@@ -70,7 +70,7 @@ const Header = () => {
           მწვანე დღიური
         </Typography>
       </Toolbar>
-      {(isLogged === false || undefined) ? (
+      {isLogged === false || undefined ? (
         <IconButton
           onClick={() => router.push("/login")}
           color="inherit"
@@ -97,15 +97,16 @@ const Header = () => {
             />
           </div>
           <div className="col m-1">
-            <LogoutIcon
-              style={{ cursor: "pointer" }}
-              onClick={(e) => {
-                window.localStorage.clear();
-                dispatch(loggedInUser(false));
-                router.push("/");
-                
-              }}
-            />
+            <Badge badgeContent={""} color="secondary">
+              <LogoutIcon
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                  window.localStorage.clear();
+                  dispatch(loggedInUser(false));
+                  router.push("/");
+                }}
+              />
+            </Badge>
           </div>
         </div>
       )}
