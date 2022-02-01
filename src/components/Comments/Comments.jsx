@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 import uniqid from "uniqid";
+import Avatar from "@mui/material/Avatar";
 
 const Comments = () => {
   const router = useRouter();
@@ -88,12 +89,11 @@ const Comments = () => {
                 <div key={uniqid()} className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex flex-start">
-                      <img
+                      <Avatar
                         className="rounded-circle shadow-1-strong me-3"
-                        src="https://avatars.githubusercontent.com/u/75354679?v=4"
+                        src="https://www.intellectualtakeout.org/assets/3/28/michaelscott.jpg"
                         alt="avatar"
-                        width="40"
-                        height="40"
+
                       />
                       <div className="w-100">
                         <div className="d-flex justify-content-between align-items-center mb-3">
