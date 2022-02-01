@@ -18,6 +18,9 @@ const userByToken = () => {
     useEffect(() => {
         const token = window.localStorage.getItem("token");
         const refreshToken = window.localStorage.getItem("refreshToken");
+        if (!token && !refreshToken) {
+            return dispatch(loggedInUser(false));
+        }
         token &&
             axios
             .get("https://greenbackk.herokuapp.com/authToken", {
@@ -26,6 +29,9 @@ const userByToken = () => {
                 },
             })
             .then((response) => {
+                if(response.data.username === undefined){
+                    return dispatch(loggedInUser(false));
+                }
                 dispatch(loggedInUser(response.data.username));
             })
             .catch((error) => {
@@ -42,6 +48,9 @@ const userByToken = () => {
                                 },
                             })
                             .then((response) => {
+                                if(response.data.username === undefined){
+                                    return dispatch(loggedInUser(false));
+                                }
                                 dispatch(loggedInUser(response.data.username));
                             })
 
