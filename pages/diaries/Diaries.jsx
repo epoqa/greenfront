@@ -46,7 +46,8 @@ const Home = () => {
                   height: 500,
                 }}
               >
-                <br />
+<h5 className='text-center my-1'>ყველა დღიური</h5>
+                <hr/>
                 <div
                   className={`${styles.row} d-flex justify-content-around row`}
                 >
@@ -56,6 +57,7 @@ const Home = () => {
                       ))
                     : null}
                 </div>
+
               </Paper>
             </Grid>
           </Grid>
