@@ -11,13 +11,13 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
   const router = useRouter();
 
   const firebaseConfig = {
-    apiKey: "AIzaSyAWyXsWODhlZWlYPc5pE5XxTf_04oeyFpE",
-    authDomain: "green-b3fdd.firebaseapp.com",
-    projectId: "green-b3fdd",
-    storageBucket: "green-b3fdd.appspot.com",
-    messagingSenderId: "867134789739",
-    appId: "1:867134789739:web:1c591b794dac5c3151f92e",
-    measurementId: "G-THHJSEC3ML",
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
   };
   const app = initializeApp(firebaseConfig);
 

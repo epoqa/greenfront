@@ -18,7 +18,6 @@ export const putReq = (path, body, header, callback) => {
       headers: header,
     })
     .then((response) => {
-      console.log(response, "aba rava");
       callback(response.data.comments);
     })
     .catch((error) => {
