@@ -6,8 +6,9 @@ import PanoramaTwoToneIcon from "@mui/icons-material/PanoramaTwoTone";
 import Styles from "./SingleDiary.module.scss";
 import Image from "next/image";
 import NextLink from "next/link";
-
+import { useRouter } from "next/router";
 const SingleDiary = ({ item }) => {
+  const router = useRouter();
   const thumbnailImage = item.weeks.find((week) => week.pictures[0])
     ?.pictures[0].picture;
 
