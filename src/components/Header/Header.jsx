@@ -17,7 +17,7 @@ import { NotificationManager } from "../Notifications/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSelector, useDispatch } from "react-redux";
 
-import { loggedInUser } from "../../redux/actions/action"
+import { loggedInUser } from "../../redux/actions/action";
 import userByToken from "../../reuseableFunctions/userByToken";
 import Avatar from "@mui/material/Avatar";
 
@@ -25,7 +25,7 @@ let NavigationBar = false;
 
 const Header = () => {
   const router = useRouter();
-  userByToken()
+  userByToken();
   const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
   NavigationBar = useSelector((state) => getNavigationBar(state));
@@ -71,7 +71,7 @@ const Header = () => {
           მწვანე დღიური
         </Typography>
       </Toolbar>
-      {(isLogged === false || undefined) ? (
+      {isLogged === false || undefined ? (
         <IconButton
           onClick={() => router.push("/login")}
           color="inherit"
@@ -86,24 +86,21 @@ const Header = () => {
       ) : (
         <div className="row">
           <div className="col">
-            {" "}
             <Avatar
               style={{ cursor: "pointer" }}
               onClick={(e) => router.push(`/grower/${isLogged}`)}
               src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
               alt="avatar"
               sx={{ width: 34, height: 34 }}
-
             />
           </div>
           <div className="col m-1">
             <LogoutIcon
-              style={{ cursor: "pointer"}}
+              style={{ cursor: "pointer" }}
               onClick={(e) => {
                 window.localStorage.clear();
                 dispatch(loggedInUser(false));
                 router.push("/");
-                
               }}
             />
           </div>

@@ -3,6 +3,7 @@ const initialState = {
   value: 0,
   navigationBar: false,
   logedIn: false,
+  images: [],
 };
 
 export const mainReducer = (state = initialState, action) => {
@@ -12,6 +13,15 @@ export const mainReducer = (state = initialState, action) => {
 
     case actionTypes.IS_LOGGED:
       return { ...state, isLogged: action.payload };
+
+    case actionTypes.ADD_IMAGE:
+      console.log(action.payload);
+      return { ...state, images: [...state.images, action.payload] };
+
+     case actionTypes.ADD_IMAGES_FROM_BACK:
+        console.log(action.payload);
+        return { ...state, images: action.payload };
+  
     default:
       return state;
   }

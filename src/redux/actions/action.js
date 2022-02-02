@@ -20,3 +20,15 @@ export const loggedInUser = (payload) => {
     payload,
   };
 };
+export const addImage = (payload) => {
+  return {
+    type: actionTypes.ADD_IMAGE,
+    payload,
+  };
+};
+export const addImagesFromBack = (payload) => {
+  return {
+    type: actionTypes.ADD_IMAGES_FROM_BACK,
+    payload,
+  };
+};
