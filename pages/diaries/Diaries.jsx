@@ -65,7 +65,15 @@ const Home = () => {
                               style={{cursor: 'pointer'}}
                               onClick={(e) => router.push(`/diary/${item.id}`)}
                                 className={`${styles.columnimg} rounded`}
-                                src={(item.weeks.length > 0) ? item.weeks.find(week => week.pictures[0] !== undefined).pictures[0].picture : 'https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg'}
+                                src={item.weeks.length > 0
+                                  ? (item.weeks.find(
+                                      (week) => week.pictures[0] !== undefined
+                                    )) ?
+                                    item.weeks.find(
+                                      (week) => week.pictures[0] !== undefined
+                                    ).pictures[0].picture
+                                  : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
+                                  : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
                                 alt='სურათი'
                               />
                               <div>
