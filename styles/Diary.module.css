@@ -36,6 +36,28 @@
     background-color: #d8d8d8;
     color: rgb(94, 94, 94);
 }
+
+
+.weekParent.DEL {
+  background-color: #f30a0a;
+  color: black
+
+}
+.weekParent.DEL:hover {
+  cursor: pointer;
+
+  background-color: #ee8888;
+  color: black;
+}
+.weekMiddle.DEL{
+  font-size: 30px;
+  background-color: #f30a0a;
+}
+.weekMiddle.DEL:hover{
+  background-color: #ee8888;
+  color: black;
+
+}
 .weekMiddle{
     margin-top:1px; 
     color:black; 
