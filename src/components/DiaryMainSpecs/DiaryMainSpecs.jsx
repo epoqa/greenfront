@@ -1,14 +1,14 @@
 import PersonIcon from "@mui/icons-material/Person";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 
-const DiaryMainSpecs = ({ diary, owner }) => {
+const DiaryMainSpecs = ({ deleteDiary, diary, owner }) => {
   return (
     <div>
       <div className="row">
         <div className="col-16 d-flex justify-content-end text-start">
           <h4 className="col fw-bold pb-1">{diary.diaryName}</h4>
           {owner ? (
-          <button onClick={e => console.log("delete")} type="button" className="pb-1 btn btn-danger">
+          <button onClick={e => deleteDiary()} type="button" className="pb-1 btn btn-danger">
             წაშლა
           </button>
           ) : null}

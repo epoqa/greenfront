@@ -53,6 +53,20 @@ const CreateDiary = () => {
   }, [router]);
 
 
+  const deleteDiary = () => {
+    axios
+      .delete(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      .then((res) => {
+        router.push(`/`);
+      }
+      ) 
+    }
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -72,7 +86,7 @@ const CreateDiary = () => {
               >
                 <div>
                   <section style={{ backgroundColor: "white" }}>
-                    <DiaryMainSpecs diary={diary} owner={ diary.owner === isLogged } />
+                    <DiaryMainSpecs deleteDiary={ deleteDiary } diary={diary} owner={ diary.owner === isLogged } />
 
                     <Weeks
                       weeks={weeks}

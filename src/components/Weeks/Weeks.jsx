@@ -6,7 +6,7 @@ import axios from "axios";
 const Weeks = ({ weeks, chosenWeek, setChosenWeek, setModalShow, owner, diaryId, setWeeks }) => {
   const deleteWeek = (index) => {
     axios
-      .delete(`http://localhost:3332/diary/week/${diaryId}/${index}`,
+      .delete(`https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
       {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
