@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import uniqid from "uniqid";
 import styles from "../../../styles/Diary.module.css";

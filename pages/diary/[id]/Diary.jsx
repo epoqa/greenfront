@@ -18,7 +18,7 @@ import PhotoUploadInput from "../../../src/components/PhotoUploadInput/PhotoUplo
 import Comments from "../../../src/components/Comments/Comments";
 import Weeks from "../../../src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "../../../src/components/ChosenWeekPhotos/ChosenWeekPhotos";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addImagesFromBack } from "../../../src/redux/actions/action";
 const mdTheme = createTheme();
 
@@ -28,6 +28,8 @@ const CreateDiary = () => {
   const [chosenWeek, setChosenWeek] = useState(0);
   const [diary, setDiary] = useState({});
   const [weeks, setWeeks] = useState([]);
+  const [owner, setOwner] = useState(false);
+  const isLogged = useSelector((state) => state.isLogged);
 
   const router = useRouter();
   const rerenderfunc = (arg) => {
@@ -39,6 +41,7 @@ const CreateDiary = () => {
       axios
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
+          
           setDiary(res.data);
           setWeeks(res.data.weeks);
           dispatch(addImagesFromBack(res.data.weeks[0].pictures))
@@ -48,6 +51,7 @@ const CreateDiary = () => {
           console.log(err);
         });
   }, [router]);
+
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -68,13 +72,16 @@ const CreateDiary = () => {
               >
                 <div>
                   <section style={{ backgroundColor: "white" }}>
-                    <DiaryMainSpecs diary={diary} />
+                    <DiaryMainSpecs diary={diary} owner={ diary.owner === isLogged } />
 
                     <Weeks
                       weeks={weeks}
                       chosenWeek={chosenWeek}
                       setChosenWeek={setChosenWeek}
                       setModalShow={setModalShow}
+                      owner={diary.owner === isLogged}
+                      diaryId={router.query.id}
+                      setWeeks={setWeeks}
                     />
                     <Popup
                       show={modalShow}
