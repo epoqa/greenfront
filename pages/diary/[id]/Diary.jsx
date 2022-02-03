@@ -19,11 +19,11 @@ import Comments from "../../../src/components/Comments/Comments";
 import Weeks from "../../../src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "../../../src/components/ChosenWeekPhotos/ChosenWeekPhotos";
 import { useSelector, useDispatch } from "react-redux";
-import { addImagesFromBack } from "../../../src/redux/actions/action";
+import { addDiaryAction } from "../../../src/redux/actions/action";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   const [chosenWeek, setChosenWeek] = useState(0);
   const [diary, setDiary] = useState({});
@@ -41,31 +41,26 @@ const CreateDiary = () => {
       axios
         .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
         .then((res) => {
-          
           setDiary(res.data);
           setWeeks(res.data.weeks);
-          dispatch(addImagesFromBack(res.data.weeks[0].pictures))
-          
+          dispatch(addDiaryAction(res.data));
         })
         .catch((err) => {
           console.log(err);
         });
   }, [router]);
 
-
   const deleteDiary = () => {
     axios
-      .delete(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
+      .delete(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((res) => {
         router.push(`/`);
-      }
-      ) 
-    }
+      });
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -86,7 +81,11 @@ const CreateDiary = () => {
               >
                 <div>
                   <section style={{ backgroundColor: "white" }}>
-                    <DiaryMainSpecs deleteDiary={ deleteDiary } diary={diary} owner={ diary.owner === isLogged } />
+                    <DiaryMainSpecs
+                      deleteDiary={deleteDiary}
+                      diary={diary}
+                      owner={diary.owner === isLogged}
+                    />
 
                     <Weeks
                       weeks={weeks}
@@ -108,7 +107,10 @@ const CreateDiary = () => {
                     <br />
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
-                    <ChosenWeekPhotos chosenPics={weeks[chosenWeek]} />
+                    <ChosenWeekPhotos
+                      chosenPics={weeks[chosenWeek]}
+                      chosenWeek={chosenWeek}
+                    />
                     <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
                     <Comments />
                   </section>

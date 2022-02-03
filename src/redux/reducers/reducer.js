@@ -4,6 +4,7 @@ const initialState = {
   navigationBar: false,
   logedIn: false,
   images: [],
+  diary: {},
 };
 
 export const mainReducer = (state = initialState, action) => {
@@ -15,13 +16,31 @@ export const mainReducer = (state = initialState, action) => {
       return { ...state, isLogged: action.payload };
 
     case actionTypes.ADD_IMAGE:
-      console.log(action.payload);
-      return { ...state, images: [...state.images, action.payload] };
+      const filteredWeeks = state.diary.weeks.map((item) => {
+        if (item._id === action.payload.id) {
+          return {
+            ...item,
+            pictures: [
+              ...item.pictures,
+              {
+                picture: action.payload.picture,
+                _id: action.payload.picId,
+              },
+            ],
+          };
+        } else {
+          return item;
+        }
+      });
 
-     case actionTypes.ADD_IMAGES_FROM_BACK:
-        console.log(action.payload);
-        return { ...state, images: action.payload };
-  
+      return {
+        ...state,
+        diary: { ...state.diary, weeks: filteredWeeks },
+      };
+
+    case actionTypes.ADD_DIARY:
+      return { ...state, diary: action.payload };
+
     default:
       return state;
   }

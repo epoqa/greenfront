@@ -4,26 +4,20 @@ import uniqid from "uniqid";
 import styles from "../../../styles/Diary.module.css";
 import { getAddedImages } from "../../redux/selectors/selector";
 import { useSelector } from "react-redux";
-const ChosenWeekPhotos = ({ chosenPics }) => {
-  const imagesFromRedux = useSelector(getAddedImages);
+const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
+  const imagesFromRedux = useSelector((state) =>
+    getAddedImages(state, chosenWeek)
+  );
   return (
     <div className={`${styles.row} row`}>
-     
-      {imagesFromRedux.length > 0
-        ? imagesFromRedux.map((item) => {
-            return (
-              <div key={uniqid()} className={`${styles.column} column`}>
-                <img className={`${styles.columnimg}`} src={item.picture} />
-              </div>
-            );
-          })
-        : chosenPics
-        ? chosenPics.pictures.map((picture, index) => (
+      {imagesFromRedux?.length > 0 &&
+        imagesFromRedux.map((item) => {
+          return (
             <div key={uniqid()} className={`${styles.column} column`}>
-              <img className={`${styles.columnimg}`} src={picture.picture} />
+              <img className={`${styles.columnimg}`} src={item.picture} />
             </div>
-          ))
-        : null}
+          );
+        })}
     </div>
   );
 };
