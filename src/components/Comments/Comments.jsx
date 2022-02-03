@@ -5,7 +5,12 @@ import { timeSince } from "../../reuseableFunctions/timeSince";
 import uniqid from "uniqid";
 import Avatar from "@mui/material/Avatar";
 import { getReq, putReq } from "../../reuseableFunctions/request";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+
 const Comments = () => {
+  const isLogged = useSelector((state) => state.isLogged);
+
   const router = useRouter();
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
@@ -31,7 +36,28 @@ const Comments = () => {
       commentRef && commentRef.current ? (commentRef.current.value = "") : null;
     }
   };
-  return (
+
+  const deleteComment = (id) => {
+    console.log(id);
+    setComments((prevState) =>
+      prevState.filter((comment) => comment._id !== id)
+    );
+
+    axios
+      .delete(`https://greenbackk.herokuapp.com/diary/${router.query.id}/comment/${id}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+    return (
     <div className="container my-5 py-5 text-dark">
       <div className="row d-flex justify-content-center">
         <h6 className={styles.h1class + " fw-bold"}>კომენტარები</h6>
@@ -85,12 +111,14 @@ const Comments = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="small mb-0" style={{ color: "#aaa" }}>
                             <a href="#" className="link-grey">
-                              წაშლა
+                              მოწონება
                             </a>{" "}
-                            •
-                            <a href="#" className="link-grey">
-                              {" რედაქტირება"}
+                            { comment.owner === isLogged ? (
+                            
+                            <a onClick={e => deleteComment(comment._id)} className="link-grey">
+                              {"  წაშლა"}
                             </a>
+                          ) : null }
                           </p>
                           <div className="d-flex flex-row">
                             <i className="fas fa-star text-warning me-2"></i>
