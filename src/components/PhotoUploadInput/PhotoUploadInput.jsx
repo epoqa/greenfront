@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { addImage } from "../../redux/actions/action";
 import { useDispatch } from "react-redux";
+import uniqid from "uniqid";
 const PhotoUploadInput = ({ chosenWeek, diary }) => {
   const dispatch = useDispatch();
 
@@ -24,13 +25,18 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
   const handleFileUpload = (e) => {
     const storage = getStorage();
     const mountainsRef = ref(storage, `images/${e.target.files[0].name}`);
-    console.log(diary);
     uploadBytes(mountainsRef, e.target.files[0]).then((snapshot) => {
       e.target.files[0] &&
         getDownloadURL(ref(storage, `images/${e.target.files[0].name}`))
           .then((url) => {
             dispatch(
-              addImage({ picture: url, owner: diary.owner, weekNum: 0 })
+              addImage({
+                picture: url,
+                owner: diary.owner,
+                weekNum: 0,
+                id: diary.weeks[chosenWeek]._id,
+                picId: uniqid(),
+              })
             );
             axios
               .put(
@@ -38,7 +44,7 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
                 {
                   picture: url,
                   owner: diary.owner,
-                  weekNum: 0,
+                  weekNum: chosenWeek,
                 },
                 {
                   headers: {
