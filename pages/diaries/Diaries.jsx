@@ -43,7 +43,6 @@ const Home = () => {
                   p: 1,
                   display: "flex",
                   flexDirection: "column",
-                  height: 500,
                 }}
               >
                 <br />
