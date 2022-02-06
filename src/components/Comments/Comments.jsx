@@ -14,10 +14,9 @@ const Comments = () => {
   const router = useRouter();
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
-  const [pagComments, setPagComments] = useState([])
   const [pageNum, setPageNum] = useState(1)
   useEffect(() => {
-    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments, setPagComments);
+    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments);
   }, [router]);
 
   const sendRegisterInfoToBackend = (event) => {
@@ -58,7 +57,7 @@ const Comments = () => {
   };
  
   const handlePageClick = (data) => {
-    setPagComments(comments.slice((data.selected * 5), ((data.selected * 5) + 5)))
+    // setPagComments(comments.slice((data.selected * 5), ((data.selected * 5) + 5)))
     setPageNum(data.selected) 
 
   }
@@ -119,8 +118,8 @@ const Comments = () => {
            />
 
 
-          {pagComments
-            ? pagComments.map((comment) => (
+          {comments
+            ? (comments.slice((pageNum * 5), ((pageNum * 5) + 5))).map((comment) => (
                 <div key={uniqid()} className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex flex-start">

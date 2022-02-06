@@ -1,14 +1,11 @@
 import axios from "axios";
 const baseURL = "https://greenbackk.herokuapp.com";
 
-export const getReq = (path, callback, secondCallback) => {
+export const getReq = (path, callback) => {
   axios
     .get(`${baseURL}${path}`)
     .then((res) => {
       callback(res.data.comments);
-      if (secondCallback) {
-        secondCallback(res.data.comments.slice(0, 5));
-      }
     })
     .catch((err) => {
       console.log(err);
