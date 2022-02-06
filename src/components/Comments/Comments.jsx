@@ -7,16 +7,17 @@ import Avatar from "@mui/material/Avatar";
 import { getReq, putReq } from "../../reuseableFunctions/request";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
+import ReactPaginate from 'react-paginate'
 const Comments = () => {
   const isLogged = useSelector((state) => state.isLogged);
 
   const router = useRouter();
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
-
+  const [pagComments, setPagComments] = useState([])
+  const [pageNum, setPageNum] = useState(1)
   useEffect(() => {
-    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments);
+    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments, setPagComments);
   }, [router]);
 
   const sendRegisterInfoToBackend = (event) => {
@@ -31,7 +32,7 @@ const Comments = () => {
         {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        setComments
+        setComments        
       );
       commentRef && commentRef.current ? (commentRef.current.value = "") : null;
     }
@@ -55,6 +56,13 @@ const Comments = () => {
         console.log(err);
       });
   };
+ 
+  const handlePageClick = (data) => {
+    setPagComments(comments.slice((data.selected * 5), ((data.selected * 5) + 5)))
+    setPageNum(data.selected) 
+
+  }
+    
 
 
     return (
@@ -89,8 +97,30 @@ const Comments = () => {
           </form>
           <hr />
           <br />
-          {comments
-            ? comments.map((comment) => (
+          <ReactPaginate 
+            previousLabel={'<'}
+            nextLabel={'>'}
+            breakLabel={'...'}
+            pageCount={Math.ceil(comments.length/5)}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={2}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination justify-content-center'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            activeClassName={'active'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            breakLinkClassName={'page-link'}
+            
+
+           />
+
+
+          {pagComments
+            ? pagComments.map((comment) => (
                 <div key={uniqid()} className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex flex-start">
