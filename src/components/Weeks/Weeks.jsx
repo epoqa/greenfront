@@ -1,35 +1,53 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
 import styles from "../../../styles/Diary.module.css";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteWeekAction } from "src/redux/actions/action";
 import axios from "axios";
-const Weeks = ({ weeks, chosenWeek, setChosenWeek, setModalShow, owner, diaryId, setWeeks }) => {
-  const deleteWeek = (index) => {
-    axios
-      .delete(`https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
-      {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setWeeks(weeks.filter((week, i) => i !== index));
-        console.log(res);
-      }
-      )
-      .catch((err) => {
-        console.log(err);
-      } 
-      );
-  }
+import { useDispatch, useSelector } from "react-redux";
+import { getDiaryWeeksSelector } from "../../redux/selectors/selector";
+const Weeks = ({
+  weeks,
+  chosenWeek,
+  setChosenWeek,
+  setModalShow,
+  owner,
+  diaryId,
+  setWeeks,
+}) => {
+  const dispatch = useDispatch();
+  const weeksfromRedux = useSelector((state) => getDiaryWeeksSelector(state));
+
+  const deleteWeek = (weekId) => {
+    //  const imagesFromRedux = useSelector((state) =>
+    //    getAddedImages(state, chosenWeek)
+    //  );
+    dispatch(deleteWeekAction(weekId));
+    // axios
+    //   .delete(
+    //     `https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
+    //     {
+    //       headers: {
+    //         Authorization: "Bearer " + localStorage.getItem("token"),
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     setWeeks(weeks.filter((week, i) => i !== index));
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
 
   return (
     <>
       <h6 className={styles.h1class + " fw-bold"}>კვირები</h6>
       <br />
       <div className="justify-content-center row">
-        {weeks
-          ? weeks.map((week, index) => (
+        {weeksfromRedux
+          ? weeksfromRedux.map((week, index) => (
               <a
                 style={{
                   opacity: index === chosenWeek ? 1 : 0.4,
@@ -52,24 +70,31 @@ const Weeks = ({ weeks, chosenWeek, setChosenWeek, setModalShow, owner, diaryId,
                 <span className={`${styles.weekMiddle} p2`}>
                   {index === 0 ? "G" : index}
                   <p className={`${styles.weekChild} p2`}>კვირა</p>
-                  {index === chosenWeek ? owner === true ? <DeleteIcon color="error" onClick={e => deleteWeek(index)} /> :null : null}
-                  <br/>
+                  {index === chosenWeek ? (
+                    owner === true ? (
+                      <DeleteIcon
+                        color="error"
+                        onClick={(e) => deleteWeek(week._id)}
+                      />
+                    ) : null
+                  ) : null}
+                  <br />
                 </span>
               </a>
             ))
           : null}
-          
-      {owner ? (
-        <a
-          onClick={() => setModalShow(true)}
-          className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6`}
-        >
-          დამატება
-          <span className={`${styles.weekMiddle}  ${styles.ADD} p2`}>+</span>
-        </a>
-      ) : null}
+
+        {owner ? (
+          <a
+            onClick={() => setModalShow(true)}
+            className={`${styles.weekParent} ${styles.ADD}  d-flex flex-column col-xs-6`}
+          >
+            დამატება
+            <span className={`${styles.weekMiddle}  ${styles.ADD} p2`}>+</span>
+          </a>
+        ) : null}
       </div>
-      <br/>
+      <br />
     </>
   );
 };

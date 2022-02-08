@@ -107,14 +107,15 @@ const CreateDiary = () => {
                     <br />
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
-                    { isLogged === diary.owner ? (
-                    <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
+                    {isLogged === diary.owner ? (
+                      <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
                     ) : null}
+
                     <ChosenWeekPhotos
                       chosenPics={weeks[chosenWeek]}
                       chosenWeek={chosenWeek}
                     />
-                    
+
                     <Comments />
                   </section>
                 </div>

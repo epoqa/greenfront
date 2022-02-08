@@ -41,6 +41,17 @@ export const mainReducer = (state = initialState, action) => {
     case actionTypes.ADD_DIARY:
       return { ...state, diary: action.payload };
 
+    case actionTypes.DELETE_WEEK:
+      return {
+        ...state,
+        diary: {
+          ...state.diary,
+          weeks: state.diary.weeks.filter(
+            (item) => item._id !== action.payload
+          ),
+        },
+      };
+
     default:
       return state;
   }

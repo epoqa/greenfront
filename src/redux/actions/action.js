@@ -5,11 +5,6 @@ export const addDiaryAction = (payload) => ({
   payload,
 });
 
-export const getDataFromBackAction = (payload) => ({
-  type: actionTypes.GET_DATA_FROM_DB,
-  payload,
-});
-
 export const toggleNavigationBar = () => ({
   type: actionTypes.TOGGLE_NAVIGATION_BAR,
 });
@@ -26,9 +21,10 @@ export const addImage = (payload) => {
     payload,
   };
 };
-export const addImagesFromBack = (payload) => {
+
+export const deleteWeekAction = (payload) => {
   return {
-    type: actionTypes.ADD_IMAGES_FROM_BACK,
+    type: actionTypes.DELETE_WEEK,
     payload,
   };
 };
