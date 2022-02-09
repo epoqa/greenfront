@@ -71,6 +71,20 @@
     font-weight: bold;
     transition: 0.3s;
   }
+  .arrow {
+    display: flex;
+    padding-top: 20px;
+    justify-content: center; /* horizontal */
+    align-items: center; /* vertical */
+    position: fixed;
+    right: -5%;
+    width: 100%;
+    color: #ffffff;
+    font-size: 70px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
   
   .close:hover,
   .close:focus {
