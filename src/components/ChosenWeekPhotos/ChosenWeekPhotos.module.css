@@ -17,6 +17,13 @@
     border-radius: 1px;
     cursor: pointer;
     transition: 0.3s;
+    
+    height: auto;
+    min-height: 230px;
+    max-height: 230px;
+    width: auto;
+    min-width: 100%;
+    max-width: 100%;
   }
   
   .myImg:hover {opacity: 0.7;}
