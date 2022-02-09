@@ -31,7 +31,7 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
                 <div id="myModal" style={{display: display}} className={`${style.modal}` }>
                   <span onClick={e => setDisplay('none')} className={style.close}>&times;</span>
                   <img className={style.modalcontent} src={imgSrc} id="img01" />
-
+                  
                 </div>
               {/* </div> */}
             </div>
