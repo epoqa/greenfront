@@ -1,0 +1,101 @@
+.modal {
+
+    margin-top: 30px;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: none;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.12); /* Black w/ opacity */
+  }
+
+  .myImg {
+    border-radius: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+    
+    height: auto;
+    min-height: 230px;
+    max-height: 230px;
+    width: auto;
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .myImg:hover {opacity: 0.7;}
+
+  /* Modal Content (Image) */
+  .modalcontent {
+    padding-left: 10%;
+    margin: auto;
+    display: block;
+    width: 50%;
+    max-width: 80%;
+    max-height: 80%;
+  }
+  
+  /* Caption of Modal Image (Image Text) - Same Width as the Image */
+  .caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+  
+  /* Add Animation - Zoom in the Modal */
+  .modalcontent, .caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .arrow {
+    display: flex;
+    padding-top: 20px;
+    justify-content: center; /* horizontal */
+    align-items: center; /* vertical */
+    position: fixed;
+    right: -5%;
+    width: 100%;
+    color: #ffffff;
+    font-size: 70px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  
+  .close:hover,
+  .close:focus {
+    color: rgb(216, 216, 216);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* 100% Image Width on Smaller Screens */
+  @media only screen and (max-width: 700px){
+    .modalcontent {
+      width: 100%;
+    }
+  }
