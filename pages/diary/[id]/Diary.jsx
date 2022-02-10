@@ -99,10 +99,10 @@ const CreateDiary = () => {
                     <Popup
                       show={modalShow}
                       onHide={() => setModalShow(false)}
-                      rerenderfunc={rerenderfunc}
+                      // rerenderfunc={rerenderfunc}
                       owner={diary.owner}
                       id={router.query.id}
-                      func={setModalShow}
+                      // func={(showOrNot) => setModalShow(showOrNot)}
                     />
                     <br />
 

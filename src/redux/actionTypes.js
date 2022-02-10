@@ -6,4 +6,5 @@ export const actionTypes = {
   ADD_IMAGE: "ADD_IMAGE",
   ADD_IMAGES_FROM_BACK: "ADD_IMAGES_FROM_BACK",
   DELETE_WEEK: "DELETE_WEEK",
+  ADD_WEEK: "ADD_WEEK",
 };

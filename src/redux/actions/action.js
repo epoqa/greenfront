@@ -28,3 +28,10 @@ export const deleteWeekAction = (payload) => {
     payload,
   };
 };
+export const addWeekAction = (payload) => {
+  return {
+    type: actionTypes.ADD_WEEK,
+    payload,
+  };
+};
+
