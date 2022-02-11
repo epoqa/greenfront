@@ -15,7 +15,7 @@ import axios from "axios";
 const mdTheme = createTheme();
 import Avatar from "@mui/material/Avatar";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
-import styles from "../../../styles/Home.module.css";
+import styles from "./Grower.module.css";
 
 export default function Grower() {
   let [user, setUser] = useState([]);

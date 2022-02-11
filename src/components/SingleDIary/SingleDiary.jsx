@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
-import styles from "../../../styles/Home.module.css";
 import uniqid from "uniqid";
 import PanoramaTwoToneIcon from "@mui/icons-material/PanoramaTwoTone";
 import Styles from "./SingleDiary.module.scss";

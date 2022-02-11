@@ -8,7 +8,7 @@ import Navigation from "../../src/components/Navigation/Navigation";
 import Header from "../../src/components/Header/Header";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import styles from "../../styles/Home.module.css";
+import styles from "./Home.module.css";
 import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import uniqid from "uniqid";

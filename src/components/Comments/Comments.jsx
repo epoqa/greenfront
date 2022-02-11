@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "../../../styles/Diary.module.css";
+import styles from "./Comments.module.css";
 import { useRouter } from "next/router";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 import uniqid from "uniqid";
