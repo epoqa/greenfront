@@ -16,3 +16,10 @@
     border-color: #aeaeae;
     margin-left: 10px
   }
+  .randomDiv{
+    resize: none;
+  }
+
+  .randomDiv2{
+    color: #aaa;
+  }

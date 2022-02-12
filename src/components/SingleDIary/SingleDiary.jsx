@@ -31,7 +31,7 @@ const SingleDiary = ({ item }) => {
       )}
       <div className={Styles.singleDiaryInfoMainDiv}>
         <p
-          style={{ cursor: "pointer" }}
+          className={Styles.pointer}
           onClick={(e) => router.push(`/diary/${item.id}`)}
         >
           {item.diaryName}
@@ -39,9 +39,9 @@ const SingleDiary = ({ item }) => {
         <div className={Styles.singleDiaryInfoCommentsAndOwner}>
           <NextLink
             href={"/grower/" + item.owner}
-            style={{ background: "red" }}
+            className={Styles.nextlink}
           >
-            <p style={{ color: "green", cursor: "pointer" }}>
+            <p className={Styles.randomDiv}>
               {item.owner.split("").slice(0, 6).join("") + "..."}
             </p>
           </NextLink>

@@ -1,0 +1,11 @@
+.appBar{
+    height: 7vh;
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.pointer{
+    cursor: pointer;
+}

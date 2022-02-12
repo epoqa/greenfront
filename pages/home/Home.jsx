@@ -75,7 +75,6 @@ const Home = () => {
                           className={`${styles.column} mx-1 border border-secondary rounded column`}
                         >
                           <img
-                            style={{ cursor: "pointer" }}
                             onClick={(e) => router.push(`/diary/${item.id}`)}
                             className={`${styles.columnimg} rounded`}
                             src={
@@ -93,9 +92,8 @@ const Home = () => {
                           />
                           <div>
                             <p
-                              style={{ cursor: "pointer" }}
                               onClick={(e) => router.push(`/diary/${item.id}`)}
-                              className="text-center my-1"
+                              className={`${styles.pointer} text-center my-1`}
                             >
                               {item.diaryName}
                             </p>
@@ -130,8 +128,7 @@ const Home = () => {
                         >
                           <div className="col py-2 col-md-9 col-lg-7 col-xl-5">
                             <div
-                              className="card"
-                              style={{ borderRadius: "15px" }}
+                              className={`${styles.card2} card`}
                             >
                               <div className="card-body p-4">
                                 <div className="d-flex text-black">
@@ -139,24 +136,19 @@ const Home = () => {
                                     <img
                                       src="https://i.pinimg.com/736x/9c/ec/85/9cec857533316f8e86c228f1efcbe8df--a-character-michael-scott-quotes.jpg"
                                       alt="Generic placeholder image"
-                                      className="img-fluid"
-                                      style={{
-                                        width: "180px",
-                                        borderRadius: "10px",
-                                      }}
+                                      className={`${styles.imgFluid} img-fluid`}
+
                                     />
                                   </div>
                                   <div className="flex-grow-1 ms-3">
                                     <h5 className="mb-1">{user.username}</h5>
                                     <p
-                                      className="mb-2 pb-1"
-                                      style={{ color: "#2b2a2a" }}
+                                      className={`${styles.randomDiv2} mb-2 pb-1`}
                                     >
                                       შემოუერთდა {timeSince(user.Joined)} წინ
                                     </p>
                                     <div
-                                      className="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                      style={{ backgroundColor: "#efefef" }}
+                                      className={`${styles.randomDiv1} d-flex justify-content-start rounded-3 p-2 mb-2`}
                                     >
                                       <div>
                                         <p className="small text-muted mb-1">

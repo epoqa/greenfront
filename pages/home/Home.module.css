@@ -132,8 +132,25 @@
   margin-top: 8px;
   vertical-align: middle;
   width: 100%;
+  cursor: pointer;
+}
+.pointer {
+  cursor: pointer;
 }
 
+.card2 {
+  border-radius: 15px;
+}
+.imgFluid{
+  width: 180px;
+  border-radius: 10px;
+}
+.randomDiv1{
+  background-color: #efefef
+}
+.randomDiv2{
+  color: #2b2a2a
+}
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 800px) {
   .column {

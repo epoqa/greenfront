@@ -80,7 +80,7 @@ const CreateDiary = () => {
                 }}
               >
                 <div>
-                  <section style={{ backgroundColor: "white" }}>
+                  <section className={`${styles.randomDiv}`}>
                     <DiaryMainSpecs
                       deleteDiary={deleteDiary}
                       diary={diary}
