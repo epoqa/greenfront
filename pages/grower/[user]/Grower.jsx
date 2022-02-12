@@ -15,7 +15,7 @@ import axios from "axios";
 const mdTheme = createTheme();
 import Avatar from "@mui/material/Avatar";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
-import styles from "../../../styles/Home.module.css";
+import styles from "./Grower.module.css";
 
 export default function Grower() {
   let [user, setUser] = useState([]);
@@ -69,12 +69,8 @@ export default function Grower() {
                 >
                   <div className="">
                     <div
-                      className="px-4 pb-1 cover"
-                      style={{
-                        backgroundColor: "gray",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                      }}
+                      className={`${styles.randomDiv} px-4 pb-1 cover`}
+
                     >
                       <div className="media pt-4 align-items-start profile-head">
                         <div className="profile mr-3">
@@ -143,7 +139,6 @@ export default function Grower() {
                               
                             >
                               <img
-                              style={{cursor: 'pointer'}}
                               onClick={(e) => router.push(`/diary/${item.id}`)}
                                 className={`${styles.columnimg} rounded`}
                                 src={item.weeks.length > 0
@@ -158,7 +153,7 @@ export default function Grower() {
                                 alt='სურათი'
                               />
                               <div>
-                                <p style={{cursor: 'pointer'}} onClick={(e) => router.push(`/diary/${item.id}`)} className='text-center my-1'>{item.diaryName}</p>
+                                <p onClick={(e) => router.push(`/diary/${item.id}`)} className={`${styles.pointer} text-center my-1`}>{item.diaryName}</p>
                                 <a href={'/grower/' + item.owner} className='text-center my-1'>{item.owner}</a>
                                 <br/>
                                 <small className='text-center'>{item.comments.length} კომენტარი • {item.weeks.length} კვირა</small>

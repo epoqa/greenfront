@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
-import styles from "../../../styles/Diary.module.css";
+import styles from "./Weeks.module.css";
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 const Weeks = ({ weeks, chosenWeek, setChosenWeek, setModalShow, owner, diaryId, setWeeks }) => {
