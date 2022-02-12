@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -107,14 +107,14 @@ const CreateDiary = () => {
                     <br />
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
-                    { isLogged === diary.owner ? (
-                    <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
+                    {isLogged === diary.owner ? (
+                      <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
                     ) : null}
                     <ChosenWeekPhotos
                       chosenPics={weeks[chosenWeek]}
                       chosenWeek={chosenWeek}
                     />
-                    
+
                     <Comments />
                   </section>
                 </div>
