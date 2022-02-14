@@ -17,28 +17,25 @@ const Weeks = ({
 }) => {
   const dispatch = useDispatch();
   const weeksfromRedux = useSelector((state) => getDiaryWeeksSelector(state));
-
-  const deleteWeek = (weekId) => {
-    //  const imagesFromRedux = useSelector((state) =>
-    //    getAddedImages(state, chosenWeek)
-    //  );
+  //INDEX SHOULD BE GONE
+  const deleteWeek = (weekId, index) => {
     dispatch(deleteWeekAction(weekId));
-    // axios
-    //   .delete(
-    //     `https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
-    //     {
-    //       headers: {
-    //         Authorization: "Bearer " + localStorage.getItem("token"),
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     setWeeks(weeks.filter((week, i) => i !== index));
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    axios
+      .delete(
+        `https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        setWeeks(weeks.filter((week, i) => i !== index));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -74,7 +71,8 @@ const Weeks = ({
                     owner === true ? (
                       <DeleteIcon
                         color="error"
-                        onClick={(e) => deleteWeek(week._id)}
+                        //INDEX SHOULD BE GONE
+                        onClick={(e) => deleteWeek(week._id, index)}
                       />
                     ) : null
                   ) : null}

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
+//test
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -99,10 +100,10 @@ const CreateDiary = () => {
                     <Popup
                       show={modalShow}
                       onHide={() => setModalShow(false)}
-                      rerenderfunc={rerenderfunc}
+                      // rerenderfunc={rerenderfunc}
                       owner={diary.owner}
                       id={router.query.id}
-                      func={setModalShow}
+                      // func={(showOrNot) => setModalShow(showOrNot)}
                     />
                     <br />
 
