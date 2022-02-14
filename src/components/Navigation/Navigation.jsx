@@ -1,5 +1,8 @@
 import * as React from "react";
-import  {Drawer , mainListItemsArray}  from "../../reuseableFunctions/MaterialUI";
+import {
+  Drawer,
+  mainListItemsArray,
+} from "../../reuseableFunctions/MaterialUI";
 import NextLink from "next/link";
 import {
   Toolbar,
@@ -16,6 +19,7 @@ import { toggleNavigationBar } from "../../redux/actions/action";
 import { useDispatch, useSelector } from "react-redux";
 import { getNavigationBar } from "../../redux/selectors/selector";
 import { v4 as uuidv4 } from "uuid";
+import styles from "./Navigation.module.css";
 const Navigation = () => {
   const dispatch = useDispatch();
   const NavigationBar = useSelector((state) => getNavigationBar(state));
@@ -29,10 +33,6 @@ const Navigation = () => {
           justifyContent: "flex-end",
           px: [1],
         }}
-        style={{
-          maxHeight: "7vh",
-          minHeight: "7vh",
-        }}
       >
         <IconButton onClick={() => dispatch(toggleNavigationBar())}>
           <ChevronLeftIcon />
@@ -44,7 +44,6 @@ const Navigation = () => {
   );
 };
 export default Navigation;
-
 
 const mainListItems = (
   <div>
@@ -58,10 +57,7 @@ const mainListItems = (
             <ListItemText
               disableTypography
               primary={
-                <Typography
-                  type="p"
-                  style={{ color: "black", fontSize: "90%" }}
-                >
+                <Typography type="p" className={styles.typo}>
                   {item.text}
                 </Typography>
               }

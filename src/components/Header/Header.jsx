@@ -21,6 +21,8 @@ import { loggedInUser } from "../../redux/actions/action";
 import userByToken from "../../reuseableFunctions/userByToken";
 import Avatar from "@mui/material/Avatar";
 
+import styles from "./Header.module.css";
+
 let NavigationBar = false;
 
 const Header = () => {
@@ -32,11 +34,10 @@ const Header = () => {
 
   return (
     <AppBar
-      position="absolute"
       open={false}
-      sx={{}}
-      style={{
-        height: "7vh",
+      //LEAVE AS IT IS FOR NOW
+      // className={styles.appBar}
+      sx={{
         backgroundColor: "green",
         dispay: "flex",
         flexDirection: "row",
@@ -87,7 +88,7 @@ const Header = () => {
         <div className="row">
           <div className="col">
             <Avatar
-              style={{ cursor: "pointer" }}
+              className={styles.pointer}
               onClick={(e) => router.push(`/grower/${isLogged}`)}
               src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
               alt="avatar"
@@ -96,7 +97,7 @@ const Header = () => {
           </div>
           <div className="col m-1">
             <LogoutIcon
-              style={{ cursor: "pointer" }}
+              className={styles.pointer}
               onClick={(e) => {
                 window.localStorage.clear();
                 dispatch(loggedInUser(false));

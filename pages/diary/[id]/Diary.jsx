@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 import { useRouter } from "next/router";
 import axios from "axios";
 import DiaryMainSpecs from "src/components/DiaryMainSpecs/DiaryMainSpecs";
-import styles from "styles/Diary.module.css";
+import styles from "./Diary.module.css";
 import Popup from "src/components/Popup/Popup";
 import PhotoUploadInput from "src/components/PhotoUploadInput/PhotoUploadInput";
 import Comments from "src/components/Comments/Comments";
@@ -80,7 +80,7 @@ const CreateDiary = () => {
                 }}
               >
                 <div>
-                  <section style={{ backgroundColor: "white" }}>
+                  <section className={`${styles.randomDiv}`}>
                     <DiaryMainSpecs
                       deleteDiary={deleteDiary}
                       diary={diary}
