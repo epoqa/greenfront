@@ -54,15 +54,6 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={13} lg={13}>
-              <Paper
-                sx={{
-                  p: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <h5 className="text-center my-1">ბოლოს დამატებული დღიურები</h5>
                 <hr />
                 <div
@@ -193,9 +184,6 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-              </Paper>
-            </Grid>
-          </Grid>
         </ContentProvider>
       </Box>
     </ThemeProvider>

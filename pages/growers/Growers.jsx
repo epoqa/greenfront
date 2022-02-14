@@ -17,10 +17,13 @@ import { v4 as uuidv4 } from "uuid";
 import { timeSince } from "../../src/reuseableFunctions/timeSince";
 import NextLink from "next/link";
 import styles from "./Growers.module.css";
-
+import Avatar from "@mui/material/Avatar";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 const Home = () => {
   let [users, setUsers] = useState([]);
-
+  let [search, setSearch] = useState("");
   useEffect(() => {
     axios
       .get("https://greenbackk.herokuapp.com/users/all")
@@ -33,6 +36,7 @@ const Home = () => {
       });
   }, []);
 
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -40,90 +44,76 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={13} lg={13}>
-              <Paper
-                sx={{
-                  p: 3,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <div className="row">
-                  <div className="container py-1 h-100">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                      {users.map((user) => (
-                        <NextLink
-                          href={{ pathname: `/grower/${user.username}` }}
-                          key={uuidv4()}
-                        >
-                          <div className="col py-2 col-md-9 col-lg-7 col-xl-5">
-                            <div className={`${styles.card2} card`}>
-                              <div className="card-body p-4">
-                                <div className="d-flex text-black">
-                                  <div className="flex-shrink-0">
-                                    <img
-                                      src="https://i.pinimg.com/736x/9c/ec/85/9cec857533316f8e86c228f1efcbe8df--a-character-michael-scott-quotes.jpg"
-                                      alt="Generic placeholder image"
-                                      className={`${styles.imgFluid} img-fluid`}
-                                    />
-                                  </div>
-                                  <div className="flex-grow-1 ms-3">
-                                    <h5 className="mb-1">{user.username}</h5>
-                                    <p
-                                      className={`${styles.randomDiv2} mb-2 pb-1`}
-                                    >
-                                      შემოუერთდა {timeSince(user.Joined)} წინ
-                                    </p>
-                                    <div
-                                      className={`${styles.randomDiv1} d-flex justify-content-start rounded-3 p-2 mb-2`}
-                                    >
-                                      <div>
-                                        <p className="small text-muted mb-1">
-                                          დღიურები
-                                        </p>
-                                        <p className="mb-0">41</p>
-                                      </div>
-                                      <div className="px-3">
-                                        <p className="small text-muted mb-1">
-                                          ქულა
-                                        </p>
-                                        <p className="mb-0">976</p>
-                                      </div>
-                                      <div>
-                                        <p className="small text-muted mb-1">
-                                          რეითი
-                                        </p>
-                                        <p className="mb-0">3</p>
-                                      </div>
-                                    </div>
-                                    <div className="d-flex pt-1">
-                                      <button
-                                        type="button"
-                                        className="btn btn-outline-primary me-1 flex-grow-1"
-                                      >
-                                        რამე
-                                      </button>
-                                      <button
-                                        type="button"
-                                        className="btn btn-primary flex-grow-1"
-                                      >
-                                        რამე
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </NextLink>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Paper>
-            </Grid>
-          </Grid>
+          <div className=" ">
+            <h4 className="p-2 ml-auto text-dark font">აღმოაჩინე გროუერები</h4>
+            <div className={`${styles.searchParent}`}>
+            <div className="p-2 form-outline">
+              <input onChange={e => setSearch(e.target.value)}type="search" placeholder="ძებნა..." id="form1" className="form-control p-2" />
+              {/* <select className="p-1 form-select" aria-label="Default select example">
+  <option selected onClick={e => sortBy('')}>დალაგება</option>
+  <option value="1" onClick={e => sortBy('bylike')}>მოწონებით</option>
+  <option value="2" onClick={e => sortBy('bydiary')}>დღიურებით</option>
+  <option value="3" onClick={e => sortBy('byname')}>სახელით</option>
+</select> */}
+            </div>
+            
+              </div>
+            
+          </div>
+          <div className="row">
+            <div className="container py-1 h-100">
+              <div className="row d-flex justify-content-center align-items-center h-100">
+                <ul className="list-group">
+                  {users.filter((val)=> {
+                    if(search == ""){
+                      return val;
+                    }else if(val.username.toLowerCase().includes(search.toLowerCase())){
+                      return val;
+                    }
+                  }).map((user) => (
+                    <NextLink
+                      href={{ pathname: `/grower/${user.username}` }}
+                      key={uuidv4()}
+                    >
+                      <li
+                        className={`${styles.parentLi} mt-2 d-flex flex-row list-group-item`}
+                      >
+                        <Avatar
+                          className="rounded-circle shadow-1-strong me-3"
+                          src="https://www.intellectualtakeout.org/assets/3/28/michaelscott.jpg"
+                          alt="avatar"
+                        />
+                        <h6 className={`${styles.nameStyle} p-1 flex-row text-primary`}>
+                          {(window.matchMedia("(max-width: 460px)").matches) ? (user.username.length > 5) ? user.username.split("").slice(0, 5).join("") + "..": user.username : user.username}
+                        
+                        </h6>
+                        <div className={`${styles.growerStats} p-2 flex-row`}>
+                          <span className=" text-primary p-2 flex-row m-3">
+                            <ThumbUpIcon />
+                            <small  className={`p-1 flex-row`}>{"150"}</small>
+                            <small
+                              className={`${styles.statText} p-1 flex-row`}
+                            >
+                              მოწონება
+                            </small>
+                          </span>
+                          <span className="text-success">
+                            <MenuBookIcon />{" "}
+                            <small className={`p-1 flex-row`}>{"12"}</small>
+                            <small
+                              className={`${styles.statText} p-1 flex-row`}
+                            >
+                              დღიური
+                            </small>
+                          </span>
+                        </div>
+                      </li>
+                    </NextLink>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </ContentProvider>
       </Box>
     </ThemeProvider>
