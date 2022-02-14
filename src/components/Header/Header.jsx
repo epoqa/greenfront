@@ -38,7 +38,6 @@ const Header = () => {
       //LEAVE AS IT IS FOR NOW
       // className={styles.appBar}
       sx={{
-        height: "7vh",
         backgroundColor: "green",
         dispay: "flex",
         flexDirection: "row",

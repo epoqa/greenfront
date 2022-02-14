@@ -32,10 +32,7 @@ const Navigation = () => {
           alignItems: "center",
           justifyContent: "flex-end",
           px: [1],
-          minHeight: "7vh",
-          maxHeight: "7vh",
         }}
-        className={styles.toolbar}
       >
         <IconButton onClick={() => dispatch(toggleNavigationBar())}>
           <ChevronLeftIcon />
