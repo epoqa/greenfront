@@ -36,18 +36,9 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <Grid container spacing={0}>
-            <Grid item xs={12} md={13} lg={13}>
-              <Paper
-                sx={{
-                  p: 1,
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
                 <br />
                 <div
-                  className={`${styles.row} d-flex justify-content-around row`}
+                  className={`${styles.row} row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center `}
                 >
                   {data
                     ? data.map((item, index) => (
@@ -55,9 +46,6 @@ const Home = () => {
                       ))
                     : null}
                 </div>
-              </Paper>
-            </Grid>
-          </Grid>
         </ContentProvider>
       </Box>
     </ThemeProvider>
