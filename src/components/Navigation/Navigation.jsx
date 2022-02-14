@@ -1,5 +1,8 @@
 import * as React from "react";
-import  {Drawer , mainListItemsArray}  from "../../reuseableFunctions/MaterialUI";
+import {
+  Drawer,
+  mainListItemsArray,
+} from "../../reuseableFunctions/MaterialUI";
 import NextLink from "next/link";
 import {
   Toolbar,
@@ -29,9 +32,10 @@ const Navigation = () => {
           alignItems: "center",
           justifyContent: "flex-end",
           px: [1],
+          minHeight: "7vh",
+          maxHeight: "7vh",
         }}
         className={styles.toolbar}
-
       >
         <IconButton onClick={() => dispatch(toggleNavigationBar())}>
           <ChevronLeftIcon />
@@ -43,7 +47,6 @@ const Navigation = () => {
   );
 };
 export default Navigation;
-
 
 const mainListItems = (
   <div>
@@ -57,10 +60,7 @@ const mainListItems = (
             <ListItemText
               disableTypography
               primary={
-                <Typography
-                  type="p"
-                  className={styles.typo}
-                >
+                <Typography type="p" className={styles.typo}>
                   {item.text}
                 </Typography>
               }
