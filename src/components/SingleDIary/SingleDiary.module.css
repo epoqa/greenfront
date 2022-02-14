@@ -1,0 +1,42 @@
+.pointer{
+  cursor: pointer;
+}
+
+.nextlink{
+  background-color: red;
+}
+.randomDiv{
+  color: green;
+  cursor: pointer;
+}
+.mainSingleDiaryDiv{
+  background-color: white;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
+  width: 190px;
+  height: 250px;
+  margin: 7px;
+  padding-left: 0px;
+}
+.mainSingleDiaryDiv:hover{
+  background-color: rgba(248, 248, 248, 0.61);
+
+
+
+}
+.columnimg{
+  width: 189px;
+  height: 130px;
+  cursor: pointer;
+}
+.diaryStats{
+  font-size: 13px;
+}
+.weeks{
+  padding-left: 10px;
+  position: relative;
+  color: white;
+  top: -2px;
+  width: 107.5%;
+  height: 23px;
+}
