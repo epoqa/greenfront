@@ -28,7 +28,7 @@ const Home = () => {
   let [search, setSearch] = useState("");
   useEffect(() => {
     axios
-      .get("${backBaseURL}/users/all")
+      .get(`${backBaseURL}/users/all`)
       .then((res) => {
         setUsers(res.data);
         console.log(res.data);
