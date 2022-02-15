@@ -1,9 +1,9 @@
 import axios from "axios";
-const baseURL = "https://greenbackk.herokuapp.com";
+import { backBaseURL } from "src/consts/consts";
 
 export const getReq = (path, callback) => {
   axios
-    .get(`${baseURL}${path}`)
+    .get(`${backBaseURL}${path}`)
     .then((res) => {
       callback(res.data.comments);
     })
@@ -14,7 +14,7 @@ export const getReq = (path, callback) => {
 
 export const putReq = (path, body, header, callback) => {
   axios
-    .put(`${baseURL}${path}`, body, {
+    .put(`${backBaseURL}${path}`, body, {
       headers: header,
     })
     .then((response) => {

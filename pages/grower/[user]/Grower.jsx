@@ -12,6 +12,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
 import axios from "axios";
+import { backBaseURL } from "src/consts/consts";
+
 const mdTheme = createTheme();
 import Avatar from "@mui/material/Avatar";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
@@ -24,7 +26,7 @@ export default function Grower() {
   useEffect(() => {
     router.query.user &&
       axios
-        .get(`https://greenbackk.herokuapp.com/users/${router.query.user}`)
+        .get(`${backBaseURL}/users/${router.query.user}`)
         .then((res) => {
           setUser(res.data);
           console.log(res.data);
@@ -33,21 +35,16 @@ export default function Grower() {
           console.log(err);
         });
 
-    router.query.user && 
-    axios
-        .get(`https://greenbackk.herokuapp.com/diary/user/${router.query.user}`)
+    router.query.user &&
+      axios
+        .get(`${backBaseURL}/diary/user/${router.query.user}`)
         .then((res) => {
           setDiaries(res.data);
           console.log(res.data);
-        }
-        )
+        })
         .catch((err) => {
           console.log(err);
-        })
-
-
-
-
+        });
   }, [router]);
 
   return (
@@ -68,10 +65,7 @@ export default function Grower() {
                   }}
                 >
                   <div className="">
-                    <div
-                      className={`${styles.randomDiv} px-4 pb-1 cover`}
-
-                    >
+                    <div className={`${styles.randomDiv} px-4 pb-1 cover`}>
                       <div className="media pt-4 align-items-start profile-head">
                         <div className="profile mr-3">
                           <img
@@ -128,42 +122,60 @@ export default function Grower() {
                       <div className="d-flex align-items-center justify-content-between mb-3">
                         <h5 className="mb-0">დღიურები</h5>
                       </div>
-                      <div className={`${styles.row} d-flex justify-content-start row`}>
-                      {diaries
-                        ? diaries.map((item, index) => (
-
-                            <div
-                              
-                              key={uniqid()}
-                              className={`${styles.column} mx-1 border border-secondary rounded column`}
-                              
-                            >
-                              <img
-                              onClick={(e) => router.push(`/diary/${item.id}`)}
-                                className={`${styles.columnimg} rounded`}
-                                src={item.weeks.length > 0
-                                  ? (item.weeks.find(
-                                      (week) => week.pictures[0] !== undefined
-                                    )) ?
-                                    item.weeks.find(
-                                      (week) => week.pictures[0] !== undefined
-                                    ).pictures[0].picture
-                                  : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
-                                  : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"}
-                                alt='სურათი'
-                              />
-                              <div>
-                                <p onClick={(e) => router.push(`/diary/${item.id}`)} className={`${styles.pointer} text-center my-1`}>{item.diaryName}</p>
-                                <a href={'/grower/' + item.owner} className='text-center my-1'>{item.owner}</a>
-                                <br/>
-                                <small className='text-center'>{item.comments.length} კომენტარი • {item.weeks.length} კვირა</small>
-
-
+                      <div
+                        className={`${styles.row} d-flex justify-content-start row`}
+                      >
+                        {diaries
+                          ? diaries.map((item, index) => (
+                              <div
+                                key={uniqid()}
+                                className={`${styles.column} mx-1 border border-secondary rounded column`}
+                              >
+                                <img
+                                  onClick={(e) =>
+                                    router.push(`/diary/${item.id}`)
+                                  }
+                                  className={`${styles.columnimg} rounded`}
+                                  src={
+                                    item.weeks.length > 0
+                                      ? item.weeks.find(
+                                          (week) =>
+                                            week.pictures[0] !== undefined
+                                        )
+                                        ? item.weeks.find(
+                                            (week) =>
+                                              week.pictures[0] !== undefined
+                                          ).pictures[0].picture
+                                        : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
+                                      : "https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg"
+                                  }
+                                  alt="სურათი"
+                                />
+                                <div>
+                                  <p
+                                    onClick={(e) =>
+                                      router.push(`/diary/${item.id}`)
+                                    }
+                                    className={`${styles.pointer} text-center my-1`}
+                                  >
+                                    {item.diaryName}
+                                  </p>
+                                  <a
+                                    href={"/grower/" + item.owner}
+                                    className="text-center my-1"
+                                  >
+                                    {item.owner}
+                                  </a>
+                                  <br />
+                                  <small className="text-center">
+                                    {item.comments.length} კომენტარი •{" "}
+                                    {item.weeks.length} კვირა
+                                  </small>
+                                </div>
                               </div>
-                            </div>
-                          ))
-                        : null}
-                    </div>
+                            ))
+                          : null}
+                      </div>
                     </div>
                   </div>
                 </Paper>

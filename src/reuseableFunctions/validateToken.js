@@ -8,8 +8,9 @@ import { NotificationManager } from "../components/Notifications/Notifications";
 
 //NEXT IMPORTS
 import { useRouter } from "next/router";
+import { backBaseURL } from "src/consts/consts";
 
-const useValidateToken = (setLoadingState: any) => {
+const useValidateToken = (setLoadingState) => {
   const router = useRouter();
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -17,18 +18,18 @@ const useValidateToken = (setLoadingState: any) => {
     !token && router.push("/login");
     token &&
       axios
-        .get("https://greenbackk.herokuapp.com/authToken", {
+        .get(`${backBaseURL}/authToken`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
           console.log(response.data);
-            setLoadingState(false);
+          setLoadingState(false);
         })
         .catch((error) => {
           axios
-            .post("https://greenbackk.herokuapp.com/renewAccessToken", {
+            .post(`${backBaseURL}/renewAccessToken`, {
               refreshToken,
             })
             .then((response) => {

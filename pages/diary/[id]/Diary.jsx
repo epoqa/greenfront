@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useEffect, useState } from "react";
+//test
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -20,6 +21,8 @@ import Weeks from "src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "src/components/ChosenWeekPhotos/ChosenWeekPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { addDiaryAction } from "src/redux/actions/action";
+import { backBaseURL } from "src/consts/const";
+
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
@@ -39,7 +42,7 @@ const CreateDiary = () => {
   useEffect(() => {
     router.query.id &&
       axios
-        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
+        .get(`${backBaseURL}/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
           setWeeks(res.data.weeks);
@@ -52,7 +55,7 @@ const CreateDiary = () => {
 
   const deleteDiary = () => {
     axios
-      .delete(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`, {
+      .delete(`${backBaseURL}/diary/id/${router.query.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -99,10 +102,10 @@ const CreateDiary = () => {
                     <Popup
                       show={modalShow}
                       onHide={() => setModalShow(false)}
-                      rerenderfunc={rerenderfunc}
+                      // rerenderfunc={rerenderfunc}
                       owner={diary.owner}
                       id={router.query.id}
-                      func={setModalShow}
+                      // func={(showOrNot) => setModalShow(showOrNot)}
                     />
                     <br />
 
@@ -110,6 +113,7 @@ const CreateDiary = () => {
                     {isLogged === diary.owner ? (
                       <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
                     ) : null}
+
                     <ChosenWeekPhotos
                       chosenPics={weeks[chosenWeek]}
                       chosenWeek={chosenWeek}

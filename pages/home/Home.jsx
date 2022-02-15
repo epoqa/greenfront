@@ -17,6 +17,7 @@ const mdTheme = createTheme();
 import NextLink from "next/link";
 import { timeSince } from "../../src/reuseableFunctions/timeSince";
 import { v4 as uuidv4 } from "uuid";
+import { backBaseURL } from "src/consts/consts";
 import SingleDiary from "../../src/components/SingleDIary/SingleDiary";
 const Home = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get(`https://greenbackk.herokuapp.com/diary/all`)
+      .get(`${backBaseURL}/diary/all`)
       .then((res) => {
         setData(res.data);
         console.log(res.data);
@@ -35,7 +36,7 @@ const Home = () => {
       });
 
     axios
-      .get("https://greenbackk.herokuapp.com/users/all")
+      .get(`${backBaseURL}/users/all`)
       .then((res) => {
         setUsers(res.data);
         console.log(res.data);
@@ -54,17 +55,17 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-                <h5 className="text-center my-1">ბოლოს დამატებული დღიურები</h5>
-                <hr />
-                <div
-                  className={`${styles.row} row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center `}
-                >
-                  {data
-                    ? data.map((item, index) => (
-                        <SingleDiary item={item} index={index} key={uniqid()} />
-                      ))
-                    : null}
-                </div>
+          <h5 className="text-center my-1">ბოლოს დამატებული დღიურები</h5>
+          <hr />
+          <div
+            className={`${styles.row} row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center `}
+          >
+            {data
+              ? data.map((item, index) => (
+                  <SingleDiary item={item} index={index} key={uniqid()} />
+                ))
+              : null}
+          </div>
         </ContentProvider>
       </Box>
     </ThemeProvider>

@@ -41,6 +41,28 @@ export const mainReducer = (state = initialState, action) => {
     case actionTypes.ADD_DIARY:
       return { ...state, diary: action.payload };
 
+    case actionTypes.DELETE_WEEK:
+      return {
+        ...state,
+        diary: {
+          ...state.diary,
+          weeks: state.diary.weeks.filter(
+            (item) => item._id !== action.payload
+          ),
+        },
+      };
+    case actionTypes.ADD_WEEK:
+      console.log("ai aq var da mixaria", action.payload);
+      return {
+        ...state,
+        // diary: {
+        //   ...state.diary,
+        //   weeks: state.diary.weeks.filter(
+        //     (item) => item._id !== action.payload
+        //   ),
+        // },
+      };
+
     default:
       return state;
   }
