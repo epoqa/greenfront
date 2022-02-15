@@ -21,7 +21,7 @@ import Weeks from "src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "src/components/ChosenWeekPhotos/ChosenWeekPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { addDiaryAction } from "src/redux/actions/action";
-import { backBaseURL } from "src/consts/const";
+import { backBaseURL } from "src/consts/consts";
 
 const mdTheme = createTheme();
 
