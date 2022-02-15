@@ -13,6 +13,7 @@ import axios from "axios";
 import uniqid from "uniqid";
 import Loading from "../../src/components/Loading/Loading";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import { backBaseURL } from "src/consts/consts";
 
 const mdTheme = createTheme();
 
@@ -60,7 +61,7 @@ const CreateDiary = () => {
     ) {
       axios
         .post(
-          "https://greenbackk.herokuapp.com/diary/create",
+          `${backBaseURL}/diary/create`,
           {
             diaryName: nameRefValue,
             type: typeRefValue,

@@ -7,14 +7,15 @@ import Avatar from "@mui/material/Avatar";
 import { getReq, putReq } from "../../reuseableFunctions/request";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import ReactPaginate from 'react-paginate'
+import ReactPaginate from "react-paginate";
+import { backBaseURL } from "src/consts/consts";
 const Comments = () => {
   const isLogged = useSelector((state) => state.isLogged);
 
   const router = useRouter();
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
-  const [pageNum, setPageNum] = useState(1)
+  const [pageNum, setPageNum] = useState(1);
   useEffect(() => {
     router.query.id && getReq(`/diary/id/${router.query.id}`, setComments);
   }, [router]);
@@ -31,7 +32,7 @@ const Comments = () => {
         {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        setComments        
+        setComments
       );
       commentRef && commentRef.current ? (commentRef.current.value = "") : null;
     }
@@ -44,27 +45,23 @@ const Comments = () => {
     );
 
     axios
-      .delete(`https://greenbackk.herokuapp.com/diary/${router.query.id}/comment/${id}`, {
+      .delete(`${backBaseURL}/diary/${router.query.id}/comment/${id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       })
-      .then((res) => {
-      })
+      .then((res) => {})
       .catch((err) => {
         console.log(err);
       });
   };
- 
+
   const handlePageClick = (data) => {
     // setPagComments(comments.slice((data.selected * 5), ((data.selected * 5) + 5)))
-    setPageNum(data.selected) 
+    setPageNum(data.selected);
+  };
 
-  }
-    
-
-
-    return (
+  return (
     <div className="container my-5 py-5 text-dark">
       <div className="row d-flex justify-content-center">
         <h6 className={styles.h1class + " fw-bold"}>კომენტარები</h6>
@@ -96,30 +93,27 @@ const Comments = () => {
           </form>
           <hr />
           <br />
-          <ReactPaginate 
-            previousLabel={'<'}
-            nextLabel={'>'}
-            breakLabel={'...'}
-            pageCount={Math.ceil(comments.length/5)}
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            pageCount={Math.ceil(comments.length / 5)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={2}
             onPageChange={handlePageClick}
-            containerClassName={'pagination justify-content-center'}
-            pageClassName={'page-item'}
-            pageLinkClassName={'page-link'}
-            activeClassName={'active'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link'}
-            breakLinkClassName={'page-link'}
-            
-
-           />
-
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            activeClassName={"active"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakLinkClassName={"page-link"}
+          />
 
           {comments
-            ? (comments.slice((pageNum * 5), ((pageNum * 5) + 5))).map((comment) => (
+            ? comments.slice(pageNum * 5, pageNum * 5 + 5).map((comment) => (
                 <div key={uniqid()} className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex flex-start">
@@ -142,12 +136,14 @@ const Comments = () => {
                             <a href="#" className="link-grey">
                               მოწონება
                             </a>{" "}
-                            { comment.owner === isLogged ? (
-                            
-                            <a onClick={e => deleteComment(comment._id)} className="link-grey">
-                              {"  წაშლა"}
-                            </a>
-                          ) : null }
+                            {comment.owner === isLogged ? (
+                              <a
+                                onClick={(e) => deleteComment(comment._id)}
+                                className="link-grey"
+                              >
+                                {"  წაშლა"}
+                              </a>
+                            ) : null}
                           </p>
                           <div className="d-flex flex-row">
                             <i className="fas fa-star text-warning me-2"></i>

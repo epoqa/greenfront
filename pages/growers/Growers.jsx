@@ -17,13 +17,14 @@ const mdTheme = createTheme();
 import { v4 as uuidv4 } from "uuid";
 import { timeSince } from "../../src/reuseableFunctions/timeSince";
 import NextLink from "next/link";
+import { backBaseURL } from "src/consts/consts";
 
 const Home = () => {
   let [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://greenbackk.herokuapp.com/users/all")
+      .get("${backBaseURL}/users/all")
       .then((res) => {
         setUsers(res.data);
         console.log(res.data);

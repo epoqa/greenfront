@@ -6,6 +6,7 @@ import axios from "axios";
 import { addImage } from "../../redux/actions/action";
 import { useDispatch } from "react-redux";
 import uniqid from "uniqid";
+import { backBaseURL } from "src/consts/consts";
 const PhotoUploadInput = ({ chosenWeek, diary }) => {
   const dispatch = useDispatch();
 
@@ -40,7 +41,7 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
             );
             axios
               .put(
-                `https://greenbackk.herokuapp.com/diary/picture/${router.query.id}`,
+                `${backBaseURL}/diary/picture/${router.query.id}`,
                 {
                   picture: url,
                   owner: diary.owner,

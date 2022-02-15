@@ -21,6 +21,8 @@ import Weeks from "src/components/Weeks/Weeks";
 import ChosenWeekPhotos from "src/components/ChosenWeekPhotos/ChosenWeekPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { addDiaryAction } from "src/redux/actions/action";
+import { backBaseURL } from "src/consts/const";
+
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
@@ -40,7 +42,7 @@ const CreateDiary = () => {
   useEffect(() => {
     router.query.id &&
       axios
-        .get(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`)
+        .get(`${backBaseURL}/diary/id/${router.query.id}`)
         .then((res) => {
           setDiary(res.data);
           setWeeks(res.data.weeks);
@@ -53,7 +55,7 @@ const CreateDiary = () => {
 
   const deleteDiary = () => {
     axios
-      .delete(`https://greenbackk.herokuapp.com/diary/id/${router.query.id}`, {
+      .delete(`${backBaseURL}/diary/id/${router.query.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

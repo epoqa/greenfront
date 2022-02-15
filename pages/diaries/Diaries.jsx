@@ -12,6 +12,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import axios from "axios";
 import SingleDiary from "../../src/components/SingleDIary/SingleDiary";
 import uniqid from "uniqid";
+import { backBaseURL } from "src/consts/consts";
 
 const mdTheme = createTheme();
 
@@ -20,7 +21,7 @@ const Home = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://greenbackk.herokuapp.com/diary/all`)
+      .get(`${backBaseURL}/diary/all`)
       .then((res) => {
         setData(res.data);
       })

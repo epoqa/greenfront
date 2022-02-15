@@ -3,13 +3,14 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addWeekAction } from "src/redux/actions/action";
+import { backBaseURL } from "src/consts/consts";
 const Popup = ({ owner, ...props }) => {
   const dispatch = useDispatch();
   const createNewWeekType = (type) => {
     dispatch(addWeekAction(type, owner));
     axios
       .put(
-        `https://greenbackk.herokuapp.com/diary/week/${props.id}`,
+        `${backBaseURL}/diary/week/${props.id}`,
         {
           week: type,
           owner: props.owner,

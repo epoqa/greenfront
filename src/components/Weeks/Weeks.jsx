@@ -6,6 +6,7 @@ import { deleteWeekAction } from "src/redux/actions/action";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiaryWeeksSelector } from "../../redux/selectors/selector";
+import { backBaseURL } from "src/consts/consts";
 const Weeks = ({
   weeks,
   chosenWeek,
@@ -17,18 +18,16 @@ const Weeks = ({
 }) => {
   const dispatch = useDispatch();
   const weeksfromRedux = useSelector((state) => getDiaryWeeksSelector(state));
+  console.log(backBaseURL, "backBaseURL");
   //INDEX SHOULD BE GONE
   const deleteWeek = (weekId, index) => {
     dispatch(deleteWeekAction(weekId));
     axios
-      .delete(
-        `https://greenbackk.herokuapp.com/diary/week/${diaryId}/${index}`,
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .delete(`${backBaseURL}/diary/week/${diaryId}/${index}`, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((res) => {
         setWeeks(weeks.filter((week, i) => i !== index));
         console.log(res);

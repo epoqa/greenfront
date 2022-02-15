@@ -23,7 +23,7 @@ import axios from "axios";
 //OTHER IMPORTS
 import { validateEmail } from "../../src/reuseableFunctions/validateEmail";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
-
+import { backBaseURL } from "src/consts/consts";
 const theme = createTheme();
 
 const SignUp = () => {
@@ -60,7 +60,7 @@ const SignUp = () => {
       passwordRefValue.length > 8
     ) {
       axios
-        .post("https://greenbackk.herokuapp.com/users/register", {
+        .post(`${backBaseURL}/users/register`, {
           username: usernameRefValue,
           email: emailRefValue,
           password: passwordRefValue,
