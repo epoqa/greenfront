@@ -17,7 +17,7 @@ import { backBaseURL } from "src/consts/consts";
 const mdTheme = createTheme();
 import Avatar from "@mui/material/Avatar";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
-import styles from "../../../styles/Home.module.css";
+import styles from "./Grower.module.css";
 
 export default function Grower() {
   let [user, setUser] = useState([]);
@@ -65,14 +65,7 @@ export default function Grower() {
                   }}
                 >
                   <div className="">
-                    <div
-                      className="px-4 pb-1 cover"
-                      style={{
-                        backgroundColor: "gray",
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
-                      }}
-                    >
+                    <div className={`${styles.randomDiv} px-4 pb-1 cover`}>
                       <div className="media pt-4 align-items-start profile-head">
                         <div className="profile mr-3">
                           <img
@@ -139,7 +132,6 @@ export default function Grower() {
                                 className={`${styles.column} mx-1 border border-secondary rounded column`}
                               >
                                 <img
-                                  style={{ cursor: "pointer" }}
                                   onClick={(e) =>
                                     router.push(`/diary/${item.id}`)
                                   }
@@ -161,11 +153,10 @@ export default function Grower() {
                                 />
                                 <div>
                                   <p
-                                    style={{ cursor: "pointer" }}
                                     onClick={(e) =>
                                       router.push(`/diary/${item.id}`)
                                     }
-                                    className="text-center my-1"
+                                    className={`${styles.pointer} text-center my-1`}
                                   >
                                     {item.diaryName}
                                   </p>

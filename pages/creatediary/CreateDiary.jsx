@@ -26,11 +26,13 @@ const CreateDiary = () => {
   const nameRef = useRef();
   const typeRef = useRef();
 
+  const facturerRef = useRef();
   const lightRef = useRef();
   const fertRef = useRef();
   const techRef = useRef();
   const roomRef = useRef();
   const groundRef = useRef();
+
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -49,9 +51,12 @@ const CreateDiary = () => {
       roomRef && null !== roomRef.current && roomRef.current.value;
     const groundRefValue =
       groundRef && null !== groundRef.current && groundRef.current.value;
+    const facturerRefValue =
+      facturerRef && null !== facturerRef.current && facturerRef.current.value;
 
     if (
       nameRefValue &&
+      facturerRefValue &&
       typeRefValue &&
       lightRefValue &&
       fertRefValue &&
@@ -64,6 +69,7 @@ const CreateDiary = () => {
           `${backBaseURL}/diary/create`,
           {
             diaryName: nameRefValue,
+            facturer: facturerRefValue,
             type: typeRefValue,
 
             light: lightRefValue,
@@ -113,7 +119,12 @@ const CreateDiary = () => {
                   <hr />
                   <br />
                   <form>
+                  <small className="text-secondary">
+                        * შეყვანილი ინფორმაციის შეცვლა სამომავლოდ შეუძლებელია
+                      </small>
+                      <br/>
                     <div className="form-group">
+                    <br/>
                       <h6 htmlFor="diaryName">დღიურის სახელი</h6>
                       <input
                         ref={nameRef}
@@ -124,10 +135,19 @@ const CreateDiary = () => {
                         maxLength="50"
                         required
                       />
-                      <small className="text-secondary">
-                        შეყვანილი ინფოს შეცვლა სამომავლოდ შეუძლებელია
-                      </small>
+                      
                     </div>
+                    <br />
+                    <h6 htmlFor="diaryName">მწარმოებელი</h6>
+                    <input
+                      ref={facturerRef}
+                      type="text"
+                      className="form-control"
+                      id="diaryName"
+                      aria-describedby="diaryName"
+                      maxLength="50"
+                      requiredtypetype
+                    />
                     <br />
                     <h6 htmlFor="diaryName">ჯიში</h6>
                     <input

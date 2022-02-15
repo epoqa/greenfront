@@ -1,0 +1,39 @@
+.pointer {
+    cursor: pointer;
+  }
+  
+  .card2 {
+    border-radius: 15px;
+  }
+  .imgFluid{
+    width: 180px;
+    border-radius: 10px;
+  }
+  .randomDiv1{
+    background-color: #efefef
+  }
+  .randomDiv2{
+    color: #2b2a2a
+  }
+  .growerStats{
+    position: absolute;
+    right:1px;
+    margin-top: 2px;
+  }
+  .parentLi{
+  cursor: pointer;
+
+}
+.parentLi:hover{
+  background-color: #efefef;
+}
+
+@media only screen and (max-width: 650px) {
+  .statText{
+    display: none;
+  }
+
+}
+.nameStyle{
+  margin-top: 7px;
+}

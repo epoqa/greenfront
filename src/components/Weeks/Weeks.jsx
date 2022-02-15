@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import uniqid from "uniqid";
-import styles from "../../../styles/Diary.module.css";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteWeekAction } from "src/redux/actions/action";
+import styles from "./Weeks.module.css";
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiaryWeeksSelector } from "../../redux/selectors/selector";

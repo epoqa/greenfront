@@ -10,7 +10,7 @@ import { NotificationManager } from "../components/Notifications/Notifications";
 import { useRouter } from "next/router";
 import { backBaseURL } from "src/consts/consts";
 
-const useValidateToken = (setLoadingState: any) => {
+const useValidateToken = (setLoadingState) => {
   const router = useRouter();
   useEffect(() => {
     const token = window.localStorage.getItem("token");

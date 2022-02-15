@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styles from "../../../styles/Diary.module.css";
+import styles from "./Comments.module.css";
 import { useRouter } from "next/router";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 import uniqid from "uniqid";
@@ -71,11 +71,10 @@ const Comments = () => {
             <div className="row h-100 align-items-center">
               <textarea
                 ref={commentRef}
-                style={{ resize: "none" }}
                 rows="2"
                 cols="40"
                 type="text"
-                className="form-control my-2"
+                className={`${styles.randomDiv} form-control my-2`}
                 id="diaryName"
                 aria-describedby="diaryName"
                 maxLength="700"
@@ -132,7 +131,7 @@ const Comments = () => {
                           </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
-                          <p className="small mb-0" style={{ color: "#aaa" }}>
+                          <p className={`${styles.randomDiv2} small mb-0`} >
                             <a href="#" className="link-grey">
                               მოწონება
                             </a>{" "}
@@ -148,8 +147,7 @@ const Comments = () => {
                           <div className="d-flex flex-row">
                             <i className="fas fa-star text-warning me-2"></i>
                             <i
-                              className="far fa-check-circle"
-                              style={{ color: "#aaa" }}
+                              className={`${styles.randomDiv2}far fa-check-circle`}
                             ></i>
                             <p className="mb-0 small ">
                               {timeSince(comment.createdAt)} წინ
