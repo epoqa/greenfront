@@ -5,29 +5,14 @@ import { useDispatch } from "react-redux";
 import { addWeekAction } from "src/redux/actions/action";
 import { backBaseURL } from "src/consts/consts";
 import uniqid from "uniqid";
-const Popup = ({ owner, ...props }) => {
+import { addWeekReq } from "src/reuseableFunctions/request";
+const Popup = ({ owner, onHide, id, ...props }) => {
   const dispatch = useDispatch();
   const createNewWeekType = (type) => {
-    dispatch(addWeekAction(type, owner));
-    console.log(type, uniqid());
-    axios
-      .put(
-        `${backBaseURL}/diary/week/${props.id}`,
-        {
-          owner: owner,
-          type: type,
-          weekId: uniqid(),
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        props.onHide();
-      });
+    const weekId = uniqid();
+    dispatch(addWeekAction({ type, weekId }));
+    onHide();
+    addWeekReq(id, weekId, type);
   };
   return (
     <Modal

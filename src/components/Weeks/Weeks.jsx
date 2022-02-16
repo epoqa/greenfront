@@ -3,37 +3,15 @@ import uniqid from "uniqid";
 import { deleteWeekAction } from "src/redux/actions/action";
 import styles from "./Weeks.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiaryWeeksSelector } from "../../redux/selectors/selector";
-import { backBaseURL } from "src/consts/consts";
-const Weeks = ({
-  weeks,
-  chosenWeek,
-  setChosenWeek,
-  setModalShow,
-  owner,
-  diaryId,
-  setWeeks,
-}) => {
+import { deleteWeekReq } from "src/reuseableFunctions/request";
+const Weeks = ({ chosenWeek, setChosenWeek, setModalShow, owner, diaryId }) => {
   const dispatch = useDispatch();
   const weeksfromRedux = useSelector((state) => getDiaryWeeksSelector(state));
-  console.log(weeksfromRedux);
-  //INDEX SHOULD BE GONE
-  const deleteWeek = (weekId, index) => {
+  const deleteWeek = (weekId) => {
     dispatch(deleteWeekAction(weekId));
-    axios
-      .delete(`${backBaseURL}/diary/week/${diaryId}/${index}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {
-        setWeeks(weeks.filter((week, i) => i !== index));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    deleteWeekReq(diaryId, weekId);
   };
 
   return (
@@ -69,8 +47,7 @@ const Weeks = ({
                     owner === true ? (
                       <DeleteIcon
                         color="error"
-                        //INDEX SHOULD BE GONE
-                        onClick={(e) => deleteWeek(week._id, index)}
+                        onClick={(e) => deleteWeek(week.weekId)}
                       />
                     ) : null
                   ) : null}
