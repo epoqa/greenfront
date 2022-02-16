@@ -39,3 +39,22 @@ export const deleteWeekReq = (diaryId, weekId) => {
       console.log(err);
     });
 };
+
+export const addWeekReq = (id, weekId, type) => {
+  axios
+    .put(
+      `${backBaseURL}/diary/week/${id}`,
+      {
+        type: type,
+        weekId,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res.data);
+    });
+};
