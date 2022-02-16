@@ -19,6 +19,7 @@ import { timeSince } from "../../src/reuseableFunctions/timeSince";
 import { v4 as uuidv4 } from "uuid";
 import { backBaseURL } from "src/consts/consts";
 import SingleDiary from "../../src/components/SingleDIary/SingleDiary";
+import Footer from "../../src/components/Footer/Footer";
 const Home = () => {
   const router = useRouter();
   const [data, setData] = useState([]);
@@ -68,7 +69,9 @@ const Home = () => {
           </div>
         </ContentProvider>
       </Box>
+      <Footer />
     </ThemeProvider>
+    
   );
 };
 export default Home;
