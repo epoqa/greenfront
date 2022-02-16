@@ -68,8 +68,10 @@ const Home = () => {
               : null}
           </div>
         </ContentProvider>
+        
       </Box>
       <Footer />
+
     </ThemeProvider>
     
   );

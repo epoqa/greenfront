@@ -11,7 +11,7 @@ const SingleDiary = ({ item }) => {
   const router = useRouter();
   console.log(item);
   return (
-    <div key={uniqid()} className={`${styles.mainSingleDiaryDiv} col `}>
+    <div key={uniqid()} className={`${styles.mainSingleDiaryDiv} col mb-5 `}>
       <img
         onClick={(e) => router.push(`/diary/${item.id}`)}
         className={`${styles.columnimg} rounded`}
