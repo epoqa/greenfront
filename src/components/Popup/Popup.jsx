@@ -5,17 +5,18 @@ import { useDispatch } from "react-redux";
 import { addWeekAction } from "src/redux/actions/action";
 import { backBaseURL } from "src/consts/consts";
 import uniqid from "uniqid";
-const Popup = ({ owner, ...props }) => {
+const Popup = ({ owner, onHide, ...props }) => {
   const dispatch = useDispatch();
   const createNewWeekType = (type) => {
-    dispatch(addWeekAction(type, owner));
-    console.log(type, uniqid());
+    const weekId = uniqid();
+    dispatch(addWeekAction({ type, weekId }));
+    onHide();
     axios
       .put(
         `${backBaseURL}/diary/week/${props.id}`,
         {
           type: type,
-          weekId: uniqid(),
+          weekId,
         },
         {
           headers: {
@@ -25,7 +26,6 @@ const Popup = ({ owner, ...props }) => {
       )
       .then((res) => {
         console.log(res.data);
-        props.onHide();
       });
   };
   return (

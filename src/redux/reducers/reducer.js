@@ -47,7 +47,7 @@ export const mainReducer = (state = initialState, action) => {
         diary: {
           ...state.diary,
           weeks: state.diary.weeks.filter(
-            (item) => item._id !== action.payload
+            (item) => item.weekId !== action.payload
           ),
         },
       };
@@ -55,12 +55,17 @@ export const mainReducer = (state = initialState, action) => {
       console.log("ai aq var da mixaria", action.payload);
       return {
         ...state,
-        // diary: {
-        //   ...state.diary,
-        //   weeks: state.diary.weeks.filter(
-        //     (item) => item._id !== action.payload
-        //   ),
-        // },
+        diary: {
+          ...state.diary,
+          weeks: [
+            ...state.diary.weeks,
+            {
+              week: action.payload.type,
+              weekType: action.payload.type,
+              weekId: action.payload.weekId,
+            },
+          ],
+        },
       };
 
     default:

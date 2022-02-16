@@ -24,3 +24,18 @@ export const putReq = (path, body, header, callback) => {
       console.log(error);
     });
 };
+
+export const deleteWeekReq = (diaryId, weekId) => {
+  axios
+    .delete(`${backBaseURL}/diary/week/${diaryId}/${weekId}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

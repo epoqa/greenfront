@@ -91,21 +91,17 @@ const CreateDiary = () => {
                     />
 
                     <Weeks
-                      weeks={weeks}
                       chosenWeek={chosenWeek}
                       setChosenWeek={setChosenWeek}
                       setModalShow={setModalShow}
                       owner={diary.owner === isLogged}
                       diaryId={router.query.id}
-                      setWeeks={setWeeks}
                     />
                     <Popup
                       show={modalShow}
                       onHide={() => setModalShow(false)}
-                      // rerenderfunc={rerenderfunc}
                       owner={diary.owner}
                       id={router.query.id}
-                      // func={(showOrNot) => setModalShow(showOrNot)}
                     />
                     <br />
 
