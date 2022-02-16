@@ -24,7 +24,6 @@ const useValidateToken = (setLoadingState) => {
           },
         })
         .then((response) => {
-          console.log(response.data);
           setLoadingState(false);
         })
         .catch((error) => {

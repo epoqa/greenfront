@@ -39,7 +39,6 @@ const Comments = () => {
   };
 
   const deleteComment = (id) => {
-    console.log(id);
     setComments((prevState) =>
       prevState.filter((comment) => comment._id !== id)
     );
@@ -131,7 +130,7 @@ const Comments = () => {
                           </div>
                         </div>
                         <div className="d-flex justify-content-between align-items-center">
-                          <p className={`${styles.randomDiv2} small mb-0`} >
+                          <p className={`${styles.randomDiv2} small mb-0`}>
                             <a href="#" className="link-grey">
                               მოწონება
                             </a>{" "}

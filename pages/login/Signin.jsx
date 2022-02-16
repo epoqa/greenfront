@@ -63,7 +63,6 @@ export default function SignIn() {
           password: passwordRefValue,
         })
         .then((response) => {
-          console.log(response.data);
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("refreshToken", response.data.refreshToken);
           NotificationManager.success(response.statusText);

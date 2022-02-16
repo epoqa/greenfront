@@ -29,7 +29,6 @@ export default function Grower() {
         .get(`${backBaseURL}/users/${router.query.user}`)
         .then((res) => {
           setUser(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -40,7 +39,6 @@ export default function Grower() {
         .get(`${backBaseURL}/diary/user/${router.query.user}`)
         .then((res) => {
           setDiaries(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
