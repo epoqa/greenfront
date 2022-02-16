@@ -66,7 +66,6 @@ const SignUp = () => {
           password: passwordRefValue,
         })
         .then((response) => {
-          console.log(response);
           NotificationManager.success(response.statusText);
           router.push("login");
         })

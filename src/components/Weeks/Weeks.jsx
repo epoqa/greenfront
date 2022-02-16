@@ -18,7 +18,7 @@ const Weeks = ({
 }) => {
   const dispatch = useDispatch();
   const weeksfromRedux = useSelector((state) => getDiaryWeeksSelector(state));
-  console.log(backBaseURL, "backBaseURL");
+  console.log(weeksfromRedux);
   //INDEX SHOULD BE GONE
   const deleteWeek = (weekId, index) => {
     dispatch(deleteWeekAction(weekId));
@@ -30,7 +30,6 @@ const Weeks = ({
       })
       .then((res) => {
         setWeeks(weeks.filter((week, i) => i !== index));
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);

@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import { timeSince } from "../../reuseableFunctions/timeSince";
 const SingleDiary = ({ item }) => {
   const router = useRouter();
-  console.log(item);
   return (
     <div key={uniqid()} className={`${styles.mainSingleDiaryDiv} col `}>
       <img
