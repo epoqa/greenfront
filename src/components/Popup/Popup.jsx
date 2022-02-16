@@ -14,7 +14,6 @@ const Popup = ({ owner, ...props }) => {
       .put(
         `${backBaseURL}/diary/week/${props.id}`,
         {
-          owner: owner,
           type: type,
           weekId: uniqid(),
         },
