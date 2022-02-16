@@ -31,10 +31,37 @@ const SignUp = () => {
   const [usernameState, setUsernameRef] = useState(false);
   const [emailState, setEmailRef] = useState(false);
   const [passwordState, setPasswordRef] = useState(false);
-
+  const [disableButton, setDisableButton] = useState(true);
+  const [token, setToken] = useState("");
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
+  const codeRef = useRef();
+
+  const verifyEmail = async (param) => {
+    const emailRefValue =
+      emailRef && null !== emailRef.current && emailRef.current.value;
+
+    const EmailRegexCheck = emailRefValue && validateEmail(emailRefValue);
+
+    if (EmailRegexCheck) {
+      axios
+        .post(`${backBaseURL}/user/verify`, {
+          email: emailRefValue,
+        })
+        .then((res) => {
+          if (res.statusText === "OK") {
+            setToken(res.data.token);
+            setDisableButton(false);
+            NotificationManager.success("კოდი გამოგზავნილია ემაილზე");
+          } else {
+            NotificationManager.error(res.data.message);
+          }
+        });
+    } else {
+      NotificationManager.error("არასწორი ემაილი");
+    }
+  };
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -45,7 +72,8 @@ const SignUp = () => {
       usernameRef && null !== usernameRef.current && usernameRef.current.value;
     const emailRefValue =
       emailRef && null !== emailRef.current && emailRef.current.value;
-
+    const codeRefValue =
+      codeRef && null !== codeRef.current && codeRef.current.value;
     //  EMAIL CHECK WITH REGEX
     const EmailRegexCheck = emailRefValue && validateEmail(emailRefValue);
 
@@ -53,6 +81,8 @@ const SignUp = () => {
     setEmailRef(!emailRefValue || !EmailRegexCheck);
     setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);
     if (
+      token &&
+      codeRefValue &&
       passwordRefValue &&
       emailRefValue &&
       usernameRefValue &&
@@ -64,6 +94,8 @@ const SignUp = () => {
           username: usernameRefValue,
           email: emailRefValue,
           password: passwordRefValue,
+          token: token,
+          code: codeRefValue,
         })
         .then((response) => {
           NotificationManager.success(response.statusText);
@@ -125,6 +157,7 @@ const SignUp = () => {
                   }
                 />
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   inputRef={passwordRef}
@@ -139,10 +172,33 @@ const SignUp = () => {
                   helperText={Boolean(passwordState) ? "სუსტი პაროლი" : ""}
                 />
               </Grid>
+              <Grid item xs={5.88}>
+                <TextField
+                  inputRef={codeRef}
+                  required
+                  fullWidth
+                  id="email"
+                  label="კოდი"
+                  name="code"
+                />
+              </Grid>
             </Grid>
+            <br />
+            <button
+              onClick={(e) => verifyEmail(e)}
+              type="button"
+              className="btn btn-success btn-sm"
+            >
+              კოდის გაგზავნა ემაილზე
+            </button>
+            <br />
+            <br />
+            <small>! შეამოწმეთ სპამის ფოლდერი</small>
+
             <Button
               type="submit"
               fullWidth
+              disabled={disableButton}
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
               onClick={(e) => sendRegisterInfoToBackend(e)}
