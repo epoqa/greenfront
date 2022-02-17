@@ -22,7 +22,7 @@ import ChosenWeekPhotos from "src/components/ChosenWeekPhotos/ChosenWeekPhotos";
 import { useSelector, useDispatch } from "react-redux";
 import { addDiaryAction } from "src/redux/actions/action";
 import { backBaseURL } from "src/consts/consts";
-
+import Loading from "src/components/Loading/Loading";
 const mdTheme = createTheme();
 
 const CreateDiary = () => {
@@ -32,6 +32,7 @@ const CreateDiary = () => {
   const [diary, setDiary] = useState({});
   const [weeks, setWeeks] = useState([]);
   const [owner, setOwner] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const isLogged = useSelector((state) => state.isLogged);
 
   const router = useRouter();
@@ -47,6 +48,7 @@ const CreateDiary = () => {
           setDiary(res.data);
           setWeeks(res.data.weeks);
           dispatch(addDiaryAction(res.data));
+          setChosenWeek(res.data.weeks[0].weekId);
         })
         .catch((err) => {
           console.log(err);
@@ -107,13 +109,20 @@ const CreateDiary = () => {
 
                     <h6 className={styles.h1class + " fw-bold"}>ფოტოები</h6>
                     {isLogged === diary.owner ? (
-                      <PhotoUploadInput chosenWeek={chosenWeek} diary={diary} />
+                      <PhotoUploadInput
+                        chosenWeek={chosenWeek}
+                        diary={diary}
+                        setIsLoading={setIsLoading}
+                      />
                     ) : null}
 
-                    <ChosenWeekPhotos
-                      chosenPics={weeks[chosenWeek]}
-                      chosenWeek={chosenWeek}
-                    />
+                    {!isLoading && (
+                      <ChosenWeekPhotos
+                        chosenPics={weeks[chosenWeek]}
+                        chosenWeek={chosenWeek}
+                      />
+                    )}
+                    {isLoading && <Loading type="partial" />}
 
                     <Comments />
                   </section>

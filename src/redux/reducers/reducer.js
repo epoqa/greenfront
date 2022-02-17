@@ -17,7 +17,7 @@ export const mainReducer = (state = initialState, action) => {
 
     case actionTypes.ADD_IMAGE:
       const filteredWeeks = state.diary.weeks.map((item) => {
-        if (item._id === action.payload.id) {
+        if (item.weekId === action.payload.chosenWeek) {
           return {
             ...item,
             pictures: [
