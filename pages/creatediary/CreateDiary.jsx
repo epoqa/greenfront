@@ -33,7 +33,6 @@ const CreateDiary = () => {
   const roomRef = useRef();
   const groundRef = useRef();
 
-
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
 
@@ -119,12 +118,12 @@ const CreateDiary = () => {
                   <hr />
                   <br />
                   <form>
-                  <small className="text-secondary">
-                        * შეყვანილი ინფორმაციის შეცვლა სამომავლოდ შეუძლებელია
-                      </small>
-                      <br/>
+                    <small className="text-secondary">
+                      * შეყვანილი ინფორმაციის შეცვლა სამომავლოდ შეუძლებელია
+                    </small>
+                    <br />
                     <div className="form-group">
-                    <br/>
+                      <br />
                       <h6 htmlFor="diaryName">დღიურის სახელი</h6>
                       <input
                         ref={nameRef}
@@ -135,7 +134,6 @@ const CreateDiary = () => {
                         maxLength="50"
                         required
                       />
-                      
                     </div>
                     <br />
                     <h6 htmlFor="diaryName">მწარმოებელი / manufacturer</h6>
@@ -146,7 +144,6 @@ const CreateDiary = () => {
                       id="diaryName"
                       aria-describedby="diaryName"
                       maxLength="50"
-                      requiredtypetype
                     />
                     <br />
                     <h6 htmlFor="diaryName">ჯიში / strains</h6>

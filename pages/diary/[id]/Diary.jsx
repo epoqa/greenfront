@@ -104,6 +104,7 @@ const CreateDiary = () => {
                       onHide={() => setModalShow(false)}
                       owner={diary.owner}
                       id={router.query.id}
+                      setChosenWeek={setChosenWeek}
                     />
                     <br />
 

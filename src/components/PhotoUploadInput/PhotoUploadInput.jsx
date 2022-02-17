@@ -38,7 +38,6 @@ const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
               addImage({
                 picture: url,
                 owner: diary.owner,
-                weekNum: 0,
                 chosenWeek: chosenWeek,
                 picId: uniqid(),
               })
