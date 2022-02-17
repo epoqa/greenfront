@@ -8,7 +8,6 @@ import style from "./ChosenWeekPhotos.module.css";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-// hi
 const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
   const [display, setDisplay] = useState("none");
   const [imgSrc, setImgSrc] = useState("");
@@ -47,7 +46,6 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
                 className={`${style.columnimg} ${style.myImg}`}
                 src={item.picture}
               />
-              {/* <div className={`${style.back} d-flex flex-column min-vh-100 justify-content-center align-items-center`}> */}
               <div
                 id="myModal"
                 style={{ display: display }}
@@ -72,7 +70,6 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
                   />
                 </span>
               </div>
-              {/* </div> */}
             </div>
           );
         })}

@@ -58,3 +58,19 @@ export const addWeekReq = (id, weekId, type) => {
       console.log(res.data);
     });
 };
+
+export const addPhotoReq = (url, owner, chosenWeek, diaryId) => {
+  axios.put(
+    `${backBaseURL}/diary/picture/${diaryId}`,
+    {
+      picture: url,
+      owner,
+      weekId: chosenWeek,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }
+  );
+};
