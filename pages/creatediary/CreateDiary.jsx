@@ -138,7 +138,7 @@ const CreateDiary = () => {
                       
                     </div>
                     <br />
-                    <h6 htmlFor="diaryName">მწარმოებელი</h6>
+                    <h6 htmlFor="diaryName">მწარმოებელი / manufacturer</h6>
                     <input
                       ref={facturerRef}
                       type="text"
@@ -149,7 +149,7 @@ const CreateDiary = () => {
                       requiredtypetype
                     />
                     <br />
-                    <h6 htmlFor="diaryName">ჯიში</h6>
+                    <h6 htmlFor="diaryName">ჯიში / strains</h6>
                     <input
                       ref={typeRef}
                       type="text"
@@ -160,7 +160,7 @@ const CreateDiary = () => {
                       required
                     />
                     <br />
-                    <h6 htmlFor="diaryName">განათება</h6>
+                    <h6 htmlFor="diaryName">განათება / flowering lights </h6>
                     <input
                       ref={lightRef}
                       type="text"
@@ -171,7 +171,7 @@ const CreateDiary = () => {
                       required
                     />
                     <br />
-                    <h6 htmlFor="diaryName">სასუქი</h6>
+                    <h6 htmlFor="diaryName">სასუქი / fertilizer</h6>
                     <input
                       ref={fertRef}
                       type="text"
@@ -182,7 +182,7 @@ const CreateDiary = () => {
                       required
                     />
                     <br />
-                    <h6 htmlFor="diaryName">ტექნიკა</h6>
+                    <h6 htmlFor="diaryName">ტექნიკა / grow techniques </h6>
                     <input
                       ref={techRef}
                       type="text"
@@ -193,7 +193,7 @@ const CreateDiary = () => {
                       required
                     />
                     <br />
-                    <h6 htmlFor="inputState">გარემოს ტიპი</h6>
+                    <h6 htmlFor="inputState">გარემოს ტიპი / room type</h6>
                     <select
                       defaultValue="შიგნით"
                       ref={roomRef}
@@ -205,7 +205,7 @@ const CreateDiary = () => {
                       <option>გარეთ</option>
                     </select>
                     <br />
-                    <h6 htmlFor="inputState">ნიადაგის ტიპი</h6>
+                    <h6 htmlFor="inputState">ნიადაგის ტიპი / ground type</h6>
                     <select
                       defaultValue="შიგნით"
                       ref={groundRef}
