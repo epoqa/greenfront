@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 //test
@@ -24,6 +25,7 @@ import { addDiaryAction } from "src/redux/actions/action";
 import { backBaseURL } from "src/consts/consts";
 import Loading from "src/components/Loading/Loading";
 const mdTheme = createTheme();
+import Footer from "../../../src/components/Footer/Footer";
 
 const CreateDiary = () => {
   const dispatch = useDispatch();
@@ -129,9 +131,12 @@ const CreateDiary = () => {
                   </section>
                 </div>
                 <br />
+                
               </Paper>
             </Grid>
           </Grid>
+          <br/>  
+<Footer />
         </ContentProvider>
       </Box>
     </ThemeProvider>

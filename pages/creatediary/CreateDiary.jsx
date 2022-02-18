@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +15,7 @@ import uniqid from "uniqid";
 import Loading from "../../src/components/Loading/Loading";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
 import { backBaseURL } from "src/consts/consts";
+import Footer from "../../src/components/Footer/Footer";
 
 const mdTheme = createTheme();
 
@@ -225,9 +227,12 @@ const CreateDiary = () => {
                   </form>
                 </div>
                 <br />
+                
               </Paper>
             </Grid>
           </Grid>
+          <br/>  
+          <Footer />
         </ContentProvider>
       </Box>
     </ThemeProvider>
