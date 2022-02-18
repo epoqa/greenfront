@@ -23,9 +23,9 @@ const Weeks = ({ chosenWeek, setChosenWeek, setModalShow, owner, diaryId }) => {
           ? weeksfromRedux.map((week, index) => (
               <a
                 style={{
-                  opacity: index === chosenWeek ? 1 : 0.4,
+                  opacity: week.weekId === chosenWeek ? 1 : 0.4,
                 }}
-                onClick={(e) => setChosenWeek(index)}
+                onClick={(e) => setChosenWeek(week.weekId)}
                 key={uniqid()}
                 className={`${styles.weekParent} ${
                   week.weekType === "GER"
@@ -43,7 +43,7 @@ const Weeks = ({ chosenWeek, setChosenWeek, setModalShow, owner, diaryId }) => {
                 <span className={`${styles.weekMiddle} p2`}>
                   {index === 0 ? "G" : index}
                   <p className={`${styles.weekChild} p2`}>კვირა</p>
-                  {index === chosenWeek ? (
+                  {week.weekId === chosenWeek ? (
                     owner === true ? (
                       <DeleteIcon
                         color="error"

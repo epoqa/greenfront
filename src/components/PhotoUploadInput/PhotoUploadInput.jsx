@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { addImage } from "../../redux/actions/action";
 import { useDispatch } from "react-redux";
 import uniqid from "uniqid";
-import { backBaseURL } from "src/consts/consts";
-const PhotoUploadInput = ({ chosenWeek, diary }) => {
+import { AiFillPlusCircle } from "react-icons/ai";
+import Styles from "./PhotoUploadInput.module.scss";
+import { addPhotoReq } from "src/reuseableFunctions/request";
+
+const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
+  const inputRef = useRef();
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -24,6 +27,7 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
   const app = initializeApp(firebaseConfig);
 
   const handleFileUpload = (e) => {
+    setIsLoading(true);
     const storage = getStorage();
     const mountainsRef = ref(storage, `images/${e.target.files[0].name}`);
     uploadBytes(mountainsRef, e.target.files[0]).then((snapshot) => {
@@ -34,26 +38,12 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
               addImage({
                 picture: url,
                 owner: diary.owner,
-                weekNum: 0,
-                id: diary.weeks[chosenWeek]._id,
+                chosenWeek: chosenWeek,
                 picId: uniqid(),
               })
             );
-            axios
-              .put(
-                `${backBaseURL}/diary/picture/${router.query.id}`,
-                {
-                  picture: url,
-                  owner: diary.owner,
-                  weekNum: chosenWeek,
-                },
-                {
-                  headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token"),
-                  },
-                }
-              )
-              .then((response) => console.log(response));
+            setIsLoading(false);
+            addPhotoReq(url, diary.owner, chosenWeek, router.query.id);
           })
 
           .catch((error) => {
@@ -62,8 +52,14 @@ const PhotoUploadInput = ({ chosenWeek, diary }) => {
     });
   };
   return (
-    <div>
+    <div
+      className={Styles.mainPhotoUploadInputDiv}
+      onClick={() => inputRef.current.click()}
+    >
+      <AiFillPlusCircle size={30} title="დაამატე ფოტო" />
       <input
+        ref={inputRef}
+        style={{ display: "none" }}
         type="file"
         accept="image/png, image/jpeg"
         onChange={(e) => handleFileUpload(e)}

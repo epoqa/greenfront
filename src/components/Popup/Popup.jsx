@@ -6,13 +6,14 @@ import { addWeekAction } from "src/redux/actions/action";
 import { backBaseURL } from "src/consts/consts";
 import uniqid from "uniqid";
 import { addWeekReq } from "src/reuseableFunctions/request";
-const Popup = ({ owner, onHide, id, ...props }) => {
+const Popup = ({ owner, onHide, id, setChosenWeek, ...props }) => {
   const dispatch = useDispatch();
   const createNewWeekType = (type) => {
     const weekId = uniqid();
     dispatch(addWeekAction({ type, weekId }));
     onHide();
     addWeekReq(id, weekId, type);
+    setChosenWeek(weekId);
   };
   return (
     <Modal
