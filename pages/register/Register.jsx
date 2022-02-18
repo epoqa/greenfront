@@ -172,16 +172,6 @@ const SignUp = () => {
                   helperText={Boolean(passwordState) ? "სუსტი პაროლი" : ""}
                 />
               </Grid>
-              <Grid item xs={5.88}>
-                <TextField
-                  inputRef={codeRef}
-                  required
-                  fullWidth
-                  id="email"
-                  label="კოდი"
-                  name="code"
-                />
-              </Grid>
             </Grid>
             <br />
             <button
@@ -192,6 +182,18 @@ const SignUp = () => {
               კოდის გაგზავნა ემაილზე
             </button>
             <br />
+            <br />
+            <Grid style={{display: token ? "block" : "none"}} item xs={5.67}>
+                <TextField
+                
+                  inputRef={codeRef}
+                  required
+                  fullWidth
+                  id="email"
+                  label="კოდი"
+                  name="code"
+                />
+              </Grid>
             <br />
             <small>! შეამოწმეთ სპამის ფოლდერი</small>
 
