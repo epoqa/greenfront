@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -23,6 +24,8 @@ import Avatar from "@mui/material/Avatar";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import Footer from "../../src/components/Footer/Footer";
+
 const Home = () => {
   let [users, setUsers] = useState([]);
   let [search, setSearch] = useState("");
@@ -131,6 +134,8 @@ const Home = () => {
               </div>
             </div>
           </div>
+          <br/>  
+          <Footer />
         </ContentProvider>
       </Box>
     </ThemeProvider>

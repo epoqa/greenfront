@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -13,6 +14,7 @@ import axios from "axios";
 import SingleDiary from "../../src/components/SingleDIary/SingleDiary";
 import uniqid from "uniqid";
 import { backBaseURL } from "src/consts/consts";
+import Footer from "../../src/components/Footer/Footer";
 
 const mdTheme = createTheme();
 
@@ -47,6 +49,8 @@ const Home = () => {
                       ))
                     : null}
                 </div>
+                <br/>  
+              <Footer/>
         </ContentProvider>
       </Box>
     </ThemeProvider>
