@@ -1,12 +1,12 @@
 import MuiDrawer from "@mui/material/Drawer";
 import { styled } from "@mui/material/styles";
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
-import PeopleIcon from '@mui/icons-material/People';
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import InfoIcon from '@mui/icons-material/Info';
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import PeopleIcon from "@mui/icons-material/People";
+import HomeIcon from "@mui/icons-material/Home";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import InfoIcon from "@mui/icons-material/Info";
 const drawerWidth = 220;
-  const Drawer = styled(MuiDrawer, {
+const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
@@ -39,8 +39,7 @@ const mainListItemsArray = [
   { text: "დღიურები", icon: <MenuBookIcon />, linkTo: "/diaries" },
   { text: "დღიურის შექმნა", icon: <NoteAddIcon />, linkTo: "/creatediary" },
   { text: "გროუერები", icon: <PeopleIcon />, linkTo: "/growers" },
-  { text: "ჩვენ შესახებ", icon: <InfoIcon />, linkTo: "/growers" },
-
+  { text: "ჩვენ შესახებ", icon: <InfoIcon />, linkTo: "/about" },
 ];
- 
-export {Drawer , mainListItemsArray}
+
+export { Drawer, mainListItemsArray };
