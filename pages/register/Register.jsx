@@ -79,7 +79,7 @@ const SignUp = () => {
 
     setUsernameRef(!usernameRefValue);
     setEmailRef(!emailRefValue || !EmailRegexCheck);
-    setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);
+    setPasswordRef(!passwordRefValue || passwordRefValue.length <= 8);
     if (
       token &&
       codeRefValue &&
@@ -87,7 +87,7 @@ const SignUp = () => {
       emailRefValue &&
       usernameRefValue &&
       EmailRegexCheck &&
-      passwordRefValue.length > 8
+      passwordRefValue.length >= 8
     ) {
       axios
         .post(`${backBaseURL}/users/register`, {
