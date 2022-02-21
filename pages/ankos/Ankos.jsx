@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
@@ -9,9 +10,9 @@ import Navigation from "../../src/components/Navigation/Navigation";
 import Header from "../../src/components/Header/Header";
 import Footer from "../../src/components/Footer/Footer";
 import React from "react";
-import BusinessIcon from '@mui/icons-material/Business';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
+import BusinessIcon from "@mui/icons-material/Business";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 
 const mdTheme = createTheme();
 
@@ -24,33 +25,118 @@ const Ankos = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-<section className="mb-4">
-    <h2 className="h1-responsive font-weight-bold text-center my-4">კონტაქტი</h2>
-    <p className="text-center w-responsive mx-auto mb-5">ტექსტი კონტაქტის</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11914.402270937777!2d44.766064!3d41.7075578!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5e9da6befdd90808!2sANKOS.SHOP!5e0!3m2!1sen!2sge!4v1645436805482!5m2!1sen!2sge" className={styles.map} loading="lazy"></iframe>
-        <br/>
-        <br/>
-    <div className="row d-flex justify-content-center">
+          <div className={`${styles.container}`}>
+            <div className="px-4 py-5 my-5 text-center">
+              <img
+                className="d-block mx-auto mb-4"
+                src="https://cdn.shopify.com/s/files/1/0588/8793/0056/files/bolo_300x.png?v=1628837134"
+                alt=""
+                width="172"
+                height="157"
+              />
+              <h1 className="display-5 fw-bold">ანკოს შოპის შესახებ</h1>
+              <br />
+              <div className="col-lg-10 mx-auto">
+                <p>
+                  სანამ იქნებოდა ANKOS.SHOP დავიწყეთ Anko{"'"}s Farm - ით. ჩვენ
+                  ამაყები ვართ, რომ წარმატებული კომპანია შევქმენით. ანკოსფარმი
+                  ეძებს და აგროვებს მთელ მსოფლიოში მიმოფანტულ საუკეთესო კანაფის
+                  ჯიშებს, რომლებსაც კერძო ფერმერები და ცნობილი კომპანიები
+                  აწარმოებენ. ასევე ANKO'S FARM - ის ერთ-ერთი მიმართულებაა
+                  Repackaging ანუ პრემიუმ ხარისხის ორიგინალი "სთრეინების"
+                  ლაბორატორიულ და სტერილურ პირობებში გადაფუთვა.
+                </p>
+                <br />
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/aWG5JQM8ecY"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                ></iframe>
+                <br />
+                <br />
 
-        <div className="col-md-3 text-center">
-            <ul className="list-unstyled mb-0">
-                <li><BusinessIcon />
-                    <p>ი.აბაშიძის 32 თბილისი, 0178</p>
-                </li>
+                <p>
+                  კომპანიის დაარსებიდან პირველივე თვეში ჩვენ 500 - ზე მეტი
+                  კანაფის თესლი ჩავუშვით გაყიდვაში და აღმოცენების თითქმის 100%
+                  შედეგი მივიღეთ. რაც წარმოუდგენლად დიდი შედეგია! ასევე გავედით
+                  ექსპორტზე და ჩვენი "სიდები" იგზავნება სომხეთსა და
+                  აზერბაიჯანში.
+                </p>
+                <br />
+                <img src="https://cdn.shopify.com/s/files/1/0588/8793/0056/files/Copy_of_Copy_of_made_in_eurasia_480x480.png?v=1628437833" />
+                <br />
+                <br />
 
-                <li><PhoneIcon/>
-                    <p>+995 593 22 32 22</p>
-                </li>
+                <p>
+                  2021 წლის სექტემბრიდან კი პირველი და ხმაურიანი ნაბიჯებით
+                  შემოვაბიჯეთ ონლაინ და მაღაზიების ქსელების გროუინგ ბაზარზე.
+                </p>
+                <p>
+                  {" "}
+                  ჩვენი ონლაინ შოპი ყველაზე იაფად, ყველაზე განსხვავებულ, ყველაზე
+                  გამოსადეგ და ყველაზე მისაღებ პროდუქციას გთავაზობთ, უმაღლესი
+                  დონის საკურიერო და გადახდის ინტეგრირებული სისტემით. ჩვენი
+                  ნომერი პირველი ამოცანა პლატფორმის პოტენციურ კლიენტებთან სწორი
+                  კომუნიკაცია, უმაღლესი დონის "საპორტი" და არც ერთი უკმაყოფილო
+                  მომხმარებელია! რა თქმა უნდა ზოგჯერ შეიძლება მოხდეს უხერხული
+                  მდგომარეობა და თქვენი მხრიდან უკმაყოფილება კონკრეტულ საკითხზე,
+                  ამ დროს ჩვენი გუნდი სათანადოთაა მოტივირებული გამოვასწოროთ
+                  შეცდომა. გარდა იმპორტირებული პროდუქციისა ჩვენ დავიწყეთ
+                  ადგილობრივი წარმოება. ANKOS HYDROPONIC SYSTEM უკვე აწარმოებს
+                  20 ლიტრიან ჰიდროფონიკებს.
+                </p>
+                <br />
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0588/8793/0056/files/WhatsApp_Image_2021-08-20_at_15.53.38_480x480.jpg?v=1629532967"
+                  alt=" "
+                />
+                <br />
+                <br />
 
-                <li><EmailIcon />
-                    <p>contact@email.com</p>
-                </li>
-            </ul>
-        </div>
+                <p>
+                  რამდენიმე თვეში დაგვემატება ANKOS GROW TENT PRODUCTION და
+                  ANKOS LED GROW LIGHT SYSTEM. რაც მოგვცემს საშუალებას
+                  საქართველოში ვაწარმოოთ უმაღლესი ხარისხის ტენტები და ლედ
+                  განათებები.
+                </p>
+                <p>#იყიდექართული</p>
+                <p>
+                  ჩვენი ადგილზე მიტანის სერვისი მუშაობს ყოველდღე დილის 10:00
+                  საათიდან საღამოს 21:00 საათამდე. ჩვენი კურიერები შეკვეთას
+                  იმავე დღესვე მოგართმევენ! ასევე შეგიძლიათ მობრძანდეთ ჩვენს
+                  ვაკის ფილიალში და თქვენი შეკვეთა ადგილიდან გაიტანოთ, თან იქნებ
+                  რამე სხვაც მოგეწონოთ და ხელს გააყოლოთ ასე, რომ გელოდებით
+                </p>
+                <p>ი.აბაშიძის 32 - ში.</p>
+                <br />
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0588/8793/0056/files/WhatsApp_Image_2021-09-14_at_09.31.07_480x480.jpg?v=1631597512"
+                  alt=" "
+                />
+                <br />
+                <br />
 
-    </div>
+                <p>
+                  ანგარიშსწორება შესაძლებელია, როგორც საბანკო გადმორიცხვით შპს
+                  "ანკოსფარმის" თიბისის და საქართველოს ბანკის ანგარიშებზე, TBC
+                  და BOG ჩასარიცხი აპარატებით, კრიპტოვალუტით და ადგილზე გადახდა
+                  ტერმინალით ან ქეშით. თუ თქვენ რომელიმე სხვა ქალაქში ან სოფელში
+                  ცხოვრობთ ჩვენ "სწრაფი გზავნილის" სახით გამოგიგზავნით ამანათს
+                  რომელსაც თქვენს სახლთან მყოფი უახლოეს "საქართველოს ფოსტის"
+                  ფილიალიდან გაიტანთ. თქვენი კომფორტი ჩვენი მთავარი საზრუნავია!
+                  თუ გსურთ კიდევ უფრო მეტი გაიგოთ რატომ უნდა აირჩიოთ ანკოსშოპი,
+                  წაიკითხეთ ჩვენი სტატია. დამატებითი ინფორმაციისთვის შეგიძლიათ
+                  დაგვირეკოთ 592 15 15 11 ან მოგვწეროთ info@ankos.shop ასევე
+                  შეგიძლიათ იხილოთ ჩვენი კანაფის თესლის მწარმოებელი კომპანიის
+                  ოფიციალური ვებ-გვერდი https://www.ankosfarm.com
+                </p>
+              </div>
+            </div>
+          </div>
+          <br />
 
-</section>
           <Footer />
         </ContentProvider>
       </Box>

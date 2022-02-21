@@ -41,7 +41,7 @@ const mainListItemsArray = [
   { text: "დღიურები", icon: <MenuBookIcon />, linkTo: "/diaries" },
   { text: "დღიურის შექმნა", icon: <NoteAddIcon />, linkTo: "/creatediary" },
   { text: "გროუერები", icon: <PeopleIcon />, linkTo: "/growers" },
-  { text: "ჩვენ შესახებ", icon: <InfoIcon />, linkTo: "/about" },
+  { text: "დღიურის შესახებ", icon: <InfoIcon />, linkTo: "/about" },
   { text: "ანკოს შესახებ", icon: <BusinessIcon />, linkTo: "/ankos" },
   { text: "კონტაქტი", icon: <EmailIcon />, linkTo: "/contact" },
 

@@ -43,7 +43,7 @@ const Contact = () => {
                 </li>
 
                 <li><EmailIcon />
-                    <p>contact@email.com</p>
+                    <p>info@ankos.shop</p>
                 </li>
             </ul>
         </div>

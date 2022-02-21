@@ -30,7 +30,7 @@ const About = () => {
                 width="172"
                 height="157"
               />
-              <h1 className="display-5 fw-bold">ჩვენ შესახებ</h1>
+              <h1 className="display-5 fw-bold">დღიურის შესახებ</h1>
               <br />
               <div className="col-lg-6 mx-auto">
                 <p className="lead mb-4">
