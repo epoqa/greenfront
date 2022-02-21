@@ -5,6 +5,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from '@mui/icons-material/Email';
+import BusinessIcon from '@mui/icons-material/Business';
 const drawerWidth = 220;
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -40,6 +42,10 @@ const mainListItemsArray = [
   { text: "დღიურის შექმნა", icon: <NoteAddIcon />, linkTo: "/creatediary" },
   { text: "გროუერები", icon: <PeopleIcon />, linkTo: "/growers" },
   { text: "ჩვენ შესახებ", icon: <InfoIcon />, linkTo: "/about" },
+  { text: "ანკოს შესახებ", icon: <BusinessIcon />, linkTo: "/ankos" },
+  { text: "კონტაქტი", icon: <EmailIcon />, linkTo: "/contact" },
+
+
 ];
 
 export { Drawer, mainListItemsArray };
