@@ -22,7 +22,7 @@ const Popup = ({ owner, onHide, id, setChosenWeek, ...props }) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header>
         <h5 id="contained-modal-title-vcenter">ახალი კვირის ტიპი</h5>
       </Modal.Header>
       <Modal.Body>
@@ -60,7 +60,7 @@ const Popup = ({ owner, onHide, id, setChosenWeek, ...props }) => {
         </button>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>დახურვა</Button>
+        <Button onClick={() => onHide()}>დახურვა</Button>
       </Modal.Footer>
     </Modal>
   );
