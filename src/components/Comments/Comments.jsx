@@ -16,7 +16,7 @@ import {
 } from "src/redux/actions/action";
 const Comments = () => {
   const isLogged = useSelector((state) => state.isLogged);
-  const commentsFF = useSelector((state) => state.diary.comments);
+  const comments = useSelector((state) => state.diary.comments);
   const dispatch = useDispatch();
   const router = useRouter();
   const commentRef = useRef();
@@ -80,12 +80,12 @@ const Comments = () => {
           </form>
           <hr />
           <br />
-          {commentsFF?.length > 0 && (
+          {comments?.length > 0 && (
             <ReactPaginate
               previousLabel={"<"}
               nextLabel={">"}
               breakLabel={"..."}
-              pageCount={Math.ceil(commentsFF.length / 5)}
+              pageCount={Math.ceil(comments.length / 5)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={2}
               onPageChange={handlePageClick}
@@ -101,8 +101,8 @@ const Comments = () => {
             />
           )}
 
-          {commentsFF
-            ? commentsFF.slice(pageNum * 5, pageNum * 5 + 5).map((comment) => (
+          {comments
+            ? comments.slice(pageNum * 5, pageNum * 5 + 5).map((comment) => (
                 <div key={uniqid()} className="card mb-3">
                   <div className="card-body">
                     <div className="d-flex flex-start">
