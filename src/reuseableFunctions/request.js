@@ -1,25 +1,29 @@
 import axios from "axios";
 import { backBaseURL } from "src/consts/consts";
 
-export const getReq = (path, callback) => {
+export const deleteCommentReq = (diaryId, commentId) => {
   axios
-    .get(`${backBaseURL}${path}`)
-    .then((res) => {
-      callback(res.data.comments);
+    .delete(`${backBaseURL}/diary/${diaryId}/comment/${commentId}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-export const putReq = (path, body, header, callback) => {
+export const addCommentReq = (weekId, commentRefValue, commentId) => {
   axios
-    .put(`${backBaseURL}${path}`, body, {
-      headers: header,
-    })
-    .then((response) => {
-      callback(response.data.comments);
-    })
+    .put(
+      `${backBaseURL}/diary/comment/${weekId}`,
+      { comment: commentRefValue, commentId },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
     .catch((error) => {
       console.log(error);
     });
