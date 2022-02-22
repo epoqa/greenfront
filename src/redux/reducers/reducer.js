@@ -17,7 +17,6 @@ export const mainReducer = (state = initialState, action) => {
 
     case actionTypes.ADD_IMAGE:
       const filteredWeeks = state.diary.weeks.map((item) => {
-        console.log(item, "action.payload");
         if (item.weekId === action.payload.chosenWeek) {
           return {
             ...item,
@@ -81,14 +80,42 @@ export const mainReducer = (state = initialState, action) => {
                   pictures: [],
                 },
               ],
-          // weeks: [
-          //   ...state.diary.weeks,
-          //   {
-          //     week: action.payload.type,
-          //     weekType: action.payload.type,
-          //     weekId: action.payload.weekId,
-          //   },
-          // ],
+        },
+      };
+    case actionTypes.ADD_COMMENT:
+      return {
+        ...state,
+        diary: {
+          ...state.diary,
+          comments: state.diary.comments
+            ? [
+                ...state.diary.comments,
+                {
+                  owner: state.isLogged,
+                  comment: action.payload.textValue,
+                  createdAt: new Date(),
+                  commentId: action.payload.commentId,
+                },
+              ]
+            : [
+                {
+                  owner: state.isLogged,
+                  comment: action.payload.textValue,
+                  createdAt: new Date(),
+                  commentId: action.payload.commentId,
+                },
+              ],
+        },
+      };
+
+    case actionTypes.DELETE_COMMENT:
+      return {
+        ...state,
+        diary: {
+          ...state.diary,
+          comments: state.diary.comments.filter(
+            (comment) => comment.commentId !== action.payload
+          ),
         },
       };
 
