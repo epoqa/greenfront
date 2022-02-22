@@ -18,8 +18,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/router";
 
 //OTHER IMPORTS
-import { validateEmail } from "../../src/reuseableFunctions/validateEmail";
-import { NotificationManager } from "../../src/components/Notifications/Notifications";
+import { NotificationManager } from "../../../src/components/Notifications/Notifications";
 
 //LIBRARY IMPORTS
 import axios from "axios";
@@ -27,56 +26,42 @@ import { backBaseURL } from "src/consts/consts";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Recover() {
+  const [passwordState, setPasswordState] = useState("");
+
   const router = useRouter();
-
-  const [emailState, setEmailRef] = useState(false);
-  const [passwordState, setPasswordRef] = useState(false);
-
-  const emailRef = useRef();
   const passwordRef = useRef();
 
-  const sendSigninInfoToBackend = (e) => {
+  const recover = async (e) => {
+
     e.preventDefault();
-
-    //DESTRUCTURING REF VALUES
     const passwordRefValue =
-      passwordRef && null !== passwordRef.current && passwordRef.current.value;
-    const emailRefValue =
-      emailRef && null !== emailRef.current && emailRef.current.value;
+    passwordRef && null !== passwordRef.current && passwordRef.current.value;
 
-    //  EMAIL CHECK WITH REGEX
-    const EmailRegexCheck = emailRefValue && validateEmail(emailRefValue);
 
-    
-    setEmailRef(!emailRefValue || !EmailRegexCheck);
-    setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);
-
-    if (
-      passwordRefValue &&
-      emailRefValue &&
-      EmailRegexCheck &&
-      passwordRefValue.length >= 8
-    ) {
-
-      
-      axios
-        .post(`${backBaseURL}/users/login`, {
-          email: emailRefValue,
-          password: passwordRefValue,
-        })
-        .then((response) => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("refreshToken", response.data.refreshToken);
-          NotificationManager.success(response.statusText);
-          router.push("/home");
-        })
-        .catch((error) => {
-          console.log(error.response.data.error);
-          NotificationManager.error(error.response.data.error);
-        });
+    if(passwordRefValue.length < 8){
+      NotificationManager.error("პაროლი უნდა შეიცავდეს 8 სიმბოლოს");
+      return;
     }
+    axios
+      .post(`${backBaseURL}/user/recover/${router.query.recover}`, {
+        password: passwordRefValue,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          NotificationManager.success(res.data.message);
+          router.push("/login");
+        } else {
+          NotificationManager.error(res.data.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err).then((res) => {
+          NotificationManager.error(res.data.message);
+        });
+      });
   };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -93,22 +78,11 @@ export default function SignIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            შესვლა
+            ახალი პაროლი
           </Typography>
+
           <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="ელ.ფოსტის მისამართი"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              inputRef={emailRef}
-              error={Boolean(emailState)}
-            />
-            <TextField
+          <TextField
               margin="normal"
               required
               fullWidth
@@ -127,24 +101,23 @@ export default function SignIn() {
             />
 
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, bgcolor: "#3bbd2f" }}
-              onClick={(e) => sendSigninInfoToBackend(e)}
+              onClick={(e) => recover(e)}
             >
-              შესვლა
+              დაყენება
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="/recover" variant="body2">
-                  დაგავიწყდა პაროლი ?
+                <Link href="/login" variant="body2">
+                  შესვლა
                 </Link>
               </Grid>
               <Grid item>
                 <NextLink href="/register">
                   <Link href="#" variant="body2">
-                    {"დარეგისტრირდი"}
+                    {"რეგისტრაცია"}
                   </Link>
                 </NextLink>
               </Grid>

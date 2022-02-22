@@ -24,6 +24,7 @@ import axios from "axios";
 import { validateEmail } from "../../src/reuseableFunctions/validateEmail";
 import { NotificationManager } from "../../src/components/Notifications/Notifications";
 import { backBaseURL } from "src/consts/consts";
+import DefaultImage from "../../src/components/DefaultImage/DefaultImage";
 const theme = createTheme();
 
 const SignUp = () => {
@@ -33,11 +34,12 @@ const SignUp = () => {
   const [passwordState, setPasswordRef] = useState(false);
   const [disableButton, setDisableButton] = useState(true);
   const [token, setToken] = useState("");
+  const [avatar, setAvatar] = useState("https://www.shareicon.net/data/512x512/2016/08/18/810266_man_512x512.png");
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const codeRef = useRef();
-
+  console.log(avatar)
   const verifyEmail = async (param) => {
     const emailRefValue =
       emailRef && null !== emailRef.current && emailRef.current.value;
@@ -62,6 +64,7 @@ const SignUp = () => {
       NotificationManager.error("არასწორი ემაილი");
     }
   };
+  
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -79,7 +82,7 @@ const SignUp = () => {
 
     setUsernameRef(!usernameRefValue);
     setEmailRef(!emailRefValue || !EmailRegexCheck);
-    setPasswordRef(!passwordRefValue || passwordRefValue.length < 8);
+    setPasswordRef(!passwordRefValue || passwordRefValue.length <= 8);
     if (
       token &&
       codeRefValue &&
@@ -87,7 +90,7 @@ const SignUp = () => {
       emailRefValue &&
       usernameRefValue &&
       EmailRegexCheck &&
-      passwordRefValue.length > 8
+      passwordRefValue.length >= 8
     ) {
       axios
         .post(`${backBaseURL}/users/register`, {
@@ -96,6 +99,7 @@ const SignUp = () => {
           password: passwordRefValue,
           token: token,
           code: codeRefValue,
+          picture: avatar,
         })
         .then((response) => {
           NotificationManager.success(response.statusText);
@@ -127,6 +131,7 @@ const SignUp = () => {
           <Typography component="h1" variant="h5">
             შექმენი ანგარიში
           </Typography>
+          <DefaultImage setAvatar={setAvatar} />
           <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -172,16 +177,6 @@ const SignUp = () => {
                   helperText={Boolean(passwordState) ? "სუსტი პაროლი" : ""}
                 />
               </Grid>
-              <Grid item xs={5.88}>
-                <TextField
-                  inputRef={codeRef}
-                  required
-                  fullWidth
-                  id="email"
-                  label="კოდი"
-                  name="code"
-                />
-              </Grid>
             </Grid>
             <br />
             <button
@@ -192,6 +187,18 @@ const SignUp = () => {
               კოდის გაგზავნა ემაილზე
             </button>
             <br />
+            <br />
+            <Grid style={{display: token ? "block" : "none"}} item xs={5.67}>
+                <TextField
+                
+                  inputRef={codeRef}
+                  required
+                  fullWidth
+                  id="email"
+                  label="კოდი"
+                  name="code"
+                />
+              </Grid>
             <br />
             <small>! შეამოწმეთ სპამის ფოლდერი</small>
 

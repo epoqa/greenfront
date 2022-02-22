@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -13,6 +14,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
 import axios from "axios";
 import { backBaseURL } from "src/consts/consts";
+import Footer from "../../../src/components/Footer/Footer";
 
 const mdTheme = createTheme();
 import Avatar from "@mui/material/Avatar";
@@ -179,6 +181,8 @@ export default function Grower() {
                 </Paper>
               </Grid>
             </Grid>
+            <br/>  
+            <Footer />
           </ContentProvider>
         </Box>
       </ThemeProvider>
