@@ -1,6 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { NotificationManager } from "../Notifications/Notifications";
 
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -9,12 +10,46 @@ import { backBaseURL } from "src/consts/consts";
 import uniqid from "uniqid";
 import { addWeekReq } from "src/reuseableFunctions/request";
 const ProfileEdit = ({ onHide, user, ...props  }) => {
+
   const [gender, setGender] = useState('')
   const [age, setAge] = useState(0)
   const [location, setLocation] = useState('')
   const [about, setAbout] = useState('')
   const [newPassword, setNewPassword] = useState("")
+  const [isValid, setIsValid] = useState('none')
+  const save = () => {
+    if(newPassword.length < 8){
+      return setIsValid('is-invalid')
+    }
 
+    axios
+        .post(
+          `${backBaseURL}/user/update`,
+          {
+            gender,
+            age,
+            location,
+            about,
+            newPassword,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          NotificationManager.success(response.statusText);
+          onHide()
+        })
+        .catch((error) => {
+          console.log(error);
+          NotificationManager.error(error.response.data.error);
+        });
+
+
+      
+  }
 
   useEffect(() => {
     setGender(user.gender)
@@ -23,15 +58,6 @@ const ProfileEdit = ({ onHide, user, ...props  }) => {
     setAbout(user.about)
   },[user])
 
-
-
-
-  const save = () => {
-    console.log('SAVE')
-
-
-      
-  }
   return (
     <Modal
       {...props}
@@ -59,33 +85,36 @@ const ProfileEdit = ({ onHide, user, ...props  }) => {
   <div className="form-group">
     <label htmlFor="exampleFormControlSelect1">სქესი</label>
     <select  onChange={e => setGender((e.target.value === 'შეცვლა')? 'none': e.target.value)} className="form-control" id="exampleFormControlSelect1">
+    <option >შეცვლა</option>
       <option >კაცი</option>
       <option >ქალი</option>
-      <option selected>შეცვლა</option>
     </select>
   </div>
   <br/>
   <div className="form-group">
     <label htmlFor="exampleFormControlInput1">ასაკი</label>
-    <input onChange={e => setAge(e.target.value)} type="number" min="0" className="form-control" id="exampleFormControlInput1" value={user.age}/>
+    <input onChange={e => setAge(e.target.value)} type="number" min="0" className="form-control" id="exampleFormControlInput1" defaultValue={user.age}/>
   </div>
   <br/>
   <div className="form-group">
     <label htmlFor="exampleFormControlInput1">ლოკაცია</label>
-    <input onChange={e => setLocation(e.target.value)} className="form-control" id="exampleFormControlInput1" value={user.location === 'none' ? '' : user.location}/>
+    <input onChange={e => setLocation(e.target.value)} className="form-control" id="exampleFormControlInput1" defaultValue={user.location === 'none' ? '' : user.location}/>
   </div>
   <br/>
 
   <div className="form-group">
     <label htmlFor="exampleFormControlTextarea1">ჩემს შესახებ</label>
-    <textarea onChange={e => setAbout(e.target.value)} className="form-control" id="exampleFormControlTextarea1" value={user.about === 'none' ? '' : user.about }  rows="3"></textarea>
+    <textarea onChange={e => setAbout(e.target.value)} className="form-control" id="exampleFormControlTextarea1" defaultValue={user.about === 'none' ? '' : user.about }  rows="3"></textarea>
   </div>
 
   <br/>
   <hr/>
   <div className="form-group">
     <label htmlFor="exampleInputPassword1">ახალი პაროლი</label>
-    <input onChange={e => setNewPassword(e.target.value)} type="password" className="form-control" id="exampleInputPassword1"/>
+    <input onChange={e => setNewPassword(e.target.value)} type="password" autoComplete="on" className={`${isValid} form-control`} id="exampleInputPassword1"/>
+    <span className="invalid-feedback">
+          პაროლი უნდა აღემატებოდეს 8 სიმბოლოს
+        </span>
   </div>
   <br/>
 </form>
