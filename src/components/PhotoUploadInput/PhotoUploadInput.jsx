@@ -8,6 +8,7 @@ import uniqid from "uniqid";
 import { AiFillPlusCircle } from "react-icons/ai";
 import Styles from "./PhotoUploadInput.module.scss";
 import { addPhotoReq } from "src/reuseableFunctions/request";
+import UseUploadPhoto from "src/hooks/UseUploadPhoto";
 
 const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
   const inputRef = useRef();
@@ -25,6 +26,7 @@ const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
   };
   const app = initializeApp(firebaseConfig);
+  // UseUploadPhoto()
 
   const handleFileUpload = (e) => {
     if (!e.target.files[0]) {
