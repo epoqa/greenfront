@@ -34,3 +34,15 @@ export const addWeekAction = (payload) => {
     payload,
   };
 };
+export const addCommentAction = (payload) => {
+  return {
+    type: actionTypes.ADD_COMMENT,
+    payload,
+  };
+};
+export const deleteCommentAction = (payload) => {
+  return {
+    type: actionTypes.DELETE_COMMENT,
+    payload,
+  };
+};

@@ -27,28 +27,30 @@ const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
   const app = initializeApp(firebaseConfig);
 
   const handleFileUpload = (e) => {
+    if (!e.target.files[0]) {
+      return;
+    }
     setIsLoading(true);
     const storage = getStorage();
     const mountainsRef = ref(storage, `images/${e.target.files[0].name}`);
     uploadBytes(mountainsRef, e.target.files[0]).then((snapshot) => {
-      e.target.files[0] &&
-        getDownloadURL(ref(storage, `images/${e.target.files[0].name}`))
-          .then((url) => {
-            dispatch(
-              addImage({
-                picture: url,
-                owner: diary.owner,
-                chosenWeek: chosenWeek,
-                picId: uniqid(),
-              })
-            );
-            setIsLoading(false);
-            addPhotoReq(url, diary.owner, chosenWeek, router.query.id);
-          })
+      getDownloadURL(ref(storage, `images/${e.target.files[0].name}`))
+        .then((url) => {
+          dispatch(
+            addImage({
+              picture: url,
+              owner: diary.owner,
+              chosenWeek: chosenWeek,
+              picId: uniqid(),
+            })
+          );
+          setIsLoading(false);
+          addPhotoReq(url, diary.owner, chosenWeek, router.query.id);
+        })
 
-          .catch((error) => {
-            console.log(error);
-          });
+        .catch((error) => {
+          console.log(error);
+        });
     });
   };
   return (

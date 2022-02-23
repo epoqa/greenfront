@@ -1,24 +1,26 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Comments.module.css";
 import { useRouter } from "next/router";
-import { timeSince } from "../../reuseableFunctions/timeSince";
+import { timeSince } from "src/reuseableFunctions/timeSince";
 import uniqid from "uniqid";
 import Avatar from "@mui/material/Avatar";
-import { getReq, putReq } from "../../reuseableFunctions/request";
+import {
+  addCommentReq,
+  deleteCommentReq,
+} from "src/reuseableFunctions/request";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import ReactPaginate from "react-paginate";
-import { backBaseURL } from "src/consts/consts";
+import {
+  addCommentAction,
+  deleteCommentAction,
+} from "src/redux/actions/action";
 const Comments = () => {
   const isLogged = useSelector((state) => state.isLogged);
-
+  const comments = useSelector((state) => state.diary.comments);
+  const dispatch = useDispatch();
   const router = useRouter();
   const commentRef = useRef();
-  const [comments, setComments] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
-  useEffect(() => {
-    router.query.id && getReq(`/diary/id/${router.query.id}`, setComments);
-  }, [router]);
+  const [pageNum, setPageNum] = useState(0);
 
   const sendRegisterInfoToBackend = (event) => {
     event.preventDefault();
@@ -26,37 +28,24 @@ const Comments = () => {
       commentRef && commentRef.current && commentRef.current.value;
 
     if (commentRefValue) {
-      putReq(
-        `/diary/comment/${router.query.id}`,
-        { comment: commentRefValue },
-        {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        setComments
+      const commentId = uniqid();
+      dispatch(
+        addCommentAction({
+          textValue: commentRefValue,
+          commentId,
+        })
       );
+      addCommentReq(router.query.id, commentRefValue, commentId);
       commentRef && commentRef.current ? (commentRef.current.value = "") : null;
     }
   };
 
   const deleteComment = (id) => {
-    setComments((prevState) =>
-      prevState.filter((comment) => comment._id !== id)
-    );
-
-    axios
-      .delete(`${backBaseURL}/diary/${router.query.id}/comment/${id}`, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      })
-      .then((res) => {})
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(deleteCommentAction(id));
+    deleteCommentReq(router.query.id, id);
   };
 
   const handlePageClick = (data) => {
-    // setPagComments(comments.slice((data.selected * 5), ((data.selected * 5) + 5)))
     setPageNum(data.selected);
   };
 
@@ -91,24 +80,26 @@ const Comments = () => {
           </form>
           <hr />
           <br />
-          <ReactPaginate
-            previousLabel={"<"}
-            nextLabel={">"}
-            breakLabel={"..."}
-            pageCount={Math.ceil(comments.length / 5)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination justify-content-center"}
-            pageClassName={"page-item"}
-            pageLinkClassName={"page-link"}
-            activeClassName={"active"}
-            previousClassName={"page-item"}
-            previousLinkClassName={"page-link"}
-            nextClassName={"page-item"}
-            nextLinkClassName={"page-link"}
-            breakLinkClassName={"page-link"}
-          />
+          {comments?.length > 0 && (
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              breakLabel={"..."}
+              pageCount={Math.ceil(comments.length / 5)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={2}
+              onPageChange={handlePageClick}
+              containerClassName={"pagination justify-content-center"}
+              pageClassName={"page-item"}
+              pageLinkClassName={"page-link"}
+              activeClassName={"active"}
+              previousClassName={"page-item"}
+              previousLinkClassName={"page-link"}
+              nextClassName={"page-item"}
+              nextLinkClassName={"page-link"}
+              breakLinkClassName={"page-link"}
+            />
+          )}
 
           {comments
             ? comments.slice(pageNum * 5, pageNum * 5 + 5).map((comment) => (
@@ -136,7 +127,9 @@ const Comments = () => {
                             </a>{" "}
                             {comment.owner === isLogged ? (
                               <a
-                                onClick={(e) => deleteComment(comment._id)}
+                                onClick={(e) =>
+                                  deleteComment(comment.commentId)
+                                }
                                 className="link-grey"
                               >
                                 {"  წაშლა"}
