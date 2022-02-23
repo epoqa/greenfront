@@ -31,23 +31,17 @@ const CreateDiary = () => {
   const dispatch = useDispatch();
   const [modalShow, setModalShow] = useState(false);
   const [chosenWeek, setChosenWeek] = useState(0);
-  const [diary, setDiary] = useState({});
   const [weeks, setWeeks] = useState([]);
-  const [owner, setOwner] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const isLogged = useSelector((state) => state.isLogged);
-
+  const diary = useSelector((state) => state.diary);
   const router = useRouter();
-  const rerenderfunc = (arg) => {
-    setWeeks(arg);
-  };
 
   useEffect(() => {
     router.query.id &&
       axios
         .get(`${backBaseURL}/diary/id/${router.query.id}`)
         .then((res) => {
-          setDiary(res.data);
           setWeeks(res.data.weeks);
           dispatch(addDiaryAction(res.data));
           setChosenWeek(res.data.weeks[0].weekId);
@@ -131,12 +125,11 @@ const CreateDiary = () => {
                   </section>
                 </div>
                 <br />
-                
               </Paper>
             </Grid>
           </Grid>
-          <br/>  
-<Footer />
+          <br />
+          <Footer />
         </ContentProvider>
       </Box>
     </ThemeProvider>
