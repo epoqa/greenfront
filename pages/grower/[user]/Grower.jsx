@@ -18,7 +18,7 @@ import Footer from "../../../src/components/Footer/Footer";
 import Avatar from "@mui/material/Avatar";
 import { timeSince } from "src/reuseableFunctions/timeSince";
 import styles from "./Grower.module.css";
-import SingleDiary from "src/components/SingleDiary/SingleDiary";
+import SingleDiary from "../../../src/components/SingleDiary/SingleDiary";
 const mdTheme = createTheme();
 
 export default function Grower() {
