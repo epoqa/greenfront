@@ -18,7 +18,7 @@ const ProfileEdit = ({ onHide, user, ...props  }) => {
   const [newPassword, setNewPassword] = useState("")
   const [isValid, setIsValid] = useState('none')
   const save = () => {
-    if(newPassword.length < 8){
+    if(newPassword.length < 8 && newPassword.length > 0){
       return setIsValid('is-invalid')
     }
 
