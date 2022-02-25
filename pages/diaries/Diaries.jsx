@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -39,7 +40,9 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-                <br />
+        <div>
+            <img className="img-fluid mb-5" alt="ad" src="https://getpet.ge/storage/app/media/uploaded-files/baner1140.jpg"></img>
+          </div>
                 <div
                   className={`${styles.row} row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center `}
                 >
