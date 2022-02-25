@@ -23,6 +23,8 @@ import Avatar from "@mui/material/Avatar";
 import { timeSince } from "../../../src/reuseableFunctions/timeSince";
 import styles from "./Grower.module.css";
 import ProfileEdit from "src/components/ProfileEdit/ProfileEdit";
+import FemaleIcon from "@mui/icons-material/Female";
+import MaleIcon from "@mui/icons-material/Male";
 
 export default function Grower() {
   const [modalShow, setModalShow] = useState(false);
@@ -88,11 +90,24 @@ export default function Grower() {
                       {timeSince(user.Joined)} წინ
                     </p>
                     {user.username === isLogged ? (
-                      <button onClick={e => setModalShow(true)} className="btn btn-primary">
+                      <button
+                        onClick={(e) => setModalShow(true)}
+                        className="btn btn-primary"
+                      >
                         <EditIcon /> განახლება
                       </button>
                     ) : null}
-     
+                    <br />
+                    <br />
+
+                    <div className="row">
+                      <div className="col-sm-1 ">
+                        {user.gender === "ქალი" ? <span><FemaleIcon/> </span> : (user.gender === 'კაცი') ? <span><MaleIcon /></span> : null }{" "}
+                      </div>
+                      <div className="col-sm-1">{user.age + " წლის"}</div>
+                      <div className="col-sm-2">{user.location + "დან"}</div>
+
+                    </div>
                     <ProfileEdit
                       show={modalShow}
                       onHide={() => setModalShow(false)}
@@ -137,7 +152,9 @@ export default function Grower() {
               <div className="px-4 py-3">
                 <h5 className="mb-2">ჩემს შესახებ</h5>
                 <div className="p-4 rounded shadow-sm bg-light">
-                  <p className="text-muted mb-0">{user.about === "none" ? "" : user.about}</p>
+                  <p className="text-muted mb-0">
+                    {user.about === "none" ? "" : user.about}
+                  </p>
                 </div>
               </div>
               <div className="py-4 px-4">
