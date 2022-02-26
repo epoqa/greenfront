@@ -94,7 +94,7 @@ const Home = () => {
                         >
                           <Avatar
                             className="rounded-circle shadow-1-strong me-3"
-                            src="https://www.intellectualtakeout.org/assets/3/28/michaelscott.jpg"
+                            src={user.picture}
                             alt="avatar"
                           />
                           <h6
@@ -110,7 +110,7 @@ const Home = () => {
                           <div className={`${styles.growerStats} p-2 flex-row`}>
                             <span className=" text-primary p-2 flex-row m-3">
                               <ThumbUpIcon />
-                              <small className={`p-1 flex-row`}>{"150"}</small>
+                              <small className={`p-1 flex-row`}>{user.likes}</small>
                               <small
                                 className={`${styles.statText} p-1 flex-row`}
                               >
@@ -119,7 +119,7 @@ const Home = () => {
                             </span>
                             <span className="text-success">
                               <MenuBookIcon />{" "}
-                              <small className={`p-1 flex-row`}>{"12"}</small>
+                              <small className={`p-1 flex-row`}>{user.diariesNum}</small>
                               <small
                                 className={`${styles.statText} p-1 flex-row`}
                               >
