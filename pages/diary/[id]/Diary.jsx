@@ -26,6 +26,7 @@ import { backBaseURL } from "src/consts/consts";
 import Loading from "src/components/Loading/Loading";
 const mdTheme = createTheme();
 import Footer from "../../../src/components/Footer/Footer";
+import AuthorComments from "src/components/AuthorComment/AuthorComments";
 
 const CreateDiary = () => {
   const dispatch = useDispatch();
@@ -126,6 +127,9 @@ const CreateDiary = () => {
                       />
                     )}
                     {isLoading && <Loading type="partial" />}
+                    <br />
+                    <h6 className={styles.h1class + " fw-bold"}>ავტორის კომენტარი</h6>
+                    <AuthorComments />
 
                     <Comments />
                   </section>
