@@ -50,8 +50,8 @@ const DiaryMainSpecs = ({ deleteDiary, diary, owner }) => {
             {" "}
             <span className="col-sm-3">
               <img
-                width="45px"
-                src="https://thumbs.dreamstime.com/b/eps-genetics-179892936.jpg"
+                width="40px"
+                src="https://skunkmagazine.com/wp-content/uploads/2019/01/Weed-symbol.png"
               />
             </span>
             <span className="col-sm-3">
