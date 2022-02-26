@@ -8,7 +8,11 @@ import styles from "./ChosenWeekPhotos.module.css";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+<<<<<<< HEAD
 import DeleteIcon from "@mui/icons-material/Delete";
+=======
+import { timeSince } from "../../reuseableFunctions/timeSince";
+>>>>>>> 5e8df8a70b6d0a31fff03f1f2cc0e3a2d20d8422
 const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
   const [display, setDisplay] = useState("none");
   const [imgSrc, setImgSrc] = useState("");
@@ -41,6 +45,7 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
       {imagesFromRedux?.length > 0 &&
         imagesFromRedux.map((item, index) => {
           return (
+<<<<<<< HEAD
             <div key={uniqid()} className={`${styles.column} column`}>
               <div className={styles.deleteIcon}>
                 <DeleteIcon color="error" />
@@ -51,6 +56,21 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
                 className={`${styles.columnimg} ${styles.myImg}`}
                 src={item.picture}
               />
+=======
+            <div key={uniqid()} className={`${style.column} column`}>
+              <div className={style.gfg}>
+                {" "}
+                <img
+                  onClick={(e) => zoomPic(item.picture, index)}
+                  className={`${style.columnimg} ${style.myImg}`}
+                  src={item.picture}
+                />
+                <p className={style.dateParagraph}>
+                  {timeSince(item.createdAt)} წინ
+                </p>
+              </div>
+
+>>>>>>> 5e8df8a70b6d0a31fff03f1f2cc0e3a2d20d8422
               <div
                 id="myModal"
                 style={{ display: display }}
