@@ -4,10 +4,11 @@ import React from "react";
 import uniqid from "uniqid";
 import { getAddedImages } from "../../redux/selectors/selector";
 import { useSelector } from "react-redux";
-import style from "./ChosenWeekPhotos.module.css";
+import styles from "./ChosenWeekPhotos.module.css";
 import { useState } from "react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import DeleteIcon from "@mui/icons-material/Delete";
 const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
   const [display, setDisplay] = useState("none");
   const [imgSrc, setImgSrc] = useState("");
@@ -36,29 +37,33 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
   };
 
   return (
-    <div className={`${style.row} row`}>
+    <div className={`${styles.row} row`}>
       {imagesFromRedux?.length > 0 &&
         imagesFromRedux.map((item, index) => {
           return (
-            <div key={uniqid()} className={`${style.column} column`}>
+            <div key={uniqid()} className={`${styles.column} column`}>
+              <div className={styles.deleteIcon}>
+                <DeleteIcon color="error" />
+              </div>
+
               <img
                 onClick={(e) => zoomPic(item.picture, index)}
-                className={`${style.columnimg} ${style.myImg}`}
+                className={`${styles.columnimg} ${styles.myImg}`}
                 src={item.picture}
               />
               <div
                 id="myModal"
                 style={{ display: display }}
-                className={`${style.modal}`}
+                className={`${styles.modal}`}
               >
                 <span
                   onClick={(e) => setDisplay("none")}
-                  className={style.close}
+                  className={styles.close}
                 >
                   &times;
                 </span>
-                <img className={style.modalcontent} src={imgSrc} id="img01" />
-                <span className={style.arrow}>
+                <img className={styles.modalcontent} src={imgSrc} id="img01" />
+                <span className={styles.arrow}>
                   {" "}
                   <ChevronLeftIcon
                     onClick={(e) => setImgFunc(imgIndex - 1)}

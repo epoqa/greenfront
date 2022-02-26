@@ -56,9 +56,7 @@ export default function Recover() {
         }
       })
       .catch((err) => {
-        console.log(err).then((res) => {
-          NotificationManager.error(res.data.message);
-        });
+        console.log(err)
       });
   };
 

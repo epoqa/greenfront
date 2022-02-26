@@ -23,7 +23,6 @@ import Footer from "../../src/components/Footer/Footer";
 const Home = () => {
   const router = useRouter();
   const [data, setData] = useState([]);
-  let [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
@@ -35,19 +34,8 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    axios
-      .get(`${backBaseURL}/users/all`)
-      .then((res) => {
-        setUsers(res.data);
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }, [router]);
 
-  const arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -56,8 +44,9 @@ const Home = () => {
         <Header />
         <Navigation />
         <ContentProvider>
-          <h5 className="text-center my-1">ბოლოს დამატებული დღიურები</h5>
-          <hr />
+          <div>
+            <img className="img-fluid mb-5" alt="ad" src="https://getpet.ge/storage/app/media/uploaded-files/baner1140.jpg"></img>
+          </div>
           <div
             className={`${styles.row} row row-cols-1 row-cols-sm-2 row-cols-md-4 justify-content-center `}
           >
@@ -67,6 +56,7 @@ const Home = () => {
                 ))
               : null}
           </div>
+
           <Footer/>
         </ContentProvider>
         
