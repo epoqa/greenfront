@@ -1,31 +1,25 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import ContentProvider from "../../../src/components/ContentProvider/ContentProvider";
-import Navigation from "../../../src/components/Navigation/Navigation";
-import Header from "../../../src/components/Header/Header";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
+import Navigation from "src/components/Navigation/Navigation";
+import Header from "src/components/Header/Header";
 import { useRouter } from "next/router";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import uniqid from "uniqid";
 import axios from "axios";
 import { backBaseURL } from "src/consts/consts";
-import Footer from "../../../src/components/Footer/Footer";
+import Footer from "src/components/Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
-import SingleDiary from "../../../src/components/SingleDIary/SingleDiary";
+import SingleDiary from "src/components/SingleDIary/SingleDiary";
 import EditIcon from "@mui/icons-material/Edit";
 const mdTheme = createTheme();
-import Avatar from "@mui/material/Avatar";
-import { timeSince } from "../../../src/reuseableFunctions/timeSince";
+import { timeSince } from "src/reuseableFunctions/timeSince";
 import styles from "./Grower.module.css";
 import ProfileEdit from "src/components/ProfileEdit/ProfileEdit";
 import FemaleIcon from "@mui/icons-material/Female";
 import MaleIcon from "@mui/icons-material/Male";
-
+import UserPhoto from "src/components/UserPhoto/UserPhoto";
 export default function Grower() {
   const [modalShow, setModalShow] = useState(false);
 
@@ -35,14 +29,12 @@ export default function Grower() {
   const router = useRouter();
   let [diaries, setDiaries] = useState([]);
   const isLogged = useSelector((state) => state.isLogged);
-
   useEffect(() => {
     router.query.user &&
       axios
         .get(`${backBaseURL}/users/${router.query.user}`)
         .then((res) => {
           setUser(res.data);
-          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -71,16 +63,7 @@ export default function Grower() {
               <div className={`${styles.randomDiv} px-4 pb-1 cover`}>
                 <div className="media pt-4 align-items-start profile-head">
                   <div className="profile mr-3">
-                    <img
-                      src={
-                        user.picture
-                          ? user.picture
-                          : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                      }
-                      alt="..."
-                      width="180"
-                      className="rounded mb-2 img-thumbnail"
-                    />
+                    <UserPhoto user={user} setUser={setUser} />
                   </div>
                   <div className="media-body mb-5 text-white">
                     <h4 className="mt-0 mb-0">{user.username}</h4>
@@ -102,11 +85,18 @@ export default function Grower() {
 
                     <div className="row">
                       <div className="col-sm-1 ">
-                        {user.gender === "ქალი" ? <span><FemaleIcon/> </span> : (user.gender === 'კაცი') ? <span><MaleIcon /></span> : null }{" "}
+                        {user.gender === "ქალი" ? (
+                          <span>
+                            <FemaleIcon />{" "}
+                          </span>
+                        ) : user.gender === "კაცი" ? (
+                          <span>
+                            <MaleIcon />
+                          </span>
+                        ) : null}{" "}
                       </div>
                       <div className="col-sm-1">{user.age + " წლის"}</div>
                       <div className="col-sm-2">{user.location + "დან"}</div>
-
                     </div>
                     <ProfileEdit
                       show={modalShow}

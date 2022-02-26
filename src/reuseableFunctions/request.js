@@ -78,3 +78,24 @@ export const addPhotoReq = (url, owner, chosenWeek, diaryId) => {
     }
   );
 };
+
+export const profilePhotoReq = (picURL) => {
+  axios
+    .post(
+      `${backBaseURL}/user/update/picture`,
+      {
+        picURL,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
