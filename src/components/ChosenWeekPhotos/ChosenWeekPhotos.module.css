@@ -12,7 +12,10 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.12); /* Black w/ opacity */
   }
-
+  .gfg {
+    margin: 3%;
+    position: relative;
+}
   .myImg {
     border-radius: 1px;
     cursor: pointer;
@@ -24,6 +27,18 @@
     width: auto;
     min-width: 100%;
     max-width: 100%;
+  }
+  .dateParagraph{    
+    background-color: rgba(168, 255, 87, 0.582);
+    padding: 2px 5px 2px 5px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    bottom: -11px;
+    left: 10px;
+    
   }
   
   .myImg:hover {opacity: 0.7;}
