@@ -2,14 +2,88 @@
 /* eslint-disable jsx-a11y/alt-text */
 import PersonIcon from "@mui/icons-material/Person";
 import { timeSince } from "../../reuseableFunctions/timeSince";
-
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import style from "./DiaryMainSpecs.module.css";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { NotificationManager } from "src/components/Notifications/Notifications";
+import axios from "axios";
+import { backBaseURL } from "src/consts/consts";
 const DiaryMainSpecs = ({ deleteDiary, diary, owner }) => {
-  console.log(diary);
+  const isLogged = useSelector((state) => state.isLogged);
+  const [isLiked, setIsLiked] = useState(false);
+  const like = () => {
+    if (diary.likes.includes(isLogged)) {
+      axios
+        .put(
+          `${backBaseURL}/diary/dislike/${diary.id}`,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          let index = diary.likes.indexOf(isLogged);
+          diary.likes.splice(index, 1);
+          setIsLiked(false);
+          NotificationManager.success(response.statusText);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .put(
+          `${backBaseURL}/diary/like/${diary.id}`,
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          diary.likes.push(isLogged);
+          setIsLiked(true);
+
+          NotificationManager.success(response.statusText);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   return (
     <div>
       <div className="row">
         <div className="col-16 d-flex justify-content-end text-start">
           <h4 className="col fw-bold pb-1">{diary.diaryName}</h4>
+          <button
+            onClick={(e) => like()}
+            className={`${style.likeParent} btn ${
+              diary.likes === undefined
+                ? "btn-secondary"
+                : isLiked
+                ? "btn-primary"
+                : diary.likes.includes(isLogged)
+                ? "btn-primary"
+                : "btn-secondary"
+            }`}
+            
+          >
+            <ThumbUpIcon />
+          </button>
+          <button className={`${style.likeCount} btn ${
+              diary.likes === undefined
+                ? "btn-secondary"
+                : isLiked
+                ? "btn-primary"
+                : diary.likes.includes(isLogged)
+                ? "btn-primary"
+                : "btn-secondary"
+            }`}>{(diary.likes) ? diary.likes.length : null}</button>
           {owner ? (
             <button
               onClick={(e) => deleteDiary()}
@@ -21,6 +95,7 @@ const DiaryMainSpecs = ({ deleteDiary, diary, owner }) => {
           ) : null}
         </div>
       </div>
+      <br />
       <h6>
         <PersonIcon /> შექმნა {timeSince(diary.createdAt)} წინ{" "}
         <a href={`/grower/${diary.owner}`}> {diary.owner}</a>-მ
