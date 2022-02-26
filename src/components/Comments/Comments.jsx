@@ -108,7 +108,7 @@ const Comments = () => {
                     <div className="d-flex flex-start">
                       <Avatar
                         className="rounded-circle shadow-1-strong me-3"
-                        src="https://www.intellectualtakeout.org/assets/3/28/michaelscott.jpg"
+                        src={user.picture}
                         alt="avatar"
                       />
                       <div className="w-100">

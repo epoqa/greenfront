@@ -20,7 +20,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loggedInUser } from "../../redux/actions/action";
 import userByToken from "../../reuseableFunctions/userByToken";
 import Avatar from "@mui/material/Avatar";
-
+import { backBaseURL } from "src/consts/consts";
 import styles from "./Header.module.css";
 
 let NavigationBar = false;
@@ -31,6 +31,21 @@ const Header = () => {
   const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
   NavigationBar = useSelector((state) => getNavigationBar(state));
+  const [user, setUser] = useState();
+
+
+
+  useEffect(() => {
+    isLogged &&
+      axios
+        .get(`${backBaseURL}/users/${isLogged}`)
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
 
   return (
     <AppBar
@@ -90,7 +105,7 @@ const Header = () => {
             <Avatar
               className={styles.pointer}
               onClick={(e) => router.push(`/grower/${isLogged}`)}
-              src="https://sportshub.cbsistatic.com/i/2021/03/18/27c1f588-bb39-4226-945d-e6ffb885b52c/prison-mike-1216447.jpg"
+              src={user === undefined ? "" : user.picture}
               alt="avatar"
               sx={{ width: 34, height: 34 }}
             />
