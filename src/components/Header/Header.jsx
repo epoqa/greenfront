@@ -105,7 +105,7 @@ const Header = () => {
             <Avatar
               className={styles.pointer}
               onClick={(e) => router.push(`/grower/${isLogged}`)}
-              src={user.picture}
+              src={user === undefined ? "" : user.picture}
               alt="avatar"
               sx={{ width: 34, height: 34 }}
             />
