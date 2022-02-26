@@ -11,6 +11,7 @@ import { addPhotoReq } from "src/reuseableFunctions/request";
 import uploadToFirebase from "src/reuseableFunctions/uploadPhoto";
 
 const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
+  const router = useRouter();
   const inputRef = useRef();
   const dispatch = useDispatch();
 
@@ -26,6 +27,7 @@ const PhotoUploadInput = ({ chosenWeek, diary, setIsLoading }) => {
         })
       );
       setIsLoading(false);
+      addPhotoReq(URL, diary.owner, chosenWeek, router.query.id);
     });
   };
   return (
