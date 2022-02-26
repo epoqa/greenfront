@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useRef, useState } from "react";
-import uploadToFirebase from "src/reuseableFunctions/UploadPhoto";
+import uploadToFirebase from "src/reuseableFunctions/uploadPhoto";
 import Loading from "src/components/Loading/Loading";
 import { profilePhotoReq } from "src/reuseableFunctions/request";
 const UserPhoto = ({ user, setUser }) => {
@@ -13,8 +13,6 @@ const UserPhoto = ({ user, setUser }) => {
       setUser({ ...user, picture: URL });
       setIsLoading(false);
       profilePhotoReq(URL);
-
-      ///user/update/picture
     });
   };
   return (
