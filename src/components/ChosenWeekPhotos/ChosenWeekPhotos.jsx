@@ -43,15 +43,15 @@ const ChosenWeekPhotos = ({ chosenPics, chosenWeek }) => {
       {imagesFromRedux?.length > 0 &&
         imagesFromRedux.map((item, index) => {
           return (
-            <div key={uniqid()} className={`${style.column} column`}>
-              <div className={style.gfg}>
+            <div key={uniqid()} className={`${styles.column} column`}>
+              <div className={styles.gfg}>
                 {" "}
                 <img
                   onClick={(e) => zoomPic(item.picture, index)}
-                  className={`${style.columnimg} ${style.myImg}`}
+                  className={`${styles.columnimg} ${styles.myImg}`}
                   src={item.picture}
                 />
-                <p className={style.dateParagraph}>
+                <p className={styles.dateParagraph}>
                   {timeSince(item.createdAt)} წინ
                 </p>
               </div>
