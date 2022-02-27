@@ -108,7 +108,7 @@ const Comments = () => {
                     <div className="d-flex flex-start">
                       <Avatar
                         className="rounded-circle shadow-1-strong me-3"
-                        src={user.picture}
+                        src={comment.picture}
                         alt="avatar"
                       />
                       <div className="w-100">
