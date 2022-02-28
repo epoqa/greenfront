@@ -1,0 +1,24 @@
+.uploadLabel {
+  display: none;
+}
+.profilePhotoDiv {
+  position: relative;
+  width: fit-content;
+}
+.profilePhotoDiv:hover {
+  img {
+    opacity: 0.5;
+  }
+}
+.profilePhotoDiv:hover {
+  .uploadLabel {
+    z-index: 10;
+    display: inline;
+    font-size: large;
+    position: absolute;
+    bottom: 40%;
+    left: 25%;
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+  }
+}
