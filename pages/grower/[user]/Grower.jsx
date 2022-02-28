@@ -13,13 +13,13 @@ import Footer from "src/components/Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import SingleDiary from "src/components/SingleDIary/SingleDiary";
 import EditIcon from "@mui/icons-material/Edit";
-const mdTheme = createTheme();
 import { timeSince } from "src/reuseableFunctions/timeSince";
 import styles from "./Grower.module.css";
 import ProfileEdit from "src/components/ProfileEdit/ProfileEdit";
 import FemaleIcon from "@mui/icons-material/Female";
 import MaleIcon from "@mui/icons-material/Male";
 import UserPhoto from "src/components/UserPhoto/UserPhoto";
+const mdTheme = createTheme();
 export default function Grower() {
   const [modalShow, setModalShow] = useState(false);
 
